@@ -1,0 +1,265 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "TuProyecto API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/registrar": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Ap1",
+                  "Contrasena",
+                  "Correo",
+                  "NombreUsuario",
+                  "RolInput"
+                ],
+                "type": "object",
+                "properties": {
+                  "NombreUsuario": {
+                    "type": "string"
+                  },
+                  "Ap1": {
+                    "type": "string"
+                  },
+                  "Ap2": {
+                    "type": "string"
+                  },
+                  "Correo": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "Contrasena": {
+                    "type": "string"
+                  },
+                  "RolInput": {
+                    "type": "string"
+                  },
+                  "Preguntas": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "Respuestas": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "NumeroColegiado": {
+                    "type": "string"
+                  },
+                  "Especialidad": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "NombreUsuario": {
+                  "style": "form"
+                },
+                "Ap1": {
+                  "style": "form"
+                },
+                "Ap2": {
+                  "style": "form"
+                },
+                "Correo": {
+                  "style": "form"
+                },
+                "Contrasena": {
+                  "style": "form"
+                },
+                "RolInput": {
+                  "style": "form"
+                },
+                "Preguntas": {
+                  "style": "form"
+                },
+                "Respuestas": {
+                  "style": "form"
+                },
+                "NumeroColegiado": {
+                  "style": "form"
+                },
+                "Especialidad": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/usuarios": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/recuperar/obtener-preguntas": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/recuperar/cambiar-contrasena": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambiarContrasenaRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambiarContrasenaRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambiarContrasenaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CambiarContrasenaRequest": {
+        "type": "object",
+        "properties": {
+          "Correo": {
+            "type": "string",
+            "nullable": true
+          },
+          "Respuestas": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "NuevaContrasena": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "Correo": {
+            "type": "string",
+            "nullable": true
+          },
+          "Contrasena": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Introduce el Bearer Token JWT",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

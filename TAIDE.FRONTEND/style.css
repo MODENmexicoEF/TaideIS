@@ -1,0 +1,623 @@
+/* Estilos generales para el cuerpo con la imagen de fondo */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    bodyElement.style.backgroundImage = "url('img/vitacare 16 9.png')"; /* Reemplaza con la ruta real de tu imagen */
+    background-repeat: repeat; /* Ajusta según prefieras: no-repeat, repeat-x, repeat-y */
+    background-size: cover; /* O contain según tu preferencia */
+    /* background-attachment: fixed; /* Para un fondo fijo al hacer scroll */
+    background-color: #243B55; /* Color de fondo de respaldo */
+    margin: 0;
+}
+
+/* Contenedor principal del formulario de inicio de sesión y registro */
+.container {
+    background-color: white; /* Color de respaldo */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para mejor contraste */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    width: 400px;
+    text-align: center;
+}
+
+/* Título principal */
+h2 {
+    color: #37474f; /* Un gris azulado oscuro */
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 500;
+}
+
+/* Grupo de formulario (label + input) */
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+/* Etiqueta del campo */
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #546e7a; /* Un gris azulado */
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+/* Campos de entrada (correo y contraseña) */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 12px;
+    border: 1px solid #cfd8dc; /* Un gris claro azulado para el borde */
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #37474f;
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #007bff; /* Azul primario al enfocar */
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Botón principal de Iniciar Sesión y Registrarse */
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff; /* Azul primario */
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 2px rgba(0, 123, 255, 0.2);
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+button[type="submit"]:active {
+    box-shadow: 0 1px 1px rgba(0, 123, 255, 0.4);
+    transform: translateY(1px);
+}
+
+/* Contenedor para los enlaces/botones de registrarse y olvidar contraseña */
+.links {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #78909c; /* Un gris azulado más claro */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Botón de Registrarse (en la página de inicio de sesión) */
+.register-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745; /* Verde para registrarse */
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 2px rgba(40, 167, 69, 0.2);
+}
+
+.register-button:hover {
+    background-color: #1e7e34; /* Verde más oscuro al pasar el ratón */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.register-button:active {
+    box-shadow: 0 1px 1px rgba(40, 167, 69, 0.4);
+    transform: translateY(1px);
+}
+
+/* Botón de Volver a Iniciar Sesión (en la página de registro) */
+.links button {
+    background: none;
+    border: none;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: color 0.3s ease;
+}
+
+.links button:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Enlace de Olvidé mi contraseña */
+.links a {
+    color: #007bff; /* Azul primario para el enlace */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.links a:hover {
+    text-decoration: underline;
+    color: #0056b3; /* Azul más oscuro al pasar el ratón */
+}
+
+/* Estilos para el mensaje de error */
+.error-message {
+    margin-top: 20px;
+    color: #dc3545; /* Rojo para errores */
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Estilos para el mensaje de éxito */
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Estilos para el dashboard del PM */
+.pm-container {
+    background-color: white; /* Color de respaldo */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    max-width: 800px; /* Ajusta el ancho máximo según necesites */
+    width: 100%;
+    text-align: left; /* Alinea el texto a la izquierda dentro del dashboard */
+    display: none; /* Inicialmente oculto */
+    flex-direction: column; /* Asegura que los elementos internos se apilen verticalmente */
+    align-items: stretch; /* Expande los elementos hijos a lo ancho del contenedor */
+}
+
+.pm-container header {
+    background-color: rgba(52, 58, 64, 0.8); /* Gris oscuro semitransparente */
+    color: white;
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pm-container header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.pm-container nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.pm-container nav ul li {
+    margin-left: 20px;
+}
+
+.pm-container nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.pm-container nav ul li a:hover {
+    color: #f8f9fa;
+}
+
+.pm-container nav ul li button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.pm-container nav ul li button:hover {
+    color: #f8f9fa;
+}
+
+.pm-container main {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente para el contenido */
+    padding: 20px;
+    flex-grow: 1;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.pm-container .welcome h2 {
+    color: #28a745; /* Un verde para el mensaje de bienvenida */
+    margin-bottom: 15px;
+}
+
+.pm-container .welcome p {
+    color: #495057;
+    line-height: 1.6;
+}
+/* === Estilos para Recuperación de Contraseña === */
+#recover-container {
+  display: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+#recover-container header h2 {
+  text-align: center;
+  color: #007bff;
+}
+
+#recover-container .form-group {
+  margin-bottom: 15px;
+}
+
+#recover-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#recover-container input[type="email"],
+#recover-container input[type="password"],
+#recover-container input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#recover-container button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+}
+
+#recover-container button:hover {
+  background-color: #0056b3;
+}
+
+#recover-container .links {
+  text-align: center;
+  margin-top: 15px;
+}
+#preguntas-dinamicas .form-group {
+  margin-bottom: 12px;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+
+#recover-container .error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.pm-container footer {
+    background-color: rgba(248, 249, 250, 0.8); /* Gris claro semitransparente */
+    color: #6c757d;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #dee2e6;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Estilos para el dashboard del Familiar */
+.familiar-container {
+    background-color: white; /* Color de respaldo */
+    background-color: rgba(249, 248, 113, 0.8); /* Amarillo suave semitransparente */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+    display: none; /* Inicialmente oculto */
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.familiar-container header {
+    background-color: rgba(255, 193, 7, 0.8); /* Amarillo más brillante semitransparente */
+    color: #333; /* Texto oscuro para contrastar */
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.familiar-container header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.familiar-container nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.familiar-container nav ul li {
+    margin-left: 20px;
+}
+
+.familiar-container nav ul li a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.familiar-container nav ul li a:hover {
+    color: #555;
+}
+
+.familiar-container nav ul li button {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.familiar-container nav ul li button:hover {
+    color: #555;
+}
+
+.familiar-container main {
+    background-color: rgba(249, 248, 113, 0.9); /* Amarillo suave semitransparente para el contenido */
+    padding: 20px;
+    flex-grow: 1;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.familiar-container .welcome h2 {
+    color: #28a745; /* Un verde para el mensaje de bienvenida */
+    margin-bottom: 15px;
+}
+
+.familiar-container .welcome p {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.familiar-container footer {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #6c757d;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #eee;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.paciente-container {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.paciente-container header {
+    background-color: rgba(40, 167, 69, 0.8);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.paciente-container nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.paciente-container nav ul li {
+    margin-left: 20px;
+}
+
+.paciente-container nav ul li button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.paciente-container nav ul li button:hover {
+    color: #f8f9fa;
+}
+
+.paciente-container main {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    flex-grow: 1;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.paciente-container .welcome h2 {
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.paciente-container .welcome p {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.paciente-container footer {
+    background-color: rgba(248, 249, 250, 0.8);
+    color: #6c757d;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #dee2e6;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Y así sucesivamente con main y footer... */
+
+/* Estilos para el dashboard del SUDO */
+#sudo-dashboard {
+    background-color: white; /* Color de respaldo */
+    background-color: rgba(173, 216, 230, 0.8); /* Azul claro semitransparente */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    max-width: 900px;
+    width: 100%;
+    text-align: left;
+    display: none; /* Inicialmente oculto */
+    padding: 20px;
+}
+
+#sudo-dashboard h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sudo-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.sudo-section h3 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.change-role-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.change-role-form input[type="number"],
+.change-role-form input[type="text"] {
+    width: calc(100% - 12px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.change-role-form button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.change-role-form button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 3px 6px rgba(0, 0, 0
+
+/* ================== RESPONSIVE =================== */
+@media (max-width: 768px) {
+    .container, .pm-container, .familiar-container, #sudo-dashboard {
+        width: 90%;
+        margin: 10px auto;
+        padding: 20px;
+    }
+
+    .pm-container header,
+    .familiar-container header,
+    #sudo-dashboard header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .pm-container nav ul,
+    .familiar-container nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pm-container nav ul li,
+    .familiar-container nav ul li {
+        margin: 10px 0;
+    }
+
+    button[type="submit"], .register-button {
+        padding: 12px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    h2, h1 {
+        font-size: 1.6em;
+    }
+
+    label, input, button, .links a {
+        font-size: 0.9em;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+}

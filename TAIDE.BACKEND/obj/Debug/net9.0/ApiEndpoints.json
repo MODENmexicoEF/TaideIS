@@ -1,0 +1,121 @@
+[
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "TuProyecto.Controllers.AuthController\u002BLoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "CambiarContrasena",
+    "RelativePath": "api/auth/recuperar/cambiar-contrasena",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "TuProyecto.Controllers.AuthController\u002BCambiarContrasenaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "ObtenerPreguntas",
+    "RelativePath": "api/auth/recuperar/obtener-preguntas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "correo",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "RegistrarUsuario",
+    "RelativePath": "api/auth/registrar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "NombreUsuario",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Ap1",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Ap2",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Correo",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Contrasena",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "RolInput",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Preguntas",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Respuestas",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "NumeroColegiado",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Especialidad",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "ObtenerUsuarios",
+    "RelativePath": "api/auth/usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

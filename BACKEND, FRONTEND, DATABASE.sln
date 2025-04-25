@@ -1,0 +1,272 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAIDE.BACKEND", "TAIDE.BACKEND\TAIDE.BACKEND.csproj", "{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TAIDE.FRONTEND", "TAIDE.FRONTEND", "{282C4897-3A2B-4EE1-A780-3F39C55141A7}"
+	ProjectSection(SolutionItems) = preProject
+		index.html = index.html
+		TAIDE.FRONTEND\package-lock.json = TAIDE.FRONTEND\package-lock.json
+		TAIDE.FRONTEND\package.json = TAIDE.FRONTEND\package.json
+		script.ts = script.ts
+		style.css = style.css
+		TAIDE.FRONTEND\tsconfig.json = TAIDE.FRONTEND\tsconfig.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "node_modules", "node_modules", "{92C17E84-A378-4171-B813-632D1DEB47F6}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\.package-lock.json = TAIDE.FRONTEND\node_modules\.package-lock.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".bin", ".bin", "{22250EBF-1412-46C3-8FD2-EEBFBC164A56}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\.bin\tsc = TAIDE.FRONTEND\node_modules\.bin\tsc
+		TAIDE.FRONTEND\node_modules\.bin\tsc.cmd = TAIDE.FRONTEND\node_modules\.bin\tsc.cmd
+		TAIDE.FRONTEND\node_modules\.bin\tsc.ps1 = TAIDE.FRONTEND\node_modules\.bin\tsc.ps1
+		TAIDE.FRONTEND\node_modules\.bin\tsserver = TAIDE.FRONTEND\node_modules\.bin\tsserver
+		TAIDE.FRONTEND\node_modules\.bin\tsserver.cmd = TAIDE.FRONTEND\node_modules\.bin\tsserver.cmd
+		TAIDE.FRONTEND\node_modules\.bin\tsserver.ps1 = TAIDE.FRONTEND\node_modules\.bin\tsserver.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "typescript", "typescript", "{E57161E8-8EF5-4A28-AD4F-C9724815FA28}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\LICENSE.txt = TAIDE.FRONTEND\node_modules\typescript\LICENSE.txt
+		TAIDE.FRONTEND\node_modules\typescript\package.json = TAIDE.FRONTEND\node_modules\typescript\package.json
+		TAIDE.FRONTEND\node_modules\typescript\README.md = TAIDE.FRONTEND\node_modules\typescript\README.md
+		TAIDE.FRONTEND\node_modules\typescript\SECURITY.md = TAIDE.FRONTEND\node_modules\typescript\SECURITY.md
+		TAIDE.FRONTEND\node_modules\typescript\ThirdPartyNoticeText.txt = TAIDE.FRONTEND\node_modules\typescript\ThirdPartyNoticeText.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{263269F8-3CAE-48B6-BE7F-189B2FCA7B82}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\bin\tsc = TAIDE.FRONTEND\node_modules\typescript\bin\tsc
+		TAIDE.FRONTEND\node_modules\typescript\bin\tsserver = TAIDE.FRONTEND\node_modules\typescript\bin\tsserver
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{E30D340D-B2DE-4E54-BCCD-0751FF0596F5}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.decorators.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.decorators.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.decorators.legacy.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.decorators.legacy.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.dom.asynciterable.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.dom.asynciterable.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.dom.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.dom.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.dom.iterable.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.dom.iterable.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.collection.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.collection.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.core.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.core.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.generator.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.generator.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.iterable.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.iterable.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.promise.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.promise.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.proxy.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.proxy.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.reflect.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.reflect.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.symbol.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.symbol.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.symbol.wellknown.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2015.symbol.wellknown.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.array.include.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.array.include.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2016.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.arraybuffer.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.arraybuffer.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.date.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.date.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.object.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.object.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.sharedmemory.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.sharedmemory.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.string.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.string.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.typedarrays.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2017.typedarrays.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.asyncgenerator.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.asyncgenerator.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.asynciterable.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.asynciterable.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.promise.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.promise.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.regexp.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2018.regexp.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.array.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.array.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.object.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.object.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.string.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.string.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.symbol.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2019.symbol.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.bigint.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.bigint.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.date.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.date.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.number.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.number.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.promise.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.promise.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.sharedmemory.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.sharedmemory.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.string.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.string.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.symbol.wellknown.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2020.symbol.wellknown.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.promise.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.promise.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.string.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.string.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.weakref.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2021.weakref.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.array.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.array.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.error.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.error.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.object.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.object.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.regexp.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.regexp.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.string.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2022.string.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.array.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.array.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.collection.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.collection.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2023.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.arraybuffer.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.arraybuffer.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.collection.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.collection.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.object.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.object.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.promise.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.promise.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.regexp.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.regexp.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.sharedmemory.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.sharedmemory.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.string.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es2024.string.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es5.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es5.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.es6.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.es6.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.array.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.array.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.collection.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.collection.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.decorators.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.decorators.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.disposable.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.disposable.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.float16.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.float16.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.full.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.full.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.intl.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.intl.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.iterator.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.iterator.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.promise.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.esnext.promise.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.scripthost.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.scripthost.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.asynciterable.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.asynciterable.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.importscripts.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.importscripts.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.iterable.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\lib.webworker.iterable.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\tsc.js = TAIDE.FRONTEND\node_modules\typescript\lib\tsc.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\tsserver.js = TAIDE.FRONTEND\node_modules\typescript\lib\tsserver.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\tsserverlibrary.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\tsserverlibrary.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\tsserverlibrary.js = TAIDE.FRONTEND\node_modules\typescript\lib\tsserverlibrary.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\typescript.d.ts = TAIDE.FRONTEND\node_modules\typescript\lib\typescript.d.ts
+		TAIDE.FRONTEND\node_modules\typescript\lib\typescript.js = TAIDE.FRONTEND\node_modules\typescript\lib\typescript.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\typesMap.json = TAIDE.FRONTEND\node_modules\typescript\lib\typesMap.json
+		TAIDE.FRONTEND\node_modules\typescript\lib\typingsInstaller.js = TAIDE.FRONTEND\node_modules\typescript\lib\typingsInstaller.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\watchGuard.js = TAIDE.FRONTEND\node_modules\typescript\lib\watchGuard.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\_tsc.js = TAIDE.FRONTEND\node_modules\typescript\lib\_tsc.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\_tsserver.js = TAIDE.FRONTEND\node_modules\typescript\lib\_tsserver.js
+		TAIDE.FRONTEND\node_modules\typescript\lib\_typingsInstaller.js = TAIDE.FRONTEND\node_modules\typescript\lib\_typingsInstaller.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cs", "cs", "{A535CD02-450C-4BF1-8C83-D819B9B9268C}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\cs\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\cs\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "de", "de", "{87C275FD-E274-4E8D-B7F7-B69012C84CD2}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\de\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\de\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "es", "es", "{957BB174-9BE9-4B5E-901F-14D1BF03EED4}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\es\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\es\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fr", "fr", "{5C037EF6-191E-48F6-9069-0FDF0CA4EDFB}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\fr\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\fr\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "it", "it", "{ABF293BE-3E60-4CB7-8C98-7C2302608AF3}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\it\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\it\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ja", "ja", "{8E363BEA-1FA6-429C-8063-5487F97886D6}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\ja\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\ja\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ko", "ko", "{D838179B-E34F-4879-8F8D-8A7E02B020AE}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\ko\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\ko\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pl", "pl", "{A3ECAF64-0E6B-4889-9E37-4913C9A89417}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\pl\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\pl\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pt-br", "pt-br", "{B3E4E161-E3A1-4E3F-A48B-50F5E11DEB67}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\pt-br\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\pt-br\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ru", "ru", "{290A3EBC-D080-4A3B-9302-748B7D52736A}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\ru\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\ru\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tr", "tr", "{1D48B558-7879-4A0C-BBA3-1377CE0F5B6D}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\tr\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\tr\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zh-cn", "zh-cn", "{7AA15541-24F9-4E43-A873-A07CD678AE91}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\zh-cn\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\zh-cn\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zh-tw", "zh-tw", "{8A7B5793-962D-4603-9D47-608E5DD00B9E}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.FRONTEND\node_modules\typescript\lib\zh-tw\diagnosticMessages.generated.json = TAIDE.FRONTEND\node_modules\typescript\lib\zh-tw\diagnosticMessages.generated.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E786E7FC-13A5-48DD-B1E5-02A0D32E745F}"
+	ProjectSection(SolutionItems) = preProject
+		TAIDE.BACKEND\Modells\UsuarioService.cs = TAIDE.BACKEND\Modells\UsuarioService.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PAGES", "PAGES", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{92C17E84-A378-4171-B813-632D1DEB47F6} = {282C4897-3A2B-4EE1-A780-3F39C55141A7}
+		{22250EBF-1412-46C3-8FD2-EEBFBC164A56} = {92C17E84-A378-4171-B813-632D1DEB47F6}
+		{E57161E8-8EF5-4A28-AD4F-C9724815FA28} = {92C17E84-A378-4171-B813-632D1DEB47F6}
+		{263269F8-3CAE-48B6-BE7F-189B2FCA7B82} = {E57161E8-8EF5-4A28-AD4F-C9724815FA28}
+		{E30D340D-B2DE-4E54-BCCD-0751FF0596F5} = {E57161E8-8EF5-4A28-AD4F-C9724815FA28}
+		{A535CD02-450C-4BF1-8C83-D819B9B9268C} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{87C275FD-E274-4E8D-B7F7-B69012C84CD2} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{957BB174-9BE9-4B5E-901F-14D1BF03EED4} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{5C037EF6-191E-48F6-9069-0FDF0CA4EDFB} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{ABF293BE-3E60-4CB7-8C98-7C2302608AF3} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{8E363BEA-1FA6-429C-8063-5487F97886D6} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{D838179B-E34F-4879-8F8D-8A7E02B020AE} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{A3ECAF64-0E6B-4889-9E37-4913C9A89417} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{B3E4E161-E3A1-4E3F-A48B-50F5E11DEB67} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{290A3EBC-D080-4A3B-9302-748B7D52736A} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{1D48B558-7879-4A0C-BBA3-1377CE0F5B6D} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{7AA15541-24F9-4E43-A873-A07CD678AE91} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{8A7B5793-962D-4603-9D47-608E5DD00B9E} = {E30D340D-B2DE-4E54-BCCD-0751FF0596F5}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {282C4897-3A2B-4EE1-A780-3F39C55141A7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B07AA80C-BAB8-4BD9-90AE-6C2E775172E6}
+	EndGlobalSection
+EndGlobal
