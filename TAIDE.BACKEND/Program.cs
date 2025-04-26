@@ -104,5 +104,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+var hash = BCrypt.Net.BCrypt.HashPassword("123123123");
+var match = BCrypt.Net.BCrypt.Verify("123123123", hash); // debe ser true
 
+Console.WriteLine($"\n\n{hash}\n\n{match}");
 app.Run();

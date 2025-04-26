@@ -21,7 +21,7 @@ namespace TuProyecto.Services // Espacio de nombres correcto para UsuarioService
 
             return await _dbContext.Usuarios
                 .Include(u => u.PreguntasSeguridad) // 🔁 esto es importante
-                .FirstOrDefaultAsync(u => u.Correo == correo);
+                .FirstOrDefaultAsync(u => u.Correo.ToLower() == correo.ToLower());
             // Considera usar Include si necesitas cargar relaciones aquí, ej: PreguntasSeguridad
             // return await _dbContext.Usuarios.Include(u => u.PreguntasSeguridad).FirstOrDefaultAsync(u => u.Correo == correo);
         }

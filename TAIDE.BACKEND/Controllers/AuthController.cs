@@ -56,9 +56,11 @@ namespace TuProyecto.Controllers
             try
             {
                 var usuario = await _usuarioService.ObtenerUsuarioPorCorreo(request.Correo);
+                if (usuario == null)
+                    return Unauthorized(new { message = "Correo no registrado." });
 
-                if (usuario == null || !BCrypt.Net.BCrypt.Verify(request.Contrasena, usuario.Contrasena))
-                    return Unauthorized(new { message = "Credenciales inválidas." });
+                if (!BCrypt.Net.BCrypt.Verify(request.Contrasena, usuario.Contrasena))
+                    return Unauthorized(new { message = "Contraseña incorrecta." });
 
                 await _usuarioService.ActualizarUltimaActividad(usuario.ID);
 
@@ -89,9 +91,11 @@ namespace TuProyecto.Controllers
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            _logger.LogInformation("Generando token para: {ID}, {Nombre}, {Rol}", usuario.ID, usuario.NombreUsuario, usuario.TipoUsuario);
 
             var claims = new[]
             {
+
         new Claim(ClaimTypes.NameIdentifier, usuario.ID.ToString()),
         new Claim(ClaimTypes.Name, usuario.NombreUsuario),
         new Claim(ClaimTypes.Role, usuario.TipoUsuario.ToString())

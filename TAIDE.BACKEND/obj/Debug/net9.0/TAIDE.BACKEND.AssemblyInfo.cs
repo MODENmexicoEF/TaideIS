@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TAIDE.BACKEND")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7808767d49e09b041597ac439808986a9b49fb57")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b936022c40e169463b7fdc5b96a46e2a3c4d47b")]
 [assembly: System.Reflection.AssemblyProductAttribute("TAIDE.BACKEND")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TAIDE.BACKEND")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
