@@ -130,9 +130,9 @@
               "Title": "UsuarioController.cs",
               "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\UsuarioController.cs",
               "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\UsuarioController.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\UsuarioController.cs*",
-              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\UsuarioController.cs*",
-              "ViewState": "AgIAAJcAAAAAAAAAAAAowMMAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\UsuarioController.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\UsuarioController.cs",
+              "ViewState": "AgIAACgBAAAAAAAAAAAYwKsAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T01:38:53.015Z",
               "EditorCaption": ""
@@ -147,8 +147,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAuwFcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T02:16:58.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-23T02:16:58.465Z"
             },
             {
               "$type": "Document",
@@ -160,8 +159,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Modells\\UsuarioService.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T01:34:40.067Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T01:34:40.067Z"
             },
             {
               "$type": "Document",
@@ -173,8 +171,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T00:52:23.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T00:52:23.209Z"
             },
             {
               "$type": "Document",
@@ -186,8 +183,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Modells\\USUARIO.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAYwDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T00:17:37.817Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T00:17:37.817Z"
             },
             {
               "$type": "Document",
@@ -199,8 +195,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Migrations\\ApplicationDbContextModelSnapshot.cs",
               "ViewState": "AgIAAJEAAAAAAAAAAAAgwA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T02:33:11.112Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-23T02:33:11.112Z"
             },
             {
               "$type": "Document",
@@ -212,8 +207,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T07:36:58.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-09T07:36:58.604Z"
             },
             {
               "$type": "Document",
@@ -225,8 +219,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Modells\\PM.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAwA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-08T06:31:41.467Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-08T06:31:41.467Z"
             },
             {
               "$type": "Document",
@@ -238,8 +231,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Modells\\SUDO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T06:25:51.287Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-09T06:25:51.287Z"
             },
             {
               "$type": "Document",
@@ -251,8 +243,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Program.cs",
               "ViewState": "AgIAAEYAAAAAAAAAAAAAAFIAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T22:51:21.354Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T22:51:21.354Z"
             },
             {
               "$type": "Document",
@@ -264,8 +255,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\TAIDE.BACKEND.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-04-06T22:42:04.978Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-06T22:42:04.978Z"
             },
             {
               "$type": "Document",
@@ -289,8 +279,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "ViewState": "AgIAAG4YAAAAAAAAAAD4v/sUAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-04-24T11:18:17.101Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-24T11:18:17.101Z"
             },
             {
               "$type": "Document",
@@ -302,8 +291,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T02:33:01.086Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-23T02:33:01.086Z"
             },
             {
               "$type": "Document",
@@ -315,8 +303,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-07T00:03:31.355Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T00:03:31.355Z"
             },
             {
               "$type": "Document",
@@ -328,8 +315,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-06T21:21:10.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-06T21:21:10.556Z"
             },
             {
               "$type": "Document",
@@ -401,8 +387,7 @@
               "RelativeToolTip": "TAIDE.BACKEND\\TAIDE.BACKEND.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-07T00:16:25.634Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T00:16:25.634Z"
             },
             {
               "$type": "Document",
