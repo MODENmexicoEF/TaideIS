@@ -11,20 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var _a, _b;
 function login(email, password) {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a, _b;
+        var _a, _b, _c, _d;
         const errorMessageElement = document.getElementById('error-message');
         if (errorMessageElement)
             errorMessageElement.textContent = '';
         try {
             const response = yield fetch('https://localhost:7274/api/auth/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    correo: email,
-                    contrasena: password
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ correo: email, contrasena: password })
             });
             if (!response.ok) {
                 const errorText = yield response.text();
@@ -36,13 +31,16 @@ function login(email, password) {
             }
             const data = yield response.json();
             alert(data.Message || "Iniciaste sesi�n correctamente.");
-            if (data.token) {
-                localStorage.setItem("token", data.token);
+            //  Este es el cambio importante
+            const token = (_a = data.Token) !== null && _a !== void 0 ? _a : data.token;
+            if (token) {
+                localStorage.setItem("token", token);
             }
-            if (data.NombreUsuario) {
-                localStorage.setItem("nombre_usuario", data.NombreUsuario);
+            const nombreUsuario = (_c = (_b = data.NombreUsuario) !== null && _b !== void 0 ? _b : data.Nombre) !== null && _c !== void 0 ? _c : "";
+            if (nombreUsuario) {
+                localStorage.setItem("nombre_usuario", nombreUsuario);
             }
-            const tipo = (_b = (_a = data.TipoUsuario) !== null && _a !== void 0 ? _a : data.tipo_usuario) !== null && _b !== void 0 ? _b : data.Rol;
+            const tipo = (_d = data.TipoUsuario) !== null && _d !== void 0 ? _d : data.Rol;
             switch (tipo) {
                 case 0:
                     showPacienteDashboard();
@@ -57,15 +55,14 @@ function login(email, password) {
                     showSudoDashboard();
                     break;
                 default:
-                    alert("Tipo de usuario no reconocido");
+                    alert("Tipo de usuario no reconocido.");
                     showLoginForm();
             }
         }
         catch (error) {
             console.error("Error en el login:", error);
-            if (errorMessageElement) {
+            if (errorMessageElement)
                 errorMessageElement.textContent = 'No se pudo conectar al servidor.';
-            }
         }
     });
 }

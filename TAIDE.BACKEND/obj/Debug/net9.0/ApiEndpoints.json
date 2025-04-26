@@ -17,6 +17,16 @@
   },
   {
     "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "ActualizarUltimaActividad",
+    "RelativePath": "api/auth/actualizar-actividad",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/auth/login",
     "HttpMethod": "POST",
@@ -122,6 +132,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "ObtenerUsuarios",
+    "RelativePath": "api/auth/usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

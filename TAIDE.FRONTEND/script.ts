@@ -32,13 +32,8 @@ async function login(email: string, password: string): Promise<void> {
     try {
         const response = await fetch('https://localhost:7274/api/auth/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                correo: email,
-                contrasena: password
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ correo: email, contrasena: password })
         });
 
         if (!response.ok) {
@@ -49,44 +44,39 @@ async function login(email: string, password: string): Promise<void> {
             return;
         }
 
-        const data = await response.json();
+        const data: AuthResponse = await response.json();
 
         alert(data.Message || "Iniciaste sesión correctamente.");
 
-        if (data.token) {
-            localStorage.setItem("token", data.token);
-        }
-        if (data.NombreUsuario) {
-            localStorage.setItem("nombre_usuario", data.NombreUsuario);
+        //  Este es el cambio importante
+        const token = data.Token ?? (data as any).token;
+        if (token) {
+            localStorage.setItem("token", token);
         }
 
-        const tipo = data.TipoUsuario ?? data.tipo_usuario ?? data.Rol;
+        const nombreUsuario = data.NombreUsuario ?? data.Nombre ?? "";
+        if (nombreUsuario) {
+            localStorage.setItem("nombre_usuario", nombreUsuario);
+        }
+
+        const tipo = data.TipoUsuario ?? data.Rol;
 
         switch (tipo) {
-            case 0:
-                showPacienteDashboard();
-                break;
-            case 1:
-                showPmDashboard();
-                break;
-            case 2:
-                showFamiliarDashboard();
-                break;
-            case 3:
-                showSudoDashboard();
-                break;
+            case 0: showPacienteDashboard(); break;
+            case 1: showPmDashboard(); break;
+            case 2: showFamiliarDashboard(); break;
+            case 3: showSudoDashboard(); break;
             default:
-                alert("Tipo de usuario no reconocido");
+                alert("Tipo de usuario no reconocido.");
                 showLoginForm();
         }
 
     } catch (error) {
         console.error("Error en el login:", error);
-        if (errorMessageElement) {
-            errorMessageElement.textContent = 'No se pudo conectar al servidor.';
-        }
+        if (errorMessageElement) errorMessageElement.textContent = 'No se pudo conectar al servidor.';
     }
 }
+
 
 
 
@@ -267,7 +257,7 @@ function handleRegisterSubmit(event: Event): void {
     respuestasInputs.forEach(input => {
         if (input.value.trim()) {
             formData.append("Respuestas[]", input.value.trim());
-	    
+        
         }
     });
 

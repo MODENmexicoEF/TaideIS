@@ -30,11 +30,13 @@ namespace TuProyecto.Controllers
         private readonly ApplicationDbContext _context;
 
 
-        public AuthController(UsuarioService usuarioService, ILogger<AuthController> logger, IConfiguration configuration)
+        public AuthController(UsuarioService usuarioService, ILogger<AuthController> logger, IConfiguration configuration, ApplicationDbContext context)
         {
             _usuarioService = usuarioService;
             _logger = logger;
             _configuration = configuration;
+            _context = context;
+
         }
         public class LoginRequest
         {
@@ -45,11 +47,16 @@ namespace TuProyecto.Controllers
         [Authorize(Roles = "SUDO")]
         [HttpGet("activos")]
 
-        
+
         // --- Método Login (Sin cambios) ---
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request) // CAMBIO AQUÍ: FromBody
         {
+            Console.WriteLine($"[LOGIN] Intentando login con: {request.Correo}");
+
+            if (string.IsNullOrEmpty(request.Correo) || string.IsNullOrEmpty(request.Contrasena))
+                return BadRequest(new { message = "Correo y contraseña son requeridos." });
             if (string.IsNullOrEmpty(request.Correo) || string.IsNullOrEmpty(request.Contrasena))
                 return BadRequest(new { message = "Correo y contraseña son requeridos." });
 
@@ -158,6 +165,69 @@ namespace TuProyecto.Controllers
                 else if (pP && rP && Preguntas.Count != Respuestas.Count) { yield return new ValidationResult("El número de Preguntas y Respuestas de seguridad debe coincidir.", new[] { nameof(Preguntas), nameof(Respuestas) }); }
             }
         }
+        [Authorize]
+        [HttpPost("actualizar-actividad")]
+        public async Task<IActionResult> ActualizarUltimaActividad()
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim))
+                    return Unauthorized();
+
+                if (!int.TryParse(userIdClaim, out int userId))
+                    return Unauthorized();
+
+                var usuario = await _context.Usuarios.FindAsync(userId);
+                if (usuario == null)
+                    return NotFound(new { message = "Usuario no encontrado." });
+
+                usuario.UltimaActividad = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Actividad actualizada." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error actualizando actividad del usuario.");
+                return StatusCode(500, new { message = "Error actualizando actividad." });
+            }
+        }
+        [Authorize(Roles = "SUDO")]
+        [HttpGet("usuarios")]
+        public async Task<IActionResult> ObtenerUsuarios()
+        {
+            try
+            {
+                var usuariosDB = await _context.Usuarios
+                    .Select(u => new
+                    {
+                        ID = u.ID,
+                        NombreUsuario = u.NombreUsuario,
+                        TipoUsuario = (int)u.TipoUsuario,
+                        UltimaActividad = u.UltimaActividad
+                    })
+                    .ToListAsync();
+
+                var usuarios = usuariosDB.Select(u => new
+                {
+                    u.ID,
+                    u.NombreUsuario,
+                    u.TipoUsuario,
+                    EnLinea = u.UltimaActividad.HasValue &&
+                              (DateTime.UtcNow - u.UltimaActividad.Value).TotalMinutes <= 5
+                }).ToList();
+
+                return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al obtener usuarios");
+                return StatusCode(500, new { message = "Error interno al obtener usuarios." });
+            }
+        }
+
+
 
         // --- Endpoint de Registro (CORREGIDO) ---
         [HttpPost("registrar")]
