@@ -16,6 +16,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using System;
 using static TuProyecto.Models.Usuario;
+using TuProyecto.Data;
 
 namespace TuProyecto.Controllers
 {
@@ -26,6 +27,8 @@ namespace TuProyecto.Controllers
         private readonly UsuarioService _usuarioService;
         private readonly ILogger<AuthController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly ApplicationDbContext _context;
+
 
         public AuthController(UsuarioService usuarioService, ILogger<AuthController> logger, IConfiguration configuration)
         {
@@ -38,6 +41,11 @@ namespace TuProyecto.Controllers
             public string Correo { get; set; }
             public string Contrasena { get; set; }
         }
+
+        [Authorize(Roles = "SUDO")]
+        [HttpGet("activos")]
+
+        
         // --- Método Login (Sin cambios) ---
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request) // CAMBIO AQUÍ: FromBody
@@ -48,8 +56,11 @@ namespace TuProyecto.Controllers
             try
             {
                 var usuario = await _usuarioService.ObtenerUsuarioPorCorreo(request.Correo);
+
                 if (usuario == null || !BCrypt.Net.BCrypt.Verify(request.Contrasena, usuario.Contrasena))
                     return Unauthorized(new { message = "Credenciales inválidas." });
+
+                await _usuarioService.ActualizarUltimaActividad(usuario.ID);
 
                 var token = GenerateJwtToken(usuario);
                 return Ok(new LoginResponse
@@ -250,12 +261,7 @@ namespace TuProyecto.Controllers
         }
 
         // --- Método ObtenerUsuarios (Sin cambios) ---
-        [Authorize(Roles = "SUDO")]
-        [HttpGet("usuarios")]
-        public async Task<IActionResult> ObtenerUsuarios()
-        {
-            try { var u = await _usuarioService.ObtenerListaDeUsuarios(); var dto = u.Select(u => new { id = u.ID, nombre = u.NombreUsuario, rol = u.TipoUsuario.ToString(), correo = u.Correo }).ToList(); return Ok(dto); } catch (Exception ex) { _logger.LogError(ex, "Error lista usuarios."); return StatusCode(500, new { Message = "Error interno." }); }
-        }
+
         [HttpPost("recuperar/obtener-preguntas")]
         public async Task<IActionResult> ObtenerPreguntas([FromBody] string correo)
         {
@@ -272,6 +278,7 @@ namespace TuProyecto.Controllers
                 preguntas = usuario.PreguntasSeguridad.Select(p => new { p.ID, p.Pregunta }).ToList()
             });
         }
+
 
         public class CambiarContrasenaRequest
         {

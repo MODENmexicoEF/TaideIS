@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a, _b;
 function login(email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b;
@@ -25,10 +26,15 @@ function login(email, password) {
                     contrasena: password
                 })
             });
-            const data = yield response.json();
             if (!response.ok) {
-                throw new Error(data.message || `Error ${response.status}`);
+                const errorText = yield response.text();
+                const errorData = errorText ? JSON.parse(errorText) : null;
+                const mensaje = (errorData === null || errorData === void 0 ? void 0 : errorData.message) || `Error ${response.status}`;
+                if (errorMessageElement)
+                    errorMessageElement.textContent = mensaje;
+                return;
             }
+            const data = yield response.json();
             alert(data.Message || "Iniciaste sesi�n correctamente.");
             if (data.token) {
                 localStorage.setItem("token", data.token);
@@ -36,19 +42,18 @@ function login(email, password) {
             if (data.NombreUsuario) {
                 localStorage.setItem("nombre_usuario", data.NombreUsuario);
             }
-            const tipo = (_b = (_a = data.TipoUsuario) !== null && _a !== void 0 ? _a : data.tipo_usuario) !== null && _b !== void 0 ? _b : data.Rol; // para cubrir ambas opciones
-            // Mostrar el dashboard correspondiente seg�n el tipo de usuario
+            const tipo = (_b = (_a = data.TipoUsuario) !== null && _a !== void 0 ? _a : data.tipo_usuario) !== null && _b !== void 0 ? _b : data.Rol;
             switch (tipo) {
-                case 0: // Paciente
+                case 0:
                     showPacienteDashboard();
                     break;
-                case 1: // Profesional M�dico (PM)
+                case 1:
                     showPmDashboard();
                     break;
-                case 2: // Familiar
+                case 2:
                     showFamiliarDashboard();
                     break;
-                case 3: // SUDO
+                case 3:
                     showSudoDashboard();
                     break;
                 default:
@@ -57,13 +62,9 @@ function login(email, password) {
             }
         }
         catch (error) {
-            console.error("Error al iniciar sesi�n:", error);
-            const mensaje = error instanceof Error ? error.message : "Error desconocido";
+            console.error("Error en el login:", error);
             if (errorMessageElement) {
-                errorMessageElement.textContent = mensaje;
-            }
-            else {
-                alert(mensaje);
+                errorMessageElement.textContent = 'No se pudo conectar al servidor.';
             }
         }
     });
@@ -126,6 +127,14 @@ function handleLoginSubmit(event) {
         console.error('No se encontraron los elementos de correo o contrase�a.');
         alert('Error interno: No se encontraron los campos de inicio de sesi�n.');
     }
+}
+function mostrarErrorUsuarios(mensaje) {
+    const lista = document.getElementById('user-list');
+    lista.innerHTML = ''; // Limpiamos lista anterior
+    const errorItem = document.createElement('li');
+    errorItem.style.color = 'red';
+    errorItem.textContent = mensaje;
+    lista.appendChild(errorItem);
 }
 function showPmDashboard() {
     const loginContainer = document.getElementById('login-container');
@@ -232,6 +241,70 @@ function handleRegisterSubmit(event) {
     });
     registerUser(formData);
 }
+// ----- Funci�n para mostrar usuarios activos -----
+function cargarUsuariosActivos() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const lista = document.getElementById('user-list');
+        lista.innerHTML = '<li>Cargando usuarios activos...</li>';
+        try {
+            const response = yield fetch('https://localhost:7274/api/sudo/usuarios/activos', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            if (!response.ok)
+                throw new Error('Error al obtener usuarios activos.');
+            const usuarios = yield response.json();
+            mostrarUsuarios(usuarios, true);
+        }
+        catch (error) {
+            console.error('Error:', error);
+            mostrarErrorUsuarios('Error al cargar usuarios activos.');
+        }
+    });
+}
+// ----- Funci�n para mostrar todos los usuarios -----
+function cargarTodosLosUsuarios() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const lista = document.getElementById('user-list');
+        lista.innerHTML = '<li>Cargando todos los usuarios...</li>';
+        try {
+            const response = yield fetch('https://localhost:7274/api/sudo/usuarios', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            if (!response.ok)
+                throw new Error('Error al obtener usuarios.');
+            const usuarios = yield response.json();
+            mostrarUsuarios(usuarios, false);
+        }
+        catch (error) {
+            console.error('Error:', error);
+            mostrarErrorUsuarios('Error al cargar todos los usuarios.');
+        }
+    });
+}
+// ----- Funci�n para renderizar los usuarios -----
+function mostrarUsuarios(usuarios, mostrarEstado) {
+    const lista = document.getElementById('user-list');
+    lista.innerHTML = '';
+    usuarios.forEach(usuario => {
+        const li = document.createElement('li');
+        li.textContent = `${usuario.nombre} - ${usuario.correo}`;
+        if (mostrarEstado) {
+            const estado = document.createElement('span');
+            estado.textContent = usuario.estaEnLinea ? ' En l�nea' : ' Desconectado';
+            li.appendChild(estado);
+        }
+        lista.appendChild(li);
+    });
+}
+// ----- Asignar eventos a los botones -----
+(_a = document.getElementById('ver-usuarios-activos')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', cargarUsuariosActivos);
+(_b = document.getElementById('ver-todos-usuarios')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', cargarTodosLosUsuarios);
 // ----- OBTENER LISTA DE USUARIOS -----
 function fetchUserList() {
     return __awaiter(this, void 0, void 0, function* () {

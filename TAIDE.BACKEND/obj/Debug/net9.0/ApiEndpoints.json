@@ -2,6 +2,22 @@
   {
     "ContainingType": "TuProyecto.Controllers.AuthController",
     "Method": "Login",
+    "RelativePath": "api/auth/activos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "TuProyecto.Controllers.AuthController\u002BLoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "Method": "Login",
     "RelativePath": "api/auth/login",
     "HttpMethod": "POST",
     "IsController": true,
@@ -106,16 +122,6 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TuProyecto.Controllers.AuthController",
-    "Method": "ObtenerUsuarios",
-    "RelativePath": "api/auth/usuarios",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   }
 ]

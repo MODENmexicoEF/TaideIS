@@ -33,6 +33,15 @@ namespace TuProyecto.Services // Espacio de nombres correcto para UsuarioService
             await _dbContext.SaveChangesAsync();
             return pm;
         }
+        public async Task ActualizarUltimaActividad(int usuarioId)
+        {
+            var usuario = await _dbContext.Usuarios.FindAsync(usuarioId);
+            if (usuario != null)
+            {
+                usuario.UltimaActividad = DateTime.UtcNow;
+                await _dbContext.SaveChangesAsync();
+            }
+        }
 
         public async Task<Familiar> CrearFamiliar(Familiar familiar)
         {

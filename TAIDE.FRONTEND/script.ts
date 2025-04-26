@@ -27,69 +27,67 @@ interface User {
 }
 async function login(email: string, password: string): Promise<void> {
     const errorMessageElement = document.getElementById('error-message');
-
     if (errorMessageElement) errorMessageElement.textContent = '';
 
     try {
-const response = await fetch('https://localhost:7274/api/auth/login', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        correo: email,
-        contrasena: password
-    })
-});
+        const response = await fetch('https://localhost:7274/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                correo: email,
+                contrasena: password
+            })
+        });
 
+        if (!response.ok) {
+            const errorText = await response.text();
+            const errorData = errorText ? JSON.parse(errorText) : null;
+            const mensaje = errorData?.message || `Error ${response.status}`;
+            if (errorMessageElement) errorMessageElement.textContent = mensaje;
+            return;
+        }
 
         const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(data.message || `Error ${response.status}`);
+        alert(data.Message || "Iniciaste sesión correctamente.");
+
+        if (data.token) {
+            localStorage.setItem("token", data.token);
+        }
+        if (data.NombreUsuario) {
+            localStorage.setItem("nombre_usuario", data.NombreUsuario);
         }
 
-        alert(data.Message || "Iniciaste sesión correctamente.");
-        
+        const tipo = data.TipoUsuario ?? data.tipo_usuario ?? data.Rol;
 
-if (data.token) {
-    localStorage.setItem("token", data.token);
-}
-if (data.NombreUsuario) {
-    localStorage.setItem("nombre_usuario", data.NombreUsuario);
-}
-const tipo = data.TipoUsuario ?? data.tipo_usuario ?? data.Rol; // para cubrir ambas opciones
-
-// Mostrar el dashboard correspondiente según el tipo de usuario
-switch (tipo) {
-    case 0: // Paciente
-        showPacienteDashboard();
-        break;
-    case 1: // Profesional Médico (PM)
-        showPmDashboard();
-        break;
-    case 2: // Familiar
-        showFamiliarDashboard();
-        break;
-    case 3: // SUDO
-        showSudoDashboard();
-        break;
-    default:
-        alert("Tipo de usuario no reconocido");
-        showLoginForm();
-}
-
+        switch (tipo) {
+            case 0:
+                showPacienteDashboard();
+                break;
+            case 1:
+                showPmDashboard();
+                break;
+            case 2:
+                showFamiliarDashboard();
+                break;
+            case 3:
+                showSudoDashboard();
+                break;
+            default:
+                alert("Tipo de usuario no reconocido");
+                showLoginForm();
+        }
 
     } catch (error) {
-        console.error("Error al iniciar sesión:", error);
-        const mensaje = error instanceof Error ? error.message : "Error desconocido";
+        console.error("Error en el login:", error);
         if (errorMessageElement) {
-            errorMessageElement.textContent = mensaje;
-        } else {
-            alert(mensaje);
+            errorMessageElement.textContent = 'No se pudo conectar al servidor.';
         }
     }
 }
+
 
 
 // ----- FUNCIÓN REGISTRO (Usando FormData) -----
@@ -152,7 +150,14 @@ function handleLoginSubmit(event: Event): void {
         alert('Error interno: No se encontraron los campos de inicio de sesión.');
     }
 }
-
+function mostrarErrorUsuarios(mensaje: string) {
+    const lista = document.getElementById('user-list')!;
+    lista.innerHTML = ''; // Limpiamos lista anterior
+    const errorItem = document.createElement('li');
+    errorItem.style.color = 'red';
+    errorItem.textContent = mensaje;
+    lista.appendChild(errorItem);
+}
 function showPmDashboard(): void {
     const loginContainer = document.getElementById('login-container');
     const registerContainer = document.getElementById('register-container');
@@ -269,6 +274,76 @@ function handleRegisterSubmit(event: Event): void {
     registerUser(formData);
 }
 
+// ----- Función para mostrar usuarios activos -----
+async function cargarUsuariosActivos() {
+    const lista = document.getElementById('user-list')!;
+    lista.innerHTML = '<li>Cargando usuarios activos...</li>';
+
+    try {
+        const response = await fetch('https://localhost:7274/api/sudo/usuarios/activos', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) throw new Error('Error al obtener usuarios activos.');
+
+        const usuarios = await response.json();
+        mostrarUsuarios(usuarios, true);
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarErrorUsuarios('Error al cargar usuarios activos.');
+    }
+}
+
+
+// ----- Función para mostrar todos los usuarios -----
+async function cargarTodosLosUsuarios() {
+    const lista = document.getElementById('user-list')!;
+    lista.innerHTML = '<li>Cargando todos los usuarios...</li>';
+
+    try {
+        const response = await fetch('https://localhost:7274/api/sudo/usuarios', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) throw new Error('Error al obtener usuarios.');
+
+        const usuarios = await response.json();
+        mostrarUsuarios(usuarios, false);
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarErrorUsuarios('Error al cargar todos los usuarios.');
+    }
+}
+
+
+// ----- Función para renderizar los usuarios -----
+function mostrarUsuarios(usuarios: any[], mostrarEstado: boolean) {
+    const lista = document.getElementById('user-list')!;
+    lista.innerHTML = '';
+
+    usuarios.forEach(usuario => {
+        const li = document.createElement('li');
+        li.textContent = `${usuario.nombre} - ${usuario.correo}`;
+
+        if (mostrarEstado) {
+            const estado = document.createElement('span');
+            estado.textContent = usuario.estaEnLinea ? ' En línea' : ' Desconectado';
+            li.appendChild(estado);
+        }
+
+        lista.appendChild(li);
+    });
+}
+
+// ----- Asignar eventos a los botones -----
+document.getElementById('ver-usuarios-activos')?.addEventListener('click', cargarUsuariosActivos);
+document.getElementById('ver-todos-usuarios')?.addEventListener('click', cargarTodosLosUsuarios);
 
 
 

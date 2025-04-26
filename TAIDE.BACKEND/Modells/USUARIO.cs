@@ -42,6 +42,7 @@ namespace TuProyecto.Models
 
         [Column("Ap2")] // Mapeo si el nombre difiere del de BD
         public string? Ap2 { get; set; } // Nullable si puede ser nulo
+        public DateTime? UltimaActividad { get; set; }
         public virtual ICollection<PreguntaSeguridad> PreguntasSeguridad { get; set; } = new List<PreguntaSeguridad>();
 
         // Relaciones (ajustadas según necesidad)
@@ -68,5 +69,6 @@ namespace TuProyecto.Models
         public Rol GetRol() => TipoUsuario; // Cambiado a TipoUsuario
         public string GetNombre() => NombreUsuario; // Cambiado a NombreUsuario
         public string GetContrasena() => Contrasena;
+
     }
 }
