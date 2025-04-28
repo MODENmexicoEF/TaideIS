@@ -51,7 +51,7 @@ namespace TuProyecto.Controllers
         // --- Método Login (Sin cambios) ---
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request) // CAMBIO AQUÍ: FromBody
+        public async Task<IActionResult> Login([FromBody] LoginRequest request) // Se queda
         {
             Console.WriteLine($"[LOGIN] Intentando login con: {request.Correo}");
 
@@ -165,9 +165,10 @@ namespace TuProyecto.Controllers
                 else if (pP && rP && Preguntas.Count != Respuestas.Count) { yield return new ValidationResult("El número de Preguntas y Respuestas de seguridad debe coincidir.", new[] { nameof(Preguntas), nameof(Respuestas) }); }
             }
         }
+        
         [Authorize]
         [HttpPost("actualizar-actividad")]
-        public async Task<IActionResult> ActualizarUltimaActividad()
+        public async Task<IActionResult> ActualizarUltimaActividad() // sudo
         {
             try
             {
@@ -193,9 +194,10 @@ namespace TuProyecto.Controllers
                 return StatusCode(500, new { message = "Error actualizando actividad." });
             }
         }
+        /*
         [Authorize(Roles = "SUDO")]
         [HttpGet("usuarios")]
-        public async Task<IActionResult> ObtenerUsuarios()
+        public async Task<IActionResult> ObtenerUsuarios() // sudo
         {
             try
             {
@@ -227,11 +229,11 @@ namespace TuProyecto.Controllers
             }
         }
 
-
+        */
 
         // --- Endpoint de Registro (CORREGIDO) ---
         [HttpPost("registrar")]
-        public async Task<IActionResult> RegistrarUsuario([FromForm] RegistroRequestForm requestForm)
+        public async Task<IActionResult> RegistrarUsuario([FromForm] RegistroRequestForm requestForm) // se queda
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
 
@@ -337,7 +339,7 @@ namespace TuProyecto.Controllers
         // --- Método ObtenerUsuarios (Sin cambios) ---
 
         [HttpPost("recuperar/obtener-preguntas")]
-        public async Task<IActionResult> ObtenerPreguntas([FromBody] string correo)
+        public async Task<IActionResult> ObtenerPreguntas([FromBody] string correo) // se queda
         {
             var usuario = await _usuarioService.ObtenerUsuarioPorCorreo(correo);
             if (usuario == null)
@@ -354,7 +356,7 @@ namespace TuProyecto.Controllers
         }
 
 
-        public class CambiarContrasenaRequest
+        public class CambiarContrasenaRequest // se queda
         {
             public string Correo { get; set; }
             public Dictionary<int, string> Respuestas { get; set; } // ID de la pregunta, respuesta dada
@@ -362,7 +364,7 @@ namespace TuProyecto.Controllers
         }
 
         [HttpPost("recuperar/cambiar-contrasena")]
-        public async Task<IActionResult> CambiarContrasena([FromBody] CambiarContrasenaRequest request)
+        public async Task<IActionResult> CambiarContrasena([FromBody] CambiarContrasenaRequest request) // se queda
         {
             var usuario = await _usuarioService.ObtenerUsuarioPorCorreo(request.Correo);
             if (usuario == null)

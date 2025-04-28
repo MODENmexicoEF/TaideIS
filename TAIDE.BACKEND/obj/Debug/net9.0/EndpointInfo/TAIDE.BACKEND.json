@@ -79,18 +79,6 @@
         }
       }
     },
-    "/api/auth/usuarios": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/auth/registrar": {
       "post": {
         "tags": [
@@ -251,6 +239,73 @@
           }
         }
       }
+    },
+    "/api/sudo/usuarios/activos": {
+      "get": {
+        "tags": [
+          "Sudo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sudo/usuarios": {
+      "get": {
+        "tags": [
+          "Sudo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sudo/cambiar-rol": {
+      "post": {
+        "tags": [
+          "Sudo"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambiarRolRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambiarRolRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CambiarRolRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sudo/recursos": {
+      "get": {
+        "tags": [
+          "Sudo"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -270,6 +325,20 @@
             "nullable": true
           },
           "NuevaContrasena": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CambiarRolRequest": {
+        "type": "object",
+        "properties": {
+          "UsuarioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "NuevoRol": {
             "type": "string",
             "nullable": true
           }

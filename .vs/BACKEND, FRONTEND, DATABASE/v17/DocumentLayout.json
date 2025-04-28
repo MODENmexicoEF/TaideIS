@@ -3,40 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\sudocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\sudocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\canbiarrolrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\canbiarrolrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\sudocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\sudocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\pmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\pmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\canbiarrolrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\canbiarrolrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\familiarcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -47,12 +35,40 @@
       "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\pacientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\pmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\pmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\sudocontroller.cs||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\sudocontroller.cs||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\taide.backend.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\taide.backend.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\taide.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\taide.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\migrations\\20250423023135_configuratpt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\migrations\\20250423023135_configuratpt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\pm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -63,24 +79,8 @@
       "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\preguntaseguridad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\modells\\sudo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\modells\\sudo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\taide.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\taide.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\migrations\\20250423023135_configuratpt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\migrations\\20250423023135_configuratpt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
@@ -120,6 +120,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{282C4897-3A2B-4EE1-A780-3F39C55141A7}|TAIDE.FRONTEND{282C4897-3A2B-4EE1-A780-3F39C55141A7}|C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.FRONTEND\\tsconfig.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{282C4897-3A2B-4EE1-A780-3F39C55141A7}|TAIDE.FRONTEND{282C4897-3A2B-4EE1-A780-3F39C55141A7}|solutionrelative:TAIDE.FRONTEND\\tsconfig.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|c:\\users\\yee_j\\source\\repos\\backend, frontend, database\\taide.backend\\controllers\\sudocontroller.cs||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{ED5C0CFE-7D23-4A94-BAA8-FB2DE3E09D3B}|TAIDE.BACKEND\\TAIDE.BACKEND.csproj|solutionrelative:taide.backend\\controllers\\sudocontroller.cs||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -129,8 +133,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 25,
@@ -145,139 +153,60 @@
               "IsPinned": true
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAMUAAAAAAAAAAAAzwNEAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T01:38:53.015Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "SudoController.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\SudoController.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\SudoController.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\SudoController.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\SudoController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T03:23:41.782Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UsuariosController.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T01:14:06.052Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAuwFcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T02:16:58.465Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "PMController.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\PMController.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\PMController.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\PMController.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\PMController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T03:23:54.589Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UsuarioService.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\UsuarioService.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\UsuarioService.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\UsuarioService.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\UsuarioService.cs",
-              "ViewState": "AgIAAJkAAAAAAAAAAAAzwLUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T01:34:40.067Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "PreguntaSeguridad.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T00:52:23.209Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "USUARIO.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\USUARIO.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\USUARIO.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\USUARIO.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\USUARIO.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAowEkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T00:17:37.817Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Program.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Program.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Program.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Program.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAswG4AAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T22:51:21.354Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "SudoController.cs",
               "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\SudoController.cs",
               "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\SudoController.cs",
               "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\SudoController.cs",
               "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\SudoController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAcwCsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAgwKEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-26T03:29:34.336Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAkwC8AAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-23T02:16:58.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FamiliarController.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T03:24:06.322Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PMController.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\PMController.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\PMController.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\PMController.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\PMController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T03:23:54.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\appsettings.json",
               "RelativeDocumentMoniker": "TAIDE.BACKEND\\appsettings.json",
@@ -290,32 +219,69 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CanbiarRolRequest.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T07:36:58.604Z",
-              "EditorCaption": ""
+              "DocumentIndex": 13,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Properties\\launchSettings.json",
+              "RelativeToolTip": "TAIDE.BACKEND\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-07T00:03:31.355Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "FamiliarController.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\FamiliarController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "DocumentIndex": 12,
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T03:24:06.322Z"
+              "WhenOpened": "2025-04-26T01:14:06.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Program.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Program.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Program.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Program.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAswG4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T22:51:21.354Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "TAIDE.BACKEND.http",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\TAIDE.BACKEND.http",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\TAIDE.BACKEND.http",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\TAIDE.BACKEND.http",
+              "RelativeToolTip": "TAIDE.BACKEND\\TAIDE.BACKEND.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-04-06T22:42:04.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UsuarioService.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\UsuarioService.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\UsuarioService.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\UsuarioService.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\UsuarioService.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAswMIAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T01:34:40.067Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "PacienteController.cs",
               "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\PacienteController.cs",
               "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\PacienteController.cs",
@@ -323,23 +289,110 @@
               "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\PacienteController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-26T03:24:27.125Z"
+              "WhenOpened": "2025-04-26T03:24:27.125Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 5,
+              "Title": "CanbiarRolRequest.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\CanbiarRolRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T07:36:58.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAG0BAAAAAAAAAAAqwIsBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T01:38:53.015Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TAIDE.BACKEND",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\TAIDE.BACKEND.csproj",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\TAIDE.BACKEND.csproj",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\TAIDE.BACKEND.csproj",
+              "RelativeToolTip": "TAIDE.BACKEND\\TAIDE.BACKEND.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-27T21:40:05.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "ApplicationDbContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Migrations\\ApplicationDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "TAIDE.BACKEND\\Migrations\\ApplicationDbContextModelSnapshot.cs",
               "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Migrations\\ApplicationDbContextModelSnapshot.cs",
               "RelativeToolTip": "TAIDE.BACKEND\\Migrations\\ApplicationDbContextModelSnapshot.cs",
-              "ViewState": "AgIAAJEAAAAAAAAAAAAgwA4AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAgwA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-23T02:33:11.112Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
+              "Title": "20250423023135_ConfiguraTPT.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-23T02:33:01.086Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "USUARIO.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\USUARIO.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\USUARIO.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\USUARIO.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\USUARIO.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAowEkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T00:17:37.817Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PreguntaSeguridad.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Modells\\PreguntaSeguridad.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T00:52:23.209Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "SudoController.cs",
+              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\SudoController.cs",
+              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Controllers\\SudoController.cs",
+              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Controllers\\SudoController.cs",
+              "RelativeToolTip": "TAIDE.BACKEND\\Controllers\\SudoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T03:23:41.782Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "PM.cs",
               "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\PM.cs",
               "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\PM.cs",
@@ -351,7 +404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "SUDO.cs",
               "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Modells\\SUDO.cs",
               "RelativeDocumentMoniker": "TAIDE.BACKEND\\Modells\\SUDO.cs",
@@ -360,18 +413,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T06:25:51.287Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "TAIDE.BACKEND.http",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\TAIDE.BACKEND.http",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\TAIDE.BACKEND.http",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\TAIDE.BACKEND.http",
-              "RelativeToolTip": "TAIDE.BACKEND\\TAIDE.BACKEND.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-04-06T22:42:04.978Z"
             },
             {
               "$type": "Document",
@@ -396,30 +437,6 @@
               "ViewState": "AgIAAG4YAAAAAAAAAAD4v/sUAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
               "WhenOpened": "2025-04-24T11:18:17.101Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "20250423023135_ConfiguraTPT.cs",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
-              "RelativeToolTip": "TAIDE.BACKEND\\Migrations\\20250423023135_ConfiguraTPT.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T02:33:01.086Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "TAIDE.BACKEND\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\yee_j\\source\\repos\\BACKEND, FRONTEND, DATABASE\\TAIDE.BACKEND\\Properties\\launchSettings.json",
-              "RelativeToolTip": "TAIDE.BACKEND\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-07T00:03:31.355Z"
             },
             {
               "$type": "Document",

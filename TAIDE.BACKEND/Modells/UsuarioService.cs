@@ -157,6 +157,33 @@ namespace TuProyecto.Services // Espacio de nombres correcto para UsuarioService
             // return await _dbContext.Usuarios.AsNoTracking().ToListAsync();
             return await _dbContext.Usuarios.ToListAsync();
         }
+        public async Task<List<UsuarioDTO>> ObtenerUsuariosConEstadoEnLinea()
+        {
+            var umbral = DateTime.UtcNow.AddMinutes(-5);
+
+            var usuarios = await _dbContext.Usuarios
+                .Select(u => new UsuarioDTO
+                {
+                    ID = u.ID,
+                    NombreUsuario = u.NombreUsuario,
+                    TipoUsuario = (int)u.TipoUsuario,
+                    Correo = u.Correo,
+                    EstaEnLinea = u.UltimaActividad.HasValue && u.UltimaActividad.Value >= umbral
+                })
+                .ToListAsync();
+
+            return usuarios;
+        }
+
+        // DTO auxiliar
+        public class UsuarioDTO
+        {
+            public int ID { get; set; }
+            public string NombreUsuario { get; set; }
+            public int TipoUsuario { get; set; }
+            public string Correo { get; set; }
+            public bool EstaEnLinea { get; set; }
+        }
 
         // --- Método Genérico Sugerido (Opcional) ---
         // Si decides usarlo en el AuthController, añádelo aquí:

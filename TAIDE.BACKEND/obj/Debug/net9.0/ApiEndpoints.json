@@ -135,9 +135,45 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "TuProyecto.Controllers.AuthController",
+    "ContainingType": "TAIDE.BACKEND.Controllers.SudoController",
+    "Method": "CambiarRol",
+    "RelativePath": "api/sudo/cambiar-rol",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "TAIDE.BACKEND.Controllers.SudoController\u002BCambiarRolRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TAIDE.BACKEND.Controllers.SudoController",
+    "Method": "ObtenerRecursos",
+    "RelativePath": "api/sudo/recursos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TAIDE.BACKEND.Controllers.SudoController",
     "Method": "ObtenerUsuarios",
-    "RelativePath": "api/auth/usuarios",
+    "RelativePath": "api/sudo/usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TAIDE.BACKEND.Controllers.SudoController",
+    "Method": "ObtenerUsuariosActivos",
+    "RelativePath": "api/sudo/usuarios/activos",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

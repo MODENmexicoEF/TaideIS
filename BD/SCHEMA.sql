@@ -3,9 +3,10 @@ CREATE SCHEMA IF NOT EXISTS VITACARE DEFAULT CHARACTER SET utf8mb4 COLLATE utf8m
 USE VITACARE;
 
 -- Tabla base para todos los usuarios
-DROP TABLE IF EXISTS PreguntasSeguridad, FamiliaresPacientes, SUDOs, Familiares, PMs, Pacientes, Usuarios;
+ -- DROP TABLE IF EXISTS PreguntasSeguridad, FamiliaresPacientes, SUDOs, Familiares, PMs, Pacientes, Usuarios;
 
-DROP TABLE IF EXISTS PreguntasSeguridad, FamiliaresPacientes, SUDOs, Familiares, PMs, Pacientes, Usuarios;
+-- DROP TABLE IF EXISTS PreguntasSeguridad, FamiliaresPacientes, SUDOs, Familiares, PMs, Pacientes, Usuarios;
+-- DROP TABLE IF EXISTS PreguntasSeguridad, FamiliaresPacientes, SUDOs, Familiares, PMs, Pacientes, Usuarios;
 
 CREATE TABLE Usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,11 +19,9 @@ CREATE TABLE Usuarios (
     TokenRecuperacion VARCHAR(255),
     TokenRecuperacionExpira DATETIME,
     tipo_usuario INT NOT NULL,
-    -- 👇 ESTA LÍNEA SE ELIMINA 👇
-    -- Discriminator VARCHAR(50) NOT NULL,
+    UltimaActividad DATETIME NULL, -- 👈 YA AQUI DE UNA VEZ
     INDEX (Correo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 
 -- Tabla para PACIENTES (TPT)
 CREATE TABLE Pacientes (
@@ -69,7 +68,23 @@ CREATE TABLE PreguntasSeguridad (
     FOREIGN KEY (UsuarioID) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+-- ALTER TABLE usuarios ADD COLUMN UltimaActividad DATETIME NULL;
+SHOW TABLES FROM VITACARE;
+
+
 select * from Usuarios;
+
+DESCRIBE usuarios;
+ALTER TABLE usuarios DROP COLUMN Discriminator;
+
+
 
 select * from PreguntasSeguridad;
 SELECT * FROM preguntasseguridad WHERE UsuarioID = (SELECT id_usuario FROM usuarios WHERE correo = 'j@j.com');
+
+USE VITACARE;
+SHOW TABLES LIKE 'pacientes';
+
+select * from pacientes;
+DROP DATABASE VITACARE;
