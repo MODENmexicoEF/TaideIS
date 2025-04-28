@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a, _b;
 function login(email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b, _c, _d;
@@ -156,6 +155,21 @@ function showPmDashboard() {
     const nameElements = document.querySelectorAll("#pm-welcome-name, #pm-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
 }
+function getUserListContainer() {
+    const el = document.getElementById("user-list-container");
+    if (!el)
+        throw new Error("Falta #user-list-container en el DOM");
+    return el;
+}
+function normalizaUsuario(u) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+    return {
+        nombre: (_c = (_b = (_a = u.Nombre) !== null && _a !== void 0 ? _a : u.NombreUsuario) !== null && _b !== void 0 ? _b : u.nombre) !== null && _c !== void 0 ? _c : "",
+        correo: (_e = (_d = u.Correo) !== null && _d !== void 0 ? _d : u.correo) !== null && _e !== void 0 ? _e : "",
+        estaEnLinea: (_g = (_f = u.EstaEnLinea) !== null && _f !== void 0 ? _f : u.estaEnLinea) !== null && _g !== void 0 ? _g : false,
+        tipoUsuario: (_j = (_h = u.TipoUsuario) !== null && _h !== void 0 ? _h : u.tipoUsuario) !== null && _j !== void 0 ? _j : null
+    };
+}
 function showFamiliarDashboard() {
     const loginContainer = document.getElementById('login-container');
     const registerContainer = document.getElementById('register-container');
@@ -238,51 +252,53 @@ function handleRegisterSubmit(event) {
     });
     registerUser(formData);
 }
-// ----- Funci�n para mostrar usuarios activos -----
+// ----- Funci�n para cargar usuarios activos -----
 function cargarUsuariosActivos() {
     return __awaiter(this, void 0, void 0, function* () {
-        const lista = document.getElementById('user-list');
-        lista.innerHTML = '<li>Cargando usuarios activos...</li>';
+        const cont = getUserListContainer();
+        cont.innerHTML = "<p>Cargando usuarios activos�</p>";
         try {
-            const response = yield fetch('https://localhost:7274/api/sudo/usuarios/activos', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+            const token = localStorage.getItem("token");
+            const res = yield fetch("https://localhost:7274/api/sudo/usuarios/activos", {
+                headers: { "Authorization": `Bearer ${token}` }
             });
-            if (!response.ok)
-                throw new Error('Error al obtener usuarios activos.');
-            const usuarios = yield response.json();
-            mostrarUsuarios(usuarios, true);
+            if (!res.ok)
+                throw new Error("Error al obtener usuarios activos");
+            const data = yield res.json();
+            renderUsuarios(data.map(normalizaUsuario), true);
         }
-        catch (error) {
-            console.error('Error:', error);
-            mostrarErrorUsuarios('Error al cargar usuarios activos.');
+        catch (e) {
+            cont.innerHTML = "<p class='error-message'>No se pudo cargar la lista.</p>";
+            console.error(e);
         }
     });
 }
-// ----- Funci�n para mostrar todos los usuarios -----
+// ----- Funci�n para cargar todos los usuarios -----
 function cargarTodosLosUsuarios() {
     return __awaiter(this, void 0, void 0, function* () {
-        const lista = document.getElementById('user-list');
-        lista.innerHTML = '<li>Cargando todos los usuarios...</li>';
+        const cont = getUserListContainer();
+        cont.innerHTML = "<p>Cargando todos los usuarios�</p>";
         try {
-            const response = yield fetch('https://localhost:7274/api/sudo/usuarios', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+            const token = localStorage.getItem("token");
+            const res = yield fetch("https://localhost:7274/api/sudo/usuarios", {
+                headers: { "Authorization": `Bearer ${token}` }
             });
-            if (!response.ok)
-                throw new Error('Error al obtener usuarios.');
-            const usuarios = yield response.json();
-            mostrarUsuarios(usuarios, false);
+            if (!res.ok)
+                throw new Error("Error al obtener usuarios");
+            const data = yield res.json();
+            renderUsuarios(data.map(normalizaUsuario), false);
         }
-        catch (error) {
-            console.error('Error:', error);
-            mostrarErrorUsuarios('Error al cargar todos los usuarios.');
+        catch (e) {
+            cont.innerHTML = "<p class='error-message'>No se pudo cargar la lista.</p>";
+            console.error(e);
         }
     });
+}
+function fmtUptime(totalSegundos) {
+    const d = Math.floor(totalSegundos / 86400); // d�as
+    const h = Math.floor((totalSegundos % 86400) / 3600); // horas
+    const m = Math.floor((totalSegundos % 3600) / 60); // minutos
+    return `${d}d ${h}h ${m}m`;
 }
 // ----- Funci�n para renderizar los usuarios -----
 function mostrarUsuarios(usuarios, mostrarEstado) {
@@ -299,9 +315,45 @@ function mostrarUsuarios(usuarios, mostrarEstado) {
         lista.appendChild(li);
     });
 }
-// ----- Asignar eventos a los botones -----
-(_a = document.getElementById('ver-usuarios-activos')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', cargarUsuariosActivos);
-(_b = document.getElementById('ver-todos-usuarios')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', cargarTodosLosUsuarios);
+/* ----------- LISTADO DE USUARIOS ----------- */
+function renderUsuarios(users, mostrarEstado) {
+    const cont = getUserListContainer();
+    const filas = users
+        .map(u => {
+        const estado = mostrarEstado
+            ? `<span class="${u.estaEnLinea ? "online" : "offline"}">
+             ${u.estaEnLinea ? "S�" : "No"}
+           </span>`
+            : "";
+        return `<li>${u.nombre} � ${u.correo} ${estado}</li>`;
+    })
+        .join("");
+    cont.innerHTML = `<ul id="user-list">${filas}</ul>`;
+}
+/* ---------- MONITOR DE RECURSOS ---------- */
+let monitorInterval;
+function actualizarRecursos() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch("https://localhost:7274/api/sudo/recursos", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (!res.ok)
+                throw new Error("Error recurso " + res.status);
+            const data = yield res.json(); // { cpuPercent, memoriaUsadaMB, memoriaTotalMB, uptimeSeconds }
+            (document.getElementById("cpu-porc")).textContent = data.cpuPercent.toFixed(1);
+            (document.getElementById("mem-uso")).textContent = data.memoriaUsadaMB.toFixed(1);
+            (document.getElementById("mem-tot")).textContent = data.memoriaTotalMB.toFixed(1);
+            (document.getElementById("uptime")).textContent = fmtUptime(data.uptimeSeconds);
+        }
+        catch (e) {
+            console.error(e);
+        }
+    });
+}
 // ----- OBTENER LISTA DE USUARIOS -----
 function fetchUserList() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -313,7 +365,7 @@ function fetchUserList() {
             if (!token || token === '1911') { // No intentar si no hay token real
                 throw new Error('No autenticado. Inicie sesi�n.');
             }
-            const response = yield fetch('https://localhost:7274/api/auth/usuarios', {
+            const response = yield fetch('https://localhost:7274/api/sudo/usuarios', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json', // La respuesta s� ser� JSON
@@ -391,13 +443,12 @@ function changeUserRole(usuarioId, nuevoRolNombre) {
             const token = localStorage.getItem('token');
             if (!token || token === '1911')
                 throw new Error('No autenticado.');
-            const response = yield fetch('https://localhost:7274/api/auth/cambiar-rol', {
+            const response = yield fetch('https://localhost:7274/api/sudo/cambiar-rol', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Asumiendo JSON para este endpoint
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                // El objeto debe coincidir con CambiarRolRequest.cs
                 body: JSON.stringify({ UsuarioId: usuarioId, NuevoRol: rolParaEnviar })
             });
             // Intenta leer la respuesta como JSON, incluso si no es 2xx OK
@@ -575,6 +626,28 @@ document.addEventListener('DOMContentLoaded', () => {
     else {
         console.warn('No se encontr� el formulario de cambio de rol (puede ser normal si no se es SUDO).');
     }
+    /* ---------- BOTONES DEL DASHBOARD SUDO ---------- */
+    const btnActivos = document.getElementById("ver-usuarios-activos");
+    if (btnActivos)
+        btnActivos.addEventListener("click", cargarUsuariosActivos);
+    const btnTodos = document.getElementById("ver-todos-usuarios");
+    if (btnTodos)
+        btnTodos.addEventListener("click", cargarTodosLosUsuarios);
+    const btnRecursos = document.getElementById("ver-recursos");
+    if (btnRecursos)
+        btnRecursos.addEventListener("click", () => {
+            const panel = document.getElementById("recursos-panel");
+            const visible = panel.style.display === "block";
+            if (visible) {
+                panel.style.display = "none";
+                clearInterval(monitorInterval);
+            }
+            else {
+                panel.style.display = "block";
+                actualizarRecursos();
+                monitorInterval = window.setInterval(actualizarRecursos, 5000);
+            }
+        });
     // Listeners para botones de cambio de vista
     const switchToRegisterButton = document.getElementById('switch-to-register');
     if (switchToRegisterButton) {

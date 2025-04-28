@@ -167,7 +167,20 @@ function showPmDashboard(): void {
     const nameElements = document.querySelectorAll("#pm-welcome-name, #pm-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
 }
+function getUserListContainer(): HTMLElement {
+  const el = document.getElementById("user-list-container");
+  if (!el) throw new Error("Falta #user-list-container en el DOM");
+  return el;
+}
 
+function normalizaUsuario(u: any) {
+  return {
+    nombre:        u.Nombre        ?? u.NombreUsuario ?? u.nombre ?? "",
+    correo:        u.Correo        ?? u.correo        ?? "",
+    estaEnLinea:   u.EstaEnLinea   ?? u.estaEnLinea   ?? false,
+    tipoUsuario:   u.TipoUsuario   ?? u.tipoUsuario   ?? null
+  };
+}
 function showFamiliarDashboard(): void {
     const loginContainer = document.getElementById('login-container');
     const registerContainer = document.getElementById('register-container');
@@ -264,51 +277,49 @@ function handleRegisterSubmit(event: Event): void {
     registerUser(formData);
 }
 
-// ----- Función para mostrar usuarios activos -----
+// ----- Función para cargar usuarios activos -----
 async function cargarUsuariosActivos() {
-    const lista = document.getElementById('user-list')!;
-    lista.innerHTML = '<li>Cargando usuarios activos...</li>';
+  const cont = getUserListContainer();
+  cont.innerHTML = "<p>Cargando usuarios activos…</p>";
 
-    try {
-        const response = await fetch('https://localhost:7274/api/sudo/usuarios/activos', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-
-        if (!response.ok) throw new Error('Error al obtener usuarios activos.');
-
-        const usuarios = await response.json();
-        mostrarUsuarios(usuarios, true);
-    } catch (error) {
-        console.error('Error:', error);
-        mostrarErrorUsuarios('Error al cargar usuarios activos.');
-    }
+  try {
+    const token = localStorage.getItem("token");
+    const res   = await fetch("https://localhost:7274/api/sudo/usuarios/activos", {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Error al obtener usuarios activos");
+    const data = await res.json();
+    renderUsuarios(data.map(normalizaUsuario), true);
+  } catch (e) {
+    cont.innerHTML = "<p class='error-message'>No se pudo cargar la lista.</p>";
+    console.error(e);
+  }
 }
 
-
-// ----- Función para mostrar todos los usuarios -----
+// ----- Función para cargar todos los usuarios -----
 async function cargarTodosLosUsuarios() {
-    const lista = document.getElementById('user-list')!;
-    lista.innerHTML = '<li>Cargando todos los usuarios...</li>';
+  const cont = getUserListContainer();
+  cont.innerHTML = "<p>Cargando todos los usuarios…</p>";
 
-    try {
-        const response = await fetch('https://localhost:7274/api/sudo/usuarios', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
+  try {
+    const token = localStorage.getItem("token");
+    const res   = await fetch("https://localhost:7274/api/sudo/usuarios", {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Error al obtener usuarios");
+    const data = await res.json();
+    renderUsuarios(data.map(normalizaUsuario), false);
+  } catch (e) {
+    cont.innerHTML = "<p class='error-message'>No se pudo cargar la lista.</p>";
+    console.error(e);
+  }
+}
 
-        if (!response.ok) throw new Error('Error al obtener usuarios.');
-
-        const usuarios = await response.json();
-        mostrarUsuarios(usuarios, false);
-    } catch (error) {
-        console.error('Error:', error);
-        mostrarErrorUsuarios('Error al cargar todos los usuarios.');
-    }
+function fmtUptime(totalSegundos: number): string {
+  const d = Math.floor(totalSegundos / 86400);          // días
+  const h = Math.floor((totalSegundos % 86400) / 3600); // horas
+  const m = Math.floor((totalSegundos % 3600) / 60);    // minutos
+  return `${d}d ${h}h ${m}m`;
 }
 
 
@@ -330,10 +341,49 @@ function mostrarUsuarios(usuarios: any[], mostrarEstado: boolean) {
         lista.appendChild(li);
     });
 }
+/* ----------- LISTADO DE USUARIOS ----------- */
+function renderUsuarios(users: any[], mostrarEstado: boolean) {
+  const cont = getUserListContainer();
 
-// ----- Asignar eventos a los botones -----
-document.getElementById('ver-usuarios-activos')?.addEventListener('click', cargarUsuariosActivos);
-document.getElementById('ver-todos-usuarios')?.addEventListener('click', cargarTodosLosUsuarios);
+  const filas = users
+    .map(u => {
+      const estado = mostrarEstado
+        ? `<span class="${u.estaEnLinea ? "online" : "offline"}">
+             ${u.estaEnLinea ? "Sí" : "No"}
+           </span>`
+        : "";
+
+      return `<li>${u.nombre} – ${u.correo} ${estado}</li>`;
+    })
+    .join("");
+
+  cont.innerHTML = `<ul id="user-list">${filas}</ul>`;
+}
+
+/* ---------- MONITOR DE RECURSOS ---------- */
+let monitorInterval: number | undefined;
+
+async function actualizarRecursos() {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch("https://localhost:7274/api/sudo/recursos", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error("Error recurso " + res.status);
+
+    const data = await res.json(); // { cpuPercent, memoriaUsadaMB, memoriaTotalMB, uptimeSeconds }
+
+    (document.getElementById("cpu-porc")!).textContent  = data.cpuPercent.toFixed(1);
+    (document.getElementById("mem-uso")!).textContent   = data.memoriaUsadaMB.toFixed(1);
+    (document.getElementById("mem-tot")!).textContent   = data.memoriaTotalMB.toFixed(1);
+    (document.getElementById("uptime")!).textContent    = fmtUptime(data.uptimeSeconds);
+
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 
 
@@ -348,7 +398,7 @@ async function fetchUserList(): Promise<void> {
             throw new Error('No autenticado. Inicie sesión.');
         }
 
-        const response = await fetch('https://localhost:7274/api/auth/usuarios', { // TU URL BACKEND
+        const response = await fetch('https://localhost:7274/api/sudo/usuarios', { // TU URL BACKEND
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', // La respuesta sí será JSON
@@ -419,15 +469,14 @@ async function changeUserRole(usuarioId: number, nuevoRolNombre: string): Promis
         const token = localStorage.getItem('token');
         if (!token || token === '1911') throw new Error('No autenticado.');
 
-        const response = await fetch('https://localhost:7274/api/auth/cambiar-rol', { // TU URL BACKEND
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', // Asumiendo JSON para este endpoint
-                'Authorization': `Bearer ${token}`
-            },
-            // El objeto debe coincidir con CambiarRolRequest.cs
-            body: JSON.stringify({ UsuarioId: usuarioId, NuevoRol: rolParaEnviar })
-        });
+    const response = await fetch('https://localhost:7274/api/sudo/cambiar-rol', {  // ? AQUÍ
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ UsuarioId: usuarioId, NuevoRol: rolParaEnviar })
+    });
 
         // Intenta leer la respuesta como JSON, incluso si no es 2xx OK
         const data: any = await response.json();
@@ -602,7 +651,27 @@ document.addEventListener('DOMContentLoaded', () => {
          console.warn('No se encontró el formulario de cambio de rol (puede ser normal si no se es SUDO).');
      }
 
+  /* ---------- BOTONES DEL DASHBOARD SUDO ---------- */
+  const btnActivos = document.getElementById("ver-usuarios-activos");
+  if (btnActivos) btnActivos.addEventListener("click", cargarUsuariosActivos);
 
+  const btnTodos = document.getElementById("ver-todos-usuarios");
+  if (btnTodos) btnTodos.addEventListener("click", cargarTodosLosUsuarios);
+
+  const btnRecursos = document.getElementById("ver-recursos");
+  if (btnRecursos) btnRecursos.addEventListener("click", () => {
+    const panel   = document.getElementById("recursos-panel")!;
+    const visible = panel.style.display === "block";
+
+    if (visible) {
+      panel.style.display = "none";
+      clearInterval(monitorInterval);
+    } else {
+      panel.style.display = "block";
+      actualizarRecursos();
+      monitorInterval = window.setInterval(actualizarRecursos, 5000);
+    }
+  });
     // Listeners para botones de cambio de vista
     const switchToRegisterButton = document.getElementById('switch-to-register');
     if (switchToRegisterButton) {

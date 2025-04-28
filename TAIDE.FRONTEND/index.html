@@ -200,10 +200,29 @@
     
     <button id="ver-usuarios-activos">Ver Usuarios Activos</button>
     <button id="ver-todos-usuarios">Ver Todos los Usuarios</button>
-    
+    <button id="ver-recursos">Monitor Recursos</button>
+
     <!-- Aquí aparecerá la lista -->
         </header>
         <main>
+    <section id="recursos-panel" class="sudo-section" style="display:none; margin-top:15px;">
+      <h3>Recursos del Servidor</h3>
+
+          <table class="user-table">
+            <tr><th>CPU&nbsp;%</th>      <td id="cpu-porc">-</td></tr>
+            <tr><th>Memoria usada (MB)</th><td id="mem-uso">-</td></tr>
+            <tr><th>Memoria total (MB)</th><td id="mem-tot">-</td></tr>
+            <tr><th>Uptime</th>         <td id="uptime">-</td></tr>
+          </table>
+
+              <div style="display:flex;gap:25px;flex-wrap:wrap">
+                <p><strong>CPU:</strong> <span id="cpu-porc">--</span>%</p>
+                <p><strong>Memoria:</strong> <span id="mem-uso">--</span> / <span id="mem-tot">--</span> MB</p>
+                <p><strong>Uptime:</strong> <span id="uptime">--</span></p>
+              </div>
+
+              <small style="color:#666">*Se actualiza cada&nbsp;5&nbsp;segundos mientras el panel está visible.</small>
+            </section>
             <section class="sudo-section">
                 <h3>Cambiar Rol de Usuario</h3>
                 <form id="change-role-form" class="change-role-form">
@@ -231,6 +250,7 @@
                 <h3>Lista de Usuarios</h3>
                 <div id="user-list-container" class="user-list-container">
                     <p>Cargando lista de usuarios...</p>
+                    <ul id="user-list"></ul>
                 </div>
             </section>
             <button id="logout-button">Cerrar Sesión</button>
@@ -270,7 +290,7 @@
         
         <div id="questions-container" style="display:none;">
             <form id="questions-form"></form>
-       	    <button type="submit">Verificar Respuestas</button>
+            <button type="submit">Verificar Respuestas</button>
         </div>
 
         <div id="new-password-container" style="display:none;">
@@ -420,6 +440,7 @@
             <p>&copy; 2025 VitaCare</p>
         </footer>
     </div>
+
 
     <script src="script.js" defer></script>
 
