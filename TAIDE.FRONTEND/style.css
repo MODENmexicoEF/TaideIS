@@ -571,6 +571,15 @@ button[type="submit"]:active {
     border-radius: 4px;
     box-sizing: border-box;
 }
+.del-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.del-btn:hover { background:#b02a37; }
 
 .change-role-form button {
     padding: 10px 15px;

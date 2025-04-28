@@ -78,7 +78,31 @@ namespace TAIDE.BACKEND.Controllers
             public int UsuarioId { get; set; }
             public string NuevoRol { get; set; } = null!;
         }
+        [Authorize(Roles = "SUDO")]
+        [HttpDelete("usuarios/{id:int}")]
+        public async Task<IActionResult> EliminarUsuario(int id)
+        {
+            // 1) No permitir que un SUDO se elimine a sí mismo (opcional)
+            var idPropio = int.Parse(User.FindFirst("id_usuario")?.Value ?? "0");
+            if (id == idPropio)
+                return BadRequest(new { message = "No puedes eliminar tu propio usuario." });
 
+            // 2) Buscar al usuario (incluye dependencias si necesitas borrado manual)
+            var usuario = await _context.Usuarios
+                                        .Include(u => u.PreguntasSeguridad)
+                                        .FirstOrDefaultAsync(u => u.ID == id);
+
+            if (usuario == null)
+                return NotFound(new { message = "Usuario no encontrado." });
+
+            // 3) Si tienes claves foráneas sin ON DELETE CASCADE, bórralas primero
+            //    _context.PreguntasSeguridad.RemoveRange(usuario.PreguntasSeguridad);
+
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Usuario eliminado con éxito." });
+        }
         [Authorize(Roles = "SUDO")]
         [HttpPost("cambiar-rol")]
         public async Task<IActionResult> CambiarRol([FromBody] CambiarRolRequest req)

@@ -1,4 +1,4 @@
-// ----- INTERFACES (Alineadas con PascalCase del Backend para RESPUESTAS JSON) -----
+Ôªø// ----- INTERFACES (Alineadas con PascalCase del Backend para RESPUESTAS JSON) -----
 // Estas interfaces se usan para leer las RESPUESTAS JSON del servidor
 interface AuthResponse {
     Message: string;
@@ -18,7 +18,7 @@ interface RegisterResponse {
     Error?: string;
 }
 
-// Aseg˙rate que el casing aquÌ coincida con el JSON devuelto por /api/auth/usuarios
+// Aseg√∫rate que el casing aqu√≠ coincida con el JSON devuelto por /api/auth/usuarios
 interface User {
     ID: number;            // Asumiendo PascalCase desde C#
     NombreUsuario: string; // Asumiendo PascalCase
@@ -46,7 +46,7 @@ async function login(email: string, password: string): Promise<void> {
 
         const data: AuthResponse = await response.json();
 
-        alert(data.Message || "Iniciaste sesiÛn correctamente.");
+        alert(data.Message || "Iniciaste sesi√≥n correctamente.");
 
         //  Este es el cambio importante
         const token = data.Token ?? (data as any).token;
@@ -80,7 +80,7 @@ async function login(email: string, password: string): Promise<void> {
 
 
 
-// ----- FUNCI”N REGISTRO (Usando FormData) -----
+// ----- FUNCI√ìN REGISTRO (Usando FormData) -----
 // Acepta el FormData directamente
 async function registerUser(formData: FormData): Promise<void> {
     const registerErrorMessageElement = document.getElementById('register-error-message');
@@ -111,9 +111,9 @@ async function registerUser(formData: FormData): Promise<void> {
             alert(data.Message);
         }
 
-        // Mostrar login despuÈs de 2 segundos
+        // Mostrar login despu√©s de 2 segundos
         setTimeout(() => {
-            showLoginForm(); // Llama a la funciÛn que muestra el login y oculta otros
+            showLoginForm(); // Llama a la funci√≥n que muestra el login y oculta otros
         }, 2000);
 
     } catch (error) {
@@ -127,17 +127,17 @@ async function registerUser(formData: FormData): Promise<void> {
     }
 }
 
-// ----- MANEJADOR DE ENVÕO DE LOGIN -----
+// ----- MANEJADOR DE ENV√çO DE LOGIN -----
 function handleLoginSubmit(event: Event): void {
-    event.preventDefault(); // Prevenir recarga de p·gina
+    event.preventDefault(); // Prevenir recarga de p√°gina
     const emailInput = document.getElementById('email') as HTMLInputElement;
     const passwordInput = document.getElementById('password') as HTMLInputElement;
 
     if (emailInput && passwordInput) {
         login(emailInput.value, passwordInput.value);
     } else {
-        console.error('No se encontraron los elementos de correo o contraseÒa.');
-        alert('Error interno: No se encontraron los campos de inicio de sesiÛn.');
+        console.error('No se encontraron los elementos de correo o contrase√±a.');
+        alert('Error interno: No se encontraron los campos de inicio de sesi√≥n.');
     }
 }
 function mostrarErrorUsuarios(mensaje: string) {
@@ -175,12 +175,14 @@ function getUserListContainer(): HTMLElement {
 
 function normalizaUsuario(u: any) {
   return {
-    nombre:        u.Nombre        ?? u.NombreUsuario ?? u.nombre ?? "",
+    ID:            u.ID            ?? u.id            ?? 0,
+    nombre:        u.NombreUsuario ?? u.Nombre        ?? u.nombre ?? "",
     correo:        u.Correo        ?? u.correo        ?? "",
     estaEnLinea:   u.EstaEnLinea   ?? u.estaEnLinea   ?? false,
     tipoUsuario:   u.TipoUsuario   ?? u.tipoUsuario   ?? null
   };
 }
+
 function showFamiliarDashboard(): void {
     const loginContainer = document.getElementById('login-container');
     const registerContainer = document.getElementById('register-container');
@@ -201,7 +203,7 @@ function showFamiliarDashboard(): void {
     nameElements.forEach(e => e.textContent = nombre);
 }
 
-// ----- MANEJADOR DE ENVÕO DE REGISTRO (Construye FormData desde el form) -----
+// ----- MANEJADOR DE ENV√çO DE REGISTRO (Construye FormData desde el form) -----
 function handleRegisterSubmit(event: Event): void {
     event.preventDefault();
 
@@ -218,7 +220,7 @@ function handleRegisterSubmit(event: Event): void {
     const preguntasInputs = document.querySelectorAll<HTMLInputElement>('input[name="Preguntas[]"]');
     const respuestasInputs = document.querySelectorAll<HTMLInputElement>('input[name="Respuestas[]"]');
 
-    // ValidaciÛn b·sica
+    // Validaci√≥n b√°sica
     if (
         !nombreInput.value.trim() ||
         !ap1Input.value.trim() ||
@@ -230,19 +232,19 @@ function handleRegisterSubmit(event: Event): void {
         return;
     }
 
-    // ValidaciÛn para PM
+    // Validaci√≥n para PM
     const selectedTipoUsuario = rolRadioSelected.value;
     if (selectedTipoUsuario === "1") {
         if (
             !numeroColegiadoInput.value.trim() ||
             !especialidadInput.value.trim()
         ) {
-            alert('Por favor, complete n˙mero de colegiado y especialidad.');
+            alert('Por favor, complete n√∫mero de colegiado y especialidad.');
             return;
         }
     }
 
-    // ValidaciÛn de preguntas de seguridad
+    // Validaci√≥n de preguntas de seguridad
     if (preguntasInputs.length === 0 || respuestasInputs.length === 0) {
         alert("Debes agregar al menos una pregunta y una respuesta.");
         return;
@@ -277,10 +279,10 @@ function handleRegisterSubmit(event: Event): void {
     registerUser(formData);
 }
 
-// ----- FunciÛn para cargar usuarios activos -----
+// ----- Funci√≥n para cargar usuarios activos -----
 async function cargarUsuariosActivos() {
   const cont = getUserListContainer();
-  cont.innerHTML = "<p>Cargando usuarios activosÖ</p>";
+  cont.innerHTML = "<p>Cargando usuarios activos‚Ä¶</p>";
 
   try {
     const token = localStorage.getItem("token");
@@ -296,10 +298,10 @@ async function cargarUsuariosActivos() {
   }
 }
 
-// ----- FunciÛn para cargar todos los usuarios -----
+// ----- Funci√≥n para cargar todos los usuarios -----
 async function cargarTodosLosUsuarios() {
   const cont = getUserListContainer();
-  cont.innerHTML = "<p>Cargando todos los usuariosÖ</p>";
+  cont.innerHTML = "<p>Cargando todos los usuarios‚Ä¶</p>";
 
   try {
     const token = localStorage.getItem("token");
@@ -316,14 +318,15 @@ async function cargarTodosLosUsuarios() {
 }
 
 function fmtUptime(totalSegundos: number): string {
-  const d = Math.floor(totalSegundos / 86400);          // dÌas
-  const h = Math.floor((totalSegundos % 86400) / 3600); // horas
-  const m = Math.floor((totalSegundos % 3600) / 60);    // minutos
+  const d = Math.floor(totalSegundos / 86400);
+  const h = Math.floor((totalSegundos % 86400) / 3600);
+  const m = Math.floor((totalSegundos % 3600) / 60);
   return `${d}d ${h}h ${m}m`;
 }
 
 
-// ----- FunciÛn para renderizar los usuarios -----
+
+// ----- Funci√≥n para renderizar los usuarios -----
 function mostrarUsuarios(usuarios: any[], mostrarEstado: boolean) {
     const lista = document.getElementById('user-list')!;
     lista.innerHTML = '';
@@ -334,7 +337,7 @@ function mostrarUsuarios(usuarios: any[], mostrarEstado: boolean) {
 
         if (mostrarEstado) {
             const estado = document.createElement('span');
-            estado.textContent = usuario.estaEnLinea ? ' En lÌnea' : ' Desconectado';
+            estado.textContent = usuario.estaEnLinea ? ' En l√≠nea' : ' Desconectado';
             li.appendChild(estado);
         }
 
@@ -342,66 +345,159 @@ function mostrarUsuarios(usuarios: any[], mostrarEstado: boolean) {
     });
 }
 /* ----------- LISTADO DE USUARIOS ----------- */
-function renderUsuarios(users: any[], mostrarEstado: boolean) {
+
+// (por ejemplo justo antes de renderUsuarios)
+function rolTexto(tipo: number | null): string {
+  switch (tipo) {
+    case 0: return "Paciente";
+    case 1: return "PM";
+    case 2: return "Familiar";
+    case 3: return "SUDO";
+    default: return "¬ø?";
+  }
+}
+
+/* ----------- LISTADO DE USUARIOS ----------- */
+function renderUsuarios(users: any[], mostrarEstado: boolean): void {
   const cont = getUserListContainer();
 
   const filas = users
     .map(u => {
-      const estado = mostrarEstado
-        ? `<span class="${u.estaEnLinea ? "online" : "offline"}">
-             ${u.estaEnLinea ? "SÌ" : "No"}
-           </span>`
-        : "";
+const estado = mostrarEstado
+  ? `<span class="${u.estaEnLinea ? "online" : "offline"}">
+       ${u.estaEnLinea ? "S\u00ED" : "No"}
+     </span>`
+  : "";
 
-      return `<li>${u.nombre} ñ ${u.correo} ${estado}</li>`;
+return `
+  <tr>
+    <td>${u.ID}</td>
+    <td>${u.nombre}</td>
+    <td>${rolTexto(u.tipoUsuario)}</td>
+    <td>${estado}</td>
+    <td><button class="del-btn" data-id="${u.ID}">\u{1F5D1}</button></td>
+  </tr>`;
     })
     .join("");
 
-  cont.innerHTML = `<ul id="user-list">${filas}</ul>`;
+  cont.innerHTML = `
+    <table class="user-table">
+      <thead>
+  <tr>
+        <th>ID</th>
+        <th>Nombre Usuario</th>
+        <th>Rol</th>
+        <th>En L\u00EDnea</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+        ${filas}
+      </tbody>
+    </table>`;
 }
 
 /* ---------- MONITOR DE RECURSOS ---------- */
-let monitorInterval: number | undefined;
+async function deleteUser(id: number): Promise<void> {
+  if (!confirm("¬øSeguro que quieres eliminar al usuario " + id + "?")) return;
 
-async function actualizarRecursos() {
   const token = localStorage.getItem("token");
-  if (!token) return;
+  if (!token) return alert("No autenticado.");
 
   try {
-    const res = await fetch("https://localhost:7274/api/sudo/recursos", {
+    const res = await fetch(`https://localhost:7274/api/sudo/usuarios/${id}`, {
+      method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
-    if (!res.ok) throw new Error("Error recurso " + res.status);
 
-    const data = await res.json(); // { cpuPercent, memoriaUsadaMB, memoriaTotalMB, uptimeSeconds }
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || `Error ${res.status}`);
 
-    (document.getElementById("cpu-porc")!).textContent  = data.cpuPercent.toFixed(1);
-    (document.getElementById("mem-uso")!).textContent   = data.memoriaUsadaMB.toFixed(1);
-    (document.getElementById("mem-tot")!).textContent   = data.memoriaTotalMB.toFixed(1);
-    (document.getElementById("uptime")!).textContent    = fmtUptime(data.uptimeSeconds);
-
-  } catch (e) {
+    alert(data.message || "Usuario eliminado.");
+    fetchUserList(); // recargar lista
+  } catch (e: any) {
+    alert(e.message || "Error al eliminar usuario.");
     console.error(e);
   }
 }
 
+// delegaci√≥n de eventos: un solo listener para toda la tabla
+document.addEventListener("click", ev => {
+  const target = ev.target as HTMLElement;
+  if (target.classList.contains("del-btn")) {
+    const id = parseInt(target.dataset.id || "0", 10);
+    if (id) deleteUser(id);
+  }
+});
+document.addEventListener("click", ev => {
+  const target = ev.target as HTMLElement;
+  if (target.classList.contains("del-btn")) {
+    const id = parseInt(target.dataset.id || "0", 10);
+    if (id) deleteUser(id);
+  }
+});
+let monitorInterval: number | undefined;
+
+interface RecursosResponse {
+  CpuPercent: number;
+  MemoriaUsadaMB: number;
+  MemoriaTotalMB: number;
+  UptimeSeconds: number;
+}
+
+async function actualizarRecursos(): Promise<void> {
+  // 1. Recuperar el token UNA sola vez, fuera del try
+  const token = localStorage.getItem("token");
+  if (!token) return;               // 2. Si no hay token, salimos
+
+  try {
+    // 3. Hacer la petici√≥n protegida
+    const res = await fetch("https://localhost:7274/api/sudo/recursos", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+
+    const data = (await res.json()) as RecursosResponse;
+
+    document.getElementById("cpu-porc")!.textContent =
+      data.CpuPercent.toFixed(1) + " %";
+
+    document.getElementById("mem-uso")!.textContent =
+      data.MemoriaUsadaMB.toFixed(0);
+
+    document.getElementById("mem-tot")!.textContent =
+      data.MemoriaTotalMB.toFixed(0);
+
+    document.getElementById("uptime")!.textContent =
+      formateaSegundos(data.UptimeSeconds);
+  } catch (e) {
+    console.error("Error al actualizar recursos:", e);
+  }
+}
+function formateaSegundos(seg: number): string {
+  const h = Math.floor(seg / 3600);
+  const m = Math.floor((seg % 3600) / 60);
+  const s = Math.floor(seg % 60);
+  return `${h} h ${m} m ${s} s`;
+}
 
 
 // ----- OBTENER LISTA DE USUARIOS -----
 async function fetchUserList(): Promise<void> {
     const userListContainer = document.getElementById('user-list-container');
+    const token = localStorage.getItem('token');
     if (!userListContainer) return;
 
     try {
-        const token = localStorage.getItem('token');
+        
         if (!token || token === '1911') { // No intentar si no hay token real
-            throw new Error('No autenticado. Inicie sesiÛn.');
+            throw new Error('No autenticado. Inicie sesi√≥n.');
         }
 
         const response = await fetch('https://localhost:7274/api/sudo/usuarios', { // TU URL BACKEND
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json', // La respuesta sÌ ser· JSON
+                'Content-Type': 'application/json', // La respuesta s√≠ ser√° JSON
                 'Authorization': `Bearer ${token}`
             }
         });
@@ -424,7 +520,7 @@ async function fetchUserList(): Promise<void> {
                                     <th>ID</th>
                                     <th>Nombre Usuario</th>
                                     <th>Rol</th>
-                                    <th>En LÌnea</th>
+                                    <th>En L√≠nea</th>
                                   </tr>
                                 </thead>
                                 <tbody>`;
@@ -442,7 +538,7 @@ async function fetchUserList(): Promise<void> {
                                 <td>${user.ID}</td>
                                 <td>${user.NombreUsuario}</td>
                                 <td>${rolTexto}</td>
-                                <td><span class="${user.EnLinea ? 'online' : 'offline'}">${user.EnLinea ? 'SÌ' : 'No'}</span></td>
+                                <td><span class="${user.EnLinea ? 'online' : 'offline'}">${user.EnLinea ? 'S√≠' : 'No'}</span></td>
                               </tr>`;
         });
         userTableHTML += '</tbody></table>';
@@ -460,16 +556,16 @@ async function fetchUserList(): Promise<void> {
 
 // ----- CAMBIAR ROL -----
 // Verifica si este endpoint en tu backend espera [FromBody] (JSON) o [FromForm]
-// Este cÛdigo asume [FromBody] (JSON) como estaba antes.
+// Este c√≥digo asume [FromBody] (JSON) como estaba antes.
 async function changeUserRole(usuarioId: number, nuevoRolNombre: string): Promise<void> {
-    // El backend espera el nombre del rol ("PM", "SUDO", etc.) seg˙n CambiarRolRequest.cs
+    // El backend espera el nombre del rol ("PM", "SUDO", etc.) seg√∫n CambiarRolRequest.cs
     let rolParaEnviar = nuevoRolNombre.toUpperCase();
 
     try {
         const token = localStorage.getItem('token');
         if (!token || token === '1911') throw new Error('No autenticado.');
 
-    const response = await fetch('https://localhost:7274/api/sudo/cambiar-rol', {  // ? AQUÕ
+    const response = await fetch('https://localhost:7274/api/sudo/cambiar-rol', {  // ? AQU√ç
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -482,11 +578,11 @@ async function changeUserRole(usuarioId: number, nuevoRolNombre: string): Promis
         const data: any = await response.json();
 
         if (!response.ok) {
-            // Usa el mensaje del JSON si est· disponible
+            // Usa el mensaje del JSON si est√° disponible
             throw new Error(data.message || data.title || `Error ${response.status}`);
         }
 
-        alert(data.message || 'Rol cambiado con Èxito');
+        alert(data.message || 'Rol cambiado con √©xito');
         fetchUserList(); // Recargar lista para ver el cambio
 
     } catch (error) {
@@ -498,7 +594,7 @@ async function changeUserRole(usuarioId: number, nuevoRolNombre: string): Promis
 
 
 // ----- MANEJADOR CAMBIO DE ROL -----
-// Este listener se aÒade m·s abajo en DOMContentLoaded
+// Este listener se a√±ade m√°s abajo en DOMContentLoaded
 function handleChangeRoleSubmit(event: Event) {
      event.preventDefault();
      const usuarioIdInput = document.getElementById('sudo-usuarioId') as HTMLInputElement;
@@ -507,11 +603,11 @@ function handleChangeRoleSubmit(event: Event) {
          const userId = parseInt(usuarioIdInput.value, 10);
          const nuevoRol = nuevoRolInput.value;
          if (!isNaN(userId)) {
-              changeUserRole(userId, nuevoRol); // Llamar a la funciÛn
+              changeUserRole(userId, nuevoRol); // Llamar a la funci√≥n
               usuarioIdInput.value = ''; // Limpiar campos
               nuevoRolInput.value = '';
          } else {
-              alert('El ID del usuario debe ser un n˙mero.');
+              alert('El ID del usuario debe ser un n√∫mero.');
          }
      } else {
          alert('Por favor, complete todos los campos para cambiar el rol.');
@@ -546,7 +642,7 @@ function showSudoDashboard(): void {
     if (registerContainer) registerContainer.style.display = 'none';
     if (pmDashboard) pmDashboard.style.display = 'none';
     if (familiarDashboard) familiarDashboard.style.display = 'none';
-    if (sudoDashboard) sudoDashboard.style.display = 'flex'; // O 'block' seg˙n tu CSS
+    if (sudoDashboard) sudoDashboard.style.display = 'flex'; // O 'block' seg√∫n tu CSS
 
     fetchUserList(); // Cargar lista al mostrar dashboard
 }
@@ -584,10 +680,10 @@ hideAllSections();
   if (loginForm) loginForm.reset();
 }
 
-// ----- FUNCI”N LOGOUT -----
+// ----- FUNCI√ìN LOGOUT -----
 function logout(): void {
     localStorage.removeItem('token');
-    alert('SesiÛn cerrada.');
+    alert('Sesi√≥n cerrada.');
 
     // Ocultar todos los dashboards manualmente
     const dashboards = [
@@ -602,7 +698,7 @@ function logout(): void {
         if (element) element.style.display = 'none';
     });
 
-    showLoginForm(); // Muestra el login despuÈs de cerrar sesiÛn
+    showLoginForm(); // Muestra el login despu√©s de cerrar sesi√≥n
 }
 
 // ----- EVENT LISTENERS (Organizados y correctos) -----
@@ -612,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', handleLoginSubmit);
     } else {
-        console.error('No se encontrÛ el formulario de inicio de sesiÛn.');
+        console.error('No se encontr√≥ el formulario de inicio de sesi√≥n.');
     }
 
     // Listener para el formulario de Registro
@@ -620,7 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (registerForm) {
         registerForm.addEventListener('submit', handleRegisterSubmit); // Escucha submit del form
 
-         // LÛgica para mostrar/ocultar campos de PM basada en el rol seleccionado
+         // L√≥gica para mostrar/ocultar campos de PM basada en el rol seleccionado
          const rolPaciente = document.getElementById('rol-paciente') as HTMLInputElement;
          const rolPM = document.getElementById('rol-pm') as HTMLInputElement;
          const rolFamiliar = document.getElementById('rol-familiar') as HTMLInputElement;
@@ -640,7 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
          }
 
     } else {
-        console.error('No se encontrÛ el formulario de registro.');
+        console.error('No se encontr√≥ el formulario de registro.');
     }
 
      // Listener para el formulario de cambio de rol
@@ -648,7 +744,7 @@ document.addEventListener('DOMContentLoaded', () => {
      if (changeRoleForm) {
          changeRoleForm.addEventListener('submit', handleChangeRoleSubmit);
      } else {
-         console.warn('No se encontrÛ el formulario de cambio de rol (puede ser normal si no se es SUDO).');
+         console.warn('No se encontr√≥ el formulario de cambio de rol (puede ser normal si no se es SUDO).');
      }
 
   /* ---------- BOTONES DEL DASHBOARD SUDO ---------- */
@@ -690,14 +786,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // Verificar sesiÛn al cargar o mostrar login por defecto
-    // checkUserSession(); // Descomenta si quieres intentar verificar sesiÛn
+    // Verificar sesi√≥n al cargar o mostrar login por defecto
+    // checkUserSession(); // Descomenta si quieres intentar verificar sesi√≥n
     showLoginForm(); // Muestra el login al inicio por defecto
 
 });
 
-// === Funciones para RecuperaciÛn de ContraseÒa ===
-// === Funciones para RecuperaciÛn de ContraseÒa ===
+// === Funciones para Recuperaci√≥n de Contrase√±a ===
+// === Funciones para Recuperaci√≥n de Contrase√±a ===
 
 function showRecoverForm() {
   hideAllSections();
@@ -727,7 +823,7 @@ function handleRecoverSubmit(event: Event): void {
       questionsForm.innerHTML = "";
 
       if (!data.tienePreguntas) {
-        errorBox!.textContent = "Consulta con un tÈcnico para la recuperaciÛn de tu contraseÒa.";
+        errorBox!.textContent = "Consulta con un t√©cnico para la recuperaci√≥n de tu contrase√±a.";
         return;
       }
 
@@ -779,11 +875,11 @@ function handleQuestionsSubmit(event: Event): void {
       .then(res => res.json().then(data => ({ ok: res.ok, data })))
       .then(({ ok, data }) => {
         if (!ok) throw new Error(data.message || "Error inesperado");
-        alert("ContraseÒa cambiada correctamente. Inicia sesiÛn con la nueva contraseÒa.");
+        alert("Contrase√±a cambiada correctamente. Inicia sesi√≥n con la nueva contrase√±a.");
         showLoginForm();
       })
       .catch(err => {
-        alert(err.message || "Error al cambiar la contraseÒa.");
+        alert(err.message || "Error al cambiar la contrase√±a.");
       });
   };
 }
@@ -818,7 +914,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const returnToLoginBtn = document.getElementById("return-to-login");
   if (returnToLoginBtn) returnToLoginBtn.addEventListener("click", showLoginForm);
 
-  // === BotÛn para agregar m·s preguntas din·micas ===
+  // === Bot√≥n para agregar m√°s preguntas din√°micas ===
 const agregarPreguntaBtn = document.getElementById("agregar-pregunta");
 
 if (agregarPreguntaBtn && !agregarPreguntaBtn.hasAttribute("data-listener-added")) {
@@ -829,14 +925,14 @@ if (agregarPreguntaBtn && !agregarPreguntaBtn.hasAttribute("data-listener-added"
     const preguntaGroup = document.createElement("div");
     preguntaGroup.className = "form-group";
     preguntaGroup.innerHTML = `
-      <label>Pregunta de RecuperaciÛn:</label>
+      <label>Pregunta de Recuperaci√≥n:</label>
       <input type="text" name="Preguntas[]" required>
     `;
 
     const respuestaGroup = document.createElement("div");
     respuestaGroup.className = "form-group";
     respuestaGroup.innerHTML = `
-      <label>Respuesta de RecuperaciÛn:</label>
+      <label>Respuesta de Recuperaci√≥n:</label>
       <input type="text" name="Respuestas[]" required>
     `;
 
@@ -847,17 +943,17 @@ if (agregarPreguntaBtn && !agregarPreguntaBtn.hasAttribute("data-listener-added"
   agregarPreguntaBtn.setAttribute("data-listener-added", "true");
 }
 });
-// ----- FUNCI”N CHECK SESSION (Placeholder - requiere implementaciÛn real) -----
+// ----- FUNCI√ìN CHECK SESSION (Placeholder - requiere implementaci√≥n real) -----
 function checkUserSession(): void {
     const token = localStorage.getItem('token');
     if (token && token !== '1911') { // Solo intentar si hay un token "real"
-        // TODO: Implementar lÛgica real aquÌ.
+        // TODO: Implementar l√≥gica real aqu√≠.
         // 1. Llamar a un endpoint API /api/auth/verify o similar con el token.
         // 2. El backend verifica el token y devuelve la info del usuario (ID, Rol).
         // 3. Basado en la respuesta, mostrar el dashboard correcto o el login.
         // Ejemplo:
         // fetch('/api/auth/verify', { headers: {'Authorization': `Bearer ${token}`}})
-        //   .then(res => res.ok ? res.json() : Promise.reject('Token inv·lido'))
+        //   .then(res => res.ok ? res.json() : Promise.reject('Token inv√°lido'))
         //   .then(userData => {
         //        if (userData.TipoUsuario === 3) showSudoDashboard();
         //        else if (userData.TipoUsuario === 1) window.location.href = 'pm-dashboard.html';
@@ -865,8 +961,8 @@ function checkUserSession(): void {
         //   })
         //   .catch(err => { console.error(err); localStorage.removeItem('token'); showLoginForm(); });
 
-        console.warn('Simulando verificaciÛn de sesiÛn. En producciÛn, verifica el token con tu API.');
-        // SimulaciÛn simple (INSEGURA): Asume SUDO si hay token
+        console.warn('Simulando verificaci√≥n de sesi√≥n. En producci√≥n, verifica el token con tu API.');
+        // Simulaci√≥n simple (INSEGURA): Asume SUDO si hay token
          showSudoDashboard();
     } else {
         // Si no hay token o es el falso, muestra el formulario de login

@@ -172,6 +172,22 @@
   },
   {
     "ContainingType": "TAIDE.BACKEND.Controllers.SudoController",
+    "Method": "EliminarUsuario",
+    "RelativePath": "api/sudo/usuarios/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TAIDE.BACKEND.Controllers.SudoController",
     "Method": "ObtenerUsuariosActivos",
     "RelativePath": "api/sudo/usuarios/activos",
     "HttpMethod": "GET",
