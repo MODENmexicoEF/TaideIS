@@ -269,6 +269,9 @@
     <main class="welcome">
         <h2>Bienvenido/a, <span id="paciente-welcome-name-main"></span></h2>
         <p>Este es su panel personal. Aquí podrá ver su información médica, próximas citas y recomendaciones.</p>
+            <section style="margin-top:20px;">
+          <h3>Estado Actual:</h3>
+          <p id="paciente-estado">Cargando estado...</p>
     </main>
     <footer>
         <p>&copy; 2025 VitaCare</p>
@@ -402,25 +405,33 @@
         </main>
     </div>
 
-    <div class="pm-container" id="pm-dashboard" style="display: none;">
-        <header>
-            <h1>Panel del Profesional Médico</h1>
-            <nav>
-                <ul>
-                    <li><span id="pm-welcome-name"></span></li>
-                    <li><button id="logout-button-pm" type="button">Cerrar Sesión</button></li>
-                </ul>
-            </nav>
-        </header>
-        <main class="welcome">
-            <h2>Bienvenido, Dr./Dra. <span id="pm-welcome-name-main"></span></h2>
-            <p>Este es su panel de control.
-                Aquí podrá gestionar a sus pacientes, ver su historial y realizar otras acciones.</p>
-        </main>
-        <footer>
-            <p>&copy; 2025 VitaCare</p>
-        </footer>
-    </div>
+<div class="pm-container" id="pm-dashboard" style="display: none;">
+  <header>
+    <h1>Panel del Profesional Médico</h1>
+    <nav>
+      <ul>
+        <li><span id="pm-welcome-name"></span></li>
+        <li><button id="logout-button-pm" type="button">Cerrar Sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="welcome">
+    <h2>Bienvenido, Dr./Dra. <span id="pm-welcome-name-main"></span></h2>
+    <p>
+      Este es su panel de control. Aquí podrá gestionar a sus pacientes,
+      ver su historial y realizar otras acciones.
+    </p>
+
+    <!-- === NUEVA SECCIÓN === -->
+    <section style="margin-top: 30px;">
+      <h3>Pacientes asignados</h3>
+      <button id="pm-reload-pacientes" type="button" style="margin-bottom:10px;">↺ Recargar</button>
+
+      <!-- La función renderPacientesParaPM llenará esta tabla -->
+      <table id="pacientes-container" class="user-table"></table>
+    </section>
+  </main>
     <div class="familiar-container" id="familiar-dashboard" style="display: none;">
         <header>
             <h1>Panel del Familiar</h1>

@@ -84,7 +84,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
-
+builder.Services.AddScoped<UsuarioService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

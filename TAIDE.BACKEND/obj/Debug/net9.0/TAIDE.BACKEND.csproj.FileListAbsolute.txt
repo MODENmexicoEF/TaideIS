@@ -1,11 +1,3 @@
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.csproj.AssemblyReference.cache
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.AssemblyInfoInputs.cache
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.AssemblyInfo.cs
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.csproj.CoreCompileInputs.cache
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.sourcelink.json
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\net9.0\appsettings.json
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\net9.0\TAIDE.BACKEND.staticwebassets.endpoints.json
@@ -100,6 +92,14 @@ C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.csproj.AssemblyReference.cache
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.AssemblyInfoInputs.cache
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.AssemblyInfo.cs
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.csproj.CoreCompileInputs.cache
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\TAIDE.BACKEND.sourcelink.json
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\scopedcss\bundle\TAIDE.BACKEND.styles.css
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net9.0\staticwebassets.development.json

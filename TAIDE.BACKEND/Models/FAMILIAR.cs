@@ -8,12 +8,17 @@ using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TuProyecto.Models
 {
     public class Familiar : Usuario
     {
-        public List<Paciente> Pacientes { get; set; } = new List<Paciente>(); // Considera si esta relación es necesaria aquí o solo a través de PacientesFamiliares
+        [JsonIgnore]
+        public ICollection<Paciente> Pacientes { get; set; } = new List<Paciente>();
+
+        [JsonIgnore]
+
         public ICollection<PacientesFamiliares> PacientesFamiliares { get; set; } = new List<PacientesFamiliares>();
 
         public Familiar() { }

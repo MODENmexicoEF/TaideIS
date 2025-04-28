@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using TuProyecto.Data;
 using TuProyecto.Models;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TuProyecto.Models
 {
@@ -28,5 +30,10 @@ namespace TuProyecto.Models
         {
             // Discriminator = "Paciente"; // BORRADO - El constructor base ya debería asignarlo
         }
+        [Column("estado")]              // ← NUEVO: columna en MySQL
+        [MaxLength(255)]
+        public string? Estado { get; set; }   // ← NUEVO: propiedad
+
     }
+
 }

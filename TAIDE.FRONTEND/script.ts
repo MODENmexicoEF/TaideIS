@@ -166,6 +166,7 @@ function showPmDashboard(): void {
     const nombre = localStorage.getItem("nombre_usuario") || "Profesional";
     const nameElements = document.querySelectorAll("#pm-welcome-name, #pm-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
+    cargarPacientesPM();
 }
 function getUserListContainer(): HTMLElement {
   const el = document.getElementById("user-list-container");
@@ -422,20 +423,7 @@ async function deleteUser(id: number): Promise<void> {
 }
 
 // delegación de eventos: un solo listener para toda la tabla
-document.addEventListener("click", ev => {
-  const target = ev.target as HTMLElement;
-  if (target.classList.contains("del-btn")) {
-    const id = parseInt(target.dataset.id || "0", 10);
-    if (id) deleteUser(id);
-  }
-});
-document.addEventListener("click", ev => {
-  const target = ev.target as HTMLElement;
-  if (target.classList.contains("del-btn")) {
-    const id = parseInt(target.dataset.id || "0", 10);
-    if (id) deleteUser(id);
-  }
-});
+
 let monitorInterval: number | undefined;
 
 interface RecursosResponse {
@@ -443,6 +431,96 @@ interface RecursosResponse {
   MemoriaUsadaMB: number;
   MemoriaTotalMB: number;
   UptimeSeconds: number;
+}
+interface PacienteInfo {
+  id: number;
+  nombreUsuario: string;
+  estado: string | null;
+}
+interface PacienteApi {
+  ID: number;
+  NombreUsuario: string;
+  Estado: string | null;
+}
+async function actualizarEstadoPaciente(id: number, estado: string) {
+  if (!estado.trim()) return alert('Debes escribir un estado');
+  const token = localStorage.getItem('token');
+  if (!token) return alert('Sesión expirada');
+
+  try {
+    const res = await fetch(
+      `https://localhost:7274/api/pm/pacientes/${id}/estado`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ estado }),
+      }
+    );
+
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    alert('Estado actualizado');
+    cargarPacientesPM(); // refresca la tabla
+  } catch (e: any) {
+    alert(e.message || 'Error al actualizar estado');
+  }
+}
+
+
+/* ---- NUEVO / Mueve aquí si ya la tenías más abajo ---- */
+function renderPacientesParaPM(pacientes: PacienteInfo[]): void {
+  const cont = document.getElementById("pacientes-container");
+  if (!cont) return;
+  if (pacientes.length === 0) {
+  cont.innerHTML = "<tr><td colspan='4'>No hay pacientes registrados.</td></tr>";
+  return;
+}
+
+  cont.innerHTML = pacientes
+    .map(
+      p => `
+        <tr>
+          <td>${p.id}</td>
+          <td>${p.nombreUsuario}</td>
+          <td>${p.estado ?? "-"}</td>
+          <td>
+            <input type="text" id="estado-${p.id}" placeholder="Nuevo estado">
+            <button class="btn-guardar-estado" data-id="${p.id}">Guardar</button>
+          </td>
+        </tr>`
+    )
+    .join("");
+
+  /* ⬇️  Un solo listener delegado para todos los botones */
+  cont.querySelectorAll<HTMLButtonElement>(".btn-guardar-estado")
+      .forEach(btn =>
+        btn.addEventListener("click", () => {
+          const id = Number(btn.dataset.id);
+          const input = document.getElementById(`estado-${id}`) as HTMLInputElement;
+          actualizarEstadoPaciente(id, input.value);
+        }));
+}
+
+async function cargarPacientesPM() {
+  const token = localStorage.getItem("token");
+  if (!token) return alert("Sesión expirada.");
+
+  const res = await fetch("https://localhost:7274/api/pm/pacientes", {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) return alert("Error al cargar pacientes");
+
+  const apiData: PacienteApi[] = await res.json();
+
+  const pacientes: PacienteInfo[] = apiData.map(p => ({
+    id: p.ID,
+    nombreUsuario: p.NombreUsuario,
+    estado: p.Estado
+  }));
+
+  renderPacientesParaPM(pacientes);
 }
 
 async function actualizarRecursos(): Promise<void> {
@@ -526,18 +604,18 @@ async function fetchUserList(): Promise<void> {
                                 <tbody>`;
 
         users.forEach(user => {
-            let rolTexto: string;
+            let rolNombre: string;
             switch (user.TipoUsuario) {
-                case 0: rolTexto = 'Paciente'; break;
-                case 1: rolTexto = 'PM'; break;
-                case 2: rolTexto = 'Familiar'; break;
-                case 3: rolTexto = 'SUDO'; break;
-                default: rolTexto = 'Desconocido'; break;
+                case 0: rolNombre = 'Paciente'; break;
+                case 1: rolNombre = 'PM'; break;
+                case 2: rolNombre = 'Familiar'; break;
+                case 3: rolNombre = 'SUDO'; break;
+                default: rolNombre = 'Desconocido'; break;
             }
             userTableHTML += `<tr>
                                 <td>${user.ID}</td>
                                 <td>${user.NombreUsuario}</td>
-                                <td>${rolTexto}</td>
+                                <td>${rolNombre}</td>
                                 <td><span class="${user.EnLinea ? 'online' : 'offline'}">${user.EnLinea ? 'Sí' : 'No'}</span></td>
                               </tr>`;
         });
@@ -565,7 +643,7 @@ async function changeUserRole(usuarioId: number, nuevoRolNombre: string): Promis
         const token = localStorage.getItem('token');
         if (!token || token === '1911') throw new Error('No autenticado.');
 
-    const response = await fetch('https://localhost:7274/api/sudo/cambiar-rol', {  // ? AQUÍ
+    const response = await fetch('https://localhost:7274/api/sudo/cambiar-rol', {  // ← AQUÍ
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -612,22 +690,6 @@ function handleChangeRoleSubmit(event: Event) {
      } else {
          alert('Por favor, complete todos los campos para cambiar el rol.');
      }
-}
-
-function showPacienteDashboard(): void {
-    const loginContainer = document.getElementById('login-container');
-    const registerContainer = document.getElementById('register-container');
-    const pacienteDashboard = document.getElementById('paciente-dashboard');
-    const familiarDashboard = document.getElementById('familiar-dashboard');
-    const pmDashboard = document.getElementById('pm-dashboard');
-    const sudoDashboard = document.getElementById('sudo-dashboard');
-
-    if (loginContainer) loginContainer.style.display = 'none';
-    if (registerContainer) registerContainer.style.display = 'none';
-    if (familiarDashboard) familiarDashboard.style.display = 'none';
-    if (pmDashboard) pmDashboard.style.display = 'none';
-    if (sudoDashboard) sudoDashboard.style.display = 'none';
-    if (pacienteDashboard) pacienteDashboard.style.display = 'flex'; // o block
 }
 
 // ----- FUNCIONES DE VISIBILIDAD -----
@@ -701,96 +763,8 @@ function logout(): void {
     showLoginForm(); // Muestra el login después de cerrar sesión
 }
 
-// ----- EVENT LISTENERS (Organizados y correctos) -----
-document.addEventListener('DOMContentLoaded', () => {
-    // Listener para el formulario de Login
-    const loginForm = document.getElementById('login-form') as HTMLFormElement;
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLoginSubmit);
-    } else {
-        console.error('No se encontró el formulario de inicio de sesión.');
-    }
+// ----- EVENT LISTENERS (Organizados y correctos) 1-----
 
-    // Listener para el formulario de Registro
-    const registerForm = document.getElementById('register-form') as HTMLFormElement;
-    if (registerForm) {
-        registerForm.addEventListener('submit', handleRegisterSubmit); // Escucha submit del form
-
-         // Lógica para mostrar/ocultar campos de PM basada en el rol seleccionado
-         const rolPaciente = document.getElementById('rol-paciente') as HTMLInputElement;
-         const rolPM = document.getElementById('rol-pm') as HTMLInputElement;
-         const rolFamiliar = document.getElementById('rol-familiar') as HTMLInputElement;
-         const pmFields = document.getElementById('pm-fields');
-
-         function togglePMFields() {
-             if(pmFields && rolPM) {
-                pmFields.style.display = rolPM.checked ? 'block' : 'none';
-             }
-         }
-
-         if (rolPaciente && rolPM && rolFamiliar && pmFields) {
-             rolPaciente.addEventListener('change', togglePMFields);
-             rolPM.addEventListener('change', togglePMFields);
-             rolFamiliar.addEventListener('change', togglePMFields);
-             togglePMFields(); // Estado inicial al cargar
-         }
-
-    } else {
-        console.error('No se encontró el formulario de registro.');
-    }
-
-     // Listener para el formulario de cambio de rol
-     const changeRoleForm = document.getElementById('change-role-form') as HTMLFormElement;
-     if (changeRoleForm) {
-         changeRoleForm.addEventListener('submit', handleChangeRoleSubmit);
-     } else {
-         console.warn('No se encontró el formulario de cambio de rol (puede ser normal si no se es SUDO).');
-     }
-
-  /* ---------- BOTONES DEL DASHBOARD SUDO ---------- */
-  const btnActivos = document.getElementById("ver-usuarios-activos");
-  if (btnActivos) btnActivos.addEventListener("click", cargarUsuariosActivos);
-
-  const btnTodos = document.getElementById("ver-todos-usuarios");
-  if (btnTodos) btnTodos.addEventListener("click", cargarTodosLosUsuarios);
-
-  const btnRecursos = document.getElementById("ver-recursos");
-  if (btnRecursos) btnRecursos.addEventListener("click", () => {
-    const panel   = document.getElementById("recursos-panel")!;
-    const visible = panel.style.display === "block";
-
-    if (visible) {
-      panel.style.display = "none";
-      clearInterval(monitorInterval);
-    } else {
-      panel.style.display = "block";
-      actualizarRecursos();
-      monitorInterval = window.setInterval(actualizarRecursos, 5000);
-    }
-  });
-    // Listeners para botones de cambio de vista
-    const switchToRegisterButton = document.getElementById('switch-to-register');
-    if (switchToRegisterButton) {
-        switchToRegisterButton.addEventListener('click', showRegisterForm);
-    }
-
-    const switchToLoginButton = document.getElementById('switch-to-login');
-    if (switchToLoginButton) {
-        switchToLoginButton.addEventListener('click', showLoginForm);
-    }
-
-    // Listeners para botones de Logout (agrupados)
-    const logoutButtons = document.querySelectorAll('#logout-button, #logout-button-pm, #logout-button-familiar, #logout-button-paciente');
-    logoutButtons.forEach(button => {
-        button.addEventListener('click', logout);
-    });
-
-
-    // Verificar sesión al cargar o mostrar login por defecto
-    // checkUserSession(); // Descomenta si quieres intentar verificar sesión
-    showLoginForm(); // Muestra el login al inicio por defecto
-
-});
 
 // === Funciones para Recuperación de Contraseña ===
 // === Funciones para Recuperación de Contraseña ===
@@ -814,7 +788,7 @@ function handleRecoverSubmit(event: Event): void {
   fetch("https://localhost:7274/api/auth/recuperar/obtener-preguntas", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(correoInput.value.trim())
+    body: JSON.stringify({ correo: correoInput.value.trim() })
   })
     .then(res => res.json())
     .then(data => {
@@ -858,8 +832,13 @@ function handleQuestionsSubmit(event: Event): void {
   (document.getElementById("new-password-container") as HTMLElement).style.display = "block";
 
   const newPasswordForm = document.getElementById("new-password-form")!;
+  if (!newPasswordForm) {
+  alert("Error interno: Formulario no encontrado.");
+  return;
+}
   newPasswordForm.onsubmit = function (e) {
     e.preventDefault();
+}
     const nuevaPassInput = document.getElementById("new-password") as HTMLInputElement;
     const correo = (document.getElementById("recover-email") as HTMLInputElement).value;
 
@@ -882,6 +861,59 @@ function handleQuestionsSubmit(event: Event): void {
         alert(err.message || "Error al cambiar la contraseña.");
       });
   };
+
+async function cargarMiEstadoPaciente() {
+    const estadoElemento = document.getElementById("paciente-estado");
+    if (!estadoElemento) {
+        console.error("Elemento #paciente-estado no encontrado.");
+        return;
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        estadoElemento.textContent = "No autenticado.";
+        return;
+    }
+
+    try {
+        const response = await fetch("https://localhost:7274/api/pacientes/mi-estado", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,   // <<<<<< 🔥 AQUÍ se manda el token
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error al obtener estado: ${response.status}`);
+        }
+
+        const data = await response.json();
+        estadoElemento.textContent = data.Estado || "Sin estado disponible.";
+    } catch (error) {
+        console.error(error);
+        estadoElemento.textContent = "Error al obtener estado.";
+    }
+}
+
+
+
+function showPacienteDashboard(): void {
+  const loginContainer = document.getElementById('login-container');
+  const registerContainer = document.getElementById('register-container');
+  const pacienteDashboard = document.getElementById('paciente-dashboard');
+  const familiarDashboard = document.getElementById('familiar-dashboard');
+  const pmDashboard = document.getElementById('pm-dashboard');
+  const sudoDashboard = document.getElementById('sudo-dashboard');
+
+  if (loginContainer) loginContainer.style.display = 'none';
+  if (registerContainer && loginContainer) loginContainer.style.display = 'none';
+  if (familiarDashboard) familiarDashboard.style.display = 'none';
+  if (pmDashboard) pmDashboard.style.display = 'none';
+  if (sudoDashboard) sudoDashboard.style.display = 'none';
+  if (pacienteDashboard) pacienteDashboard.style.display = 'flex';
+
+  cargarMiEstadoPaciente(); // <-- AGREGAR ESTA LÍNEA
 }
 
 function hideAllSections(): void {
@@ -899,73 +931,157 @@ function hideAllSections(): void {
   });
 }
 
-// === Eventos DOM ===
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Tus configuraciones previas ---
+  
+  const switchToRegisterButton = document.getElementById('switch-to-register');
+  if (switchToRegisterButton) {
+    switchToRegisterButton.addEventListener('click', showRegisterForm);
+  }
+
+  const switchToLoginButton = document.getElementById('switch-to-login');
+  if (switchToLoginButton) {
+    switchToLoginButton.addEventListener('click', showLoginForm);
+  }
+
+  const userListContainer = document.getElementById("user-list-container");
+  if (userListContainer) {
+    userListContainer.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+      if (target.classList.contains("del-btn")) {
+        const id = Number(target.getAttribute("data-id"));
+        if (!isNaN(id)) {
+          deleteUser(id);
+        } else {
+          console.error("ID de usuario inválido para eliminación.");
+        }
+      }
+    });
+  }
+
   const recoverBtn = document.getElementById("switch-to-recover");
   if (recoverBtn) recoverBtn.addEventListener("click", showRecoverForm);
-
-  const recoverForm = document.getElementById("recover-form");
-  if (recoverForm) recoverForm.addEventListener("submit", handleRecoverSubmit);
-
-  const questionsForm = document.getElementById("questions-form");
-  const verifyButton = document.querySelector("#questions-container button[type='submit']")!;
-  if (verifyButton) verifyButton.addEventListener("click", handleQuestionsSubmit);
 
   const returnToLoginBtn = document.getElementById("return-to-login");
   if (returnToLoginBtn) returnToLoginBtn.addEventListener("click", showLoginForm);
 
-  // === Botón para agregar más preguntas dinámicas ===
-const agregarPreguntaBtn = document.getElementById("agregar-pregunta");
+  // === Formularios principales ===
+  const loginForm = document.getElementById('login-form') as HTMLFormElement;
+  if (loginForm) loginForm.addEventListener('submit', handleLoginSubmit);
 
-if (agregarPreguntaBtn && !agregarPreguntaBtn.hasAttribute("data-listener-added")) {
-  agregarPreguntaBtn.addEventListener("click", () => {
-    const container = document.getElementById("preguntas-dinamicas");
-    if (!container) return;
+  const registerForm = document.getElementById('register-form') as HTMLFormElement;
+  if (registerForm) registerForm.addEventListener('submit', handleRegisterSubmit);
 
-    const preguntaGroup = document.createElement("div");
-    preguntaGroup.className = "form-group";
-    preguntaGroup.innerHTML = `
-      <label>Pregunta de Recuperación:</label>
-      <input type="text" name="Preguntas[]" required>
-    `;
+  const recoverForm = document.getElementById("recover-form");
+  if (recoverForm) recoverForm.addEventListener("submit", handleRecoverSubmit);
 
-    const respuestaGroup = document.createElement("div");
-    respuestaGroup.className = "form-group";
-    respuestaGroup.innerHTML = `
-      <label>Respuesta de Recuperación:</label>
-      <input type="text" name="Respuestas[]" required>
-    `;
+  const changeRoleForm = document.getElementById('change-role-form') as HTMLFormElement;
+  if (changeRoleForm) changeRoleForm.addEventListener('submit', handleChangeRoleSubmit);
 
-    container.appendChild(preguntaGroup);
-    container.appendChild(respuestaGroup);
+  const questionsForm = document.getElementById("questions-form");
+  const verifyButton = document.querySelector("#questions-container button[type='submit']");
+  if (verifyButton) verifyButton.addEventListener("click", handleQuestionsSubmit);
+
+  const agregarPreguntaBtn = document.getElementById("agregar-pregunta");
+  if (agregarPreguntaBtn && !agregarPreguntaBtn.hasAttribute("data-listener-added")) {
+    agregarPreguntaBtn.addEventListener("click", () => {
+      const container = document.getElementById("preguntas-dinamicas");
+      if (!container) return;
+
+      const preguntaGroup = document.createElement("div");
+      preguntaGroup.className = "form-group";
+      preguntaGroup.innerHTML = `<label>Pregunta de Recuperación:</label><input type="text" name="Preguntas[]" required>`;
+
+      const respuestaGroup = document.createElement("div");
+      respuestaGroup.className = "form-group";
+      respuestaGroup.innerHTML = `<label>Respuesta de Recuperación:</label><input type="text" name="Respuestas[]" required>`;
+
+      container.appendChild(preguntaGroup);
+      container.appendChild(respuestaGroup);
+    });
+    agregarPreguntaBtn.setAttribute("data-listener-added", "true");
+  }
+
+  // === Botones del Dashboard SUDO ===
+  const btnActivos = document.getElementById("ver-usuarios-activos");
+  if (btnActivos) btnActivos.addEventListener("click", cargarUsuariosActivos);
+
+  const btnTodos = document.getElementById("ver-todos-usuarios");
+  if (btnTodos) btnTodos.addEventListener("click", cargarTodosLosUsuarios);
+
+  const btnRecursos = document.getElementById("ver-recursos");
+  if (btnRecursos) {
+    btnRecursos.addEventListener("click", () => {
+      const panel = document.getElementById("recursos-panel")!;
+      const visible = panel.style.display === "block";
+
+      if (visible) {
+        panel.style.display = "none";
+        clearInterval(monitorInterval);
+      } else {
+        panel.style.display = "block";
+        actualizarRecursos();
+        monitorInterval = window.setInterval(actualizarRecursos, 5000);
+      }
+    });
+  }
+
+  const logoutButtons = document.querySelectorAll('#logout-button, #logout-button-pm, #logout-button-familiar, #logout-button-paciente');
+  logoutButtons.forEach(button => {
+    button.addEventListener('click', logout);
   });
 
-  agregarPreguntaBtn.setAttribute("data-listener-added", "true");
-}
-});
-// ----- FUNCIÓN CHECK SESSION (Placeholder - requiere implementación real) -----
-function checkUserSession(): void {
-    const token = localStorage.getItem('token');
-    if (token && token !== '1911') { // Solo intentar si hay un token "real"
-        // TODO: Implementar lógica real aquí.
-        // 1. Llamar a un endpoint API /api/auth/verify o similar con el token.
-        // 2. El backend verifica el token y devuelve la info del usuario (ID, Rol).
-        // 3. Basado en la respuesta, mostrar el dashboard correcto o el login.
-        // Ejemplo:
-        // fetch('/api/auth/verify', { headers: {'Authorization': `Bearer ${token}`}})
-        //   .then(res => res.ok ? res.json() : Promise.reject('Token inválido'))
-        //   .then(userData => {
-        //        if (userData.TipoUsuario === 3) showSudoDashboard();
-        //        else if (userData.TipoUsuario === 1) window.location.href = 'pm-dashboard.html';
-        //        // ... etc ...
-        //   })
-        //   .catch(err => { console.error(err); localStorage.removeItem('token'); showLoginForm(); });
+  const reloadBtn = document.getElementById("pm-reload-pacientes");
+  if (reloadBtn) reloadBtn.addEventListener("click", cargarPacientesPM);
 
-        console.warn('Simulando verificación de sesión. En producción, verifica el token con tu API.');
-        // Simulación simple (INSEGURA): Asume SUDO si hay token
-         showSudoDashboard();
-    } else {
-        // Si no hay token o es el falso, muestra el formulario de login
+  showLoginForm(); // Mostrar login por defecto
+});
+
+// ----- FUNCIÓN CHECK SESSION (Placeholder - requiere implementación real) -----
+async function checkUserSession(): Promise<void> {
+  const token = localStorage.getItem('token');
+
+  if (!token || token === '1911') {
+    showLoginForm();
+    return;
+  }
+
+  try {
+    const response = await fetch('https://localhost:7274/api/auth/verify', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      // El token es inválido o expiró
+      localStorage.removeItem('token');
+      showLoginForm();
+      return;
+    }
+
+    const userData = await response.json(); // Espera que devuelva ID, TipoUsuario, etc.
+
+    const tipoUsuario = userData.TipoUsuario ?? userData.tipoUsuario ?? null;
+
+    if (tipoUsuario === null) {
+      throw new Error('Tipo de usuario no especificado.');
+    }
+
+    switch (tipoUsuario) {
+      case 0: showPacienteDashboard(); break;
+      case 1: showPmDashboard(); break;
+      case 2: showFamiliarDashboard(); break;
+      case 3: showSudoDashboard(); break;
+      default:
+        console.warn('Tipo de usuario desconocido:', tipoUsuario);
         showLoginForm();
     }
+
+  } catch (error) {
+    console.error('Error verificando sesión:', error);
+    localStorage.removeItem('token');
+    showLoginForm();
+  }
 }

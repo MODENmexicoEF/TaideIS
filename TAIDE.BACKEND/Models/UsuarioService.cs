@@ -204,6 +204,26 @@ namespace TuProyecto.Services // Espacio de nombres correcto para UsuarioService
             return usuario; // Devuelve la entidad guardada (con el ID asignado)
         }
         */
+        public async Task<List<Paciente>> ObtenerPacientes(int? pmId = null)
+        {
+            var query = _dbContext.Pacientes.AsQueryable();
 
+            // Cuando tengas la relación PM–Paciente, descomenta:
+            // if (pmId.HasValue)
+            //     query = query.Where(p => p.PMId == pmId.Value);
+
+            return await query.ToListAsync();
+        }
+
+        // 2) Actualizar el estado de un paciente
+        public async Task<bool> ActualizarEstadoPaciente(int pacienteId, string nuevoEstado)
+        {
+            var paciente = await _dbContext.Pacientes.FindAsync(pacienteId);
+            if (paciente == null) return false;
+
+            paciente.Estado = nuevoEstado;
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

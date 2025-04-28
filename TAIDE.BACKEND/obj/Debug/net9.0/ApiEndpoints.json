@@ -135,6 +135,78 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PacientesController",
+    "Method": "ActualizarEstado",
+    "RelativePath": "api/Pacientes/{pacienteId}/estado",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pacienteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "TAIDE.BACKEND.Modells.Request.ActualizarEstadoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PacientesController",
+    "Method": "ObtenerEstadoPaciente",
+    "RelativePath": "api/Pacientes/estado",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PacientesController",
+    "Method": "ObtenerMiEstado",
+    "RelativePath": "api/Pacientes/mi-estado",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "ObtenerPacientes",
+    "RelativePath": "api/PM/pacientes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "ActualizarEstado",
+    "RelativePath": "api/PM/pacientes/{pacienteId}/estado",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pacienteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "TAIDE.BACKEND.Modells.Request.ActualizarEstadoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TAIDE.BACKEND.Controllers.SudoController",
     "Method": "CambiarRol",
     "RelativePath": "api/sudo/cambiar-rol",
