@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TAIDE.BACKEND.Models;
 using TuProyecto.Models;
 // using TuProyecto.Services; // Probablemente no necesites este using aquí
 
@@ -18,6 +19,8 @@ namespace TuProyecto.Data
         public DbSet<SUDO> SUDOs { get; set; } // Inclúyelo aunque no tenga tabla propia en TPT
         public DbSet<PreguntaSeguridad> PreguntasSeguridad { get; set; }
         public DbSet<PacientesFamiliares> PacientesFamiliares { get; set; }
+        public DbSet<SolicitudFamiliarPaciente> Solicitudes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,19 +42,19 @@ namespace TuProyecto.Data
 
             // Relación muchos a muchos entre Paciente y Familiar (Usando entidad de unión explícita)
             modelBuilder.Entity<PacientesFamiliares>()
-                .ToTable("PacientesFamiliares") // Nombre de la tabla de unión
-                .HasKey(pf => pf.IdPacienteFamiliar); // Clave primaria de la tabla de unión
+                .ToTable("FamiliaresPacientes") // Nombre de la tabla de unión
+                .HasKey(pf => new { pf.FamiliarID, pf.PacienteID }); // Clave primaria de la tabla de unión
 
             modelBuilder.Entity<PacientesFamiliares>()
                 .HasOne(pf => pf.Paciente) // Un lado de la relación
                 .WithMany(p => p.PacientesFamiliares) // Colección de navegación en Paciente
-                .HasForeignKey(pf => pf.IdPaciente) // Clave foránea en la tabla de unión
+                .HasForeignKey(pf => pf.PacienteID) // Clave foránea en la tabla de unión
                 .OnDelete(DeleteBehavior.Cascade); // Comportamiento al borrar
 
             modelBuilder.Entity<PacientesFamiliares>()
                 .HasOne(pf => pf.Familiar) // Otro lado de la relación
                 .WithMany(f => f.PacientesFamiliares) // Colección de navegación en Familiar
-                .HasForeignKey(pf => pf.IdFamiliar) // Clave foránea en la tabla de unión
+                .HasForeignKey(pf => pf.FamiliarID) // Clave foránea en la tabla de unión
                 .OnDelete(DeleteBehavior.Cascade); // Comportamiento al borrar
 
             // Relación uno a muchos entre Usuario y PreguntaSeguridad
@@ -81,7 +84,7 @@ namespace TuProyecto.Data
 
             // Índice para la relación M-N (evita duplicados de pares paciente-familiar)
             modelBuilder.Entity<PacientesFamiliares>()
-               .HasIndex(pf => new { pf.IdPaciente, pf.IdFamiliar })
+               .HasIndex(pf => new { pf.PacienteID, pf.FamiliarID })
                .IsUnique();
         }
     }

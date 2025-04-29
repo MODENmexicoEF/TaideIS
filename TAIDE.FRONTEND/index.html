@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -432,26 +432,46 @@
       <table id="pacientes-container" class="user-table"></table>
     </section>
   </main>
-    <div class="familiar-container" id="familiar-dashboard" style="display: none;">
-        <header>
-            <h1>Panel del Familiar</h1>
-            <nav>
-                <ul>
-                    <li><span id="familiar-welcome-name"></span></li>
-                    <li><button id="logout-button-familiar" type="button">Cerrar Sesión</button></li>
-                </ul>
-            </nav>
-        </header>
-        <main class="welcome">
-            <h2>Bienvenido, <span id="familiar-welcome-name-main"></span></h2>
-            <p>Este es su panel de control.
-                Aquí podrá ver la información de sus familiares y realizar otras acciones.</p>
-        </main>
-        <footer>
-            <p>&copy; 2025 VitaCare</p>
-        </footer>
-    </div>
+</div>
+<div class="familiar-container" id="familiar-dashboard" style="display: none;">
+  <header>
+    <h1>Panel del Familiar</h1>
+    <nav>
+      <ul>
+        <li><span id="familiar-welcome-name"></span></li>
+        <li><button id="logout-button-familiar" type="button">Cerrar Sesión</button></li>
+      </ul>
+    </nav>
+  </header>
 
+  <main class="welcome">
+    <h2>Bienvenido, <span id="familiar-welcome-name-main"></span></h2>
+    <p>Este es su panel de control.
+    Aquí podrá ver la información de sus familiares y realizar otras acciones.</p>
+
+    <section style="margin-top: 30px;">
+      <h3>Solicitar acceso a un paciente</h3>
+
+      <form id="familiar-solicitud-form" style="margin-bottom:15px;">
+        <div class="form-group">
+          <label for="paciente-busqueda-input">Buscar paciente (Nombre o Apellido Paterno):</label>
+          <input type="text" id="paciente-busqueda-input" required>
+        </div>
+        <div id="pacientes-sugeridos" style="margin-top:10px;"></div>
+      </form>
+
+      <div id="familiar-solicitud-mensaje" style="margin-top: 10px;"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 VitaCare</p>
+  </footer>
+</div>
+
+
+</section>
 
     <script src="script.js" defer></script>
 

@@ -22,6 +22,7 @@ using TuProyecto.Data;
 using TuProyecto.Services;
 using TuProyecto.Models;
 using System.Diagnostics;
+using TAIDE.BACKEND.Models;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -65,4 +66,50 @@ public class PMController : ControllerBase
             paciente.Estado
         });
     }
+    [Authorize(Roles = "PM")]
+    [HttpGet("solicitudes/pendientes")]
+    public async Task<IActionResult> ObtenerSolicitudesPendientes()
+    {
+        var solicitudes = await _context.Solicitudes
+            .Where(s => s.Estado == EstadoSolicitud.Pendiente)
+            .Include(s => s.Familiar)
+            .Include(s => s.Paciente)
+            .ToListAsync();
+
+        return Ok(solicitudes);
+    }
+
+    [Authorize(Roles = "PM")]
+    [HttpPut("solicitudes/{id}/respuesta")]
+    public async Task<IActionResult> ResponderSolicitud(int id, [FromBody] ResponderSolicitudRequest request)
+    {
+        var solicitud = await _context.Solicitudes.FindAsync(id);
+        if (solicitud == null)
+            return NotFound(new { Message = "Solicitud no encontrada" });
+
+        if (request.Respuesta.ToLower() == "aceptar")
+        {
+            solicitud.Estado = EstadoSolicitud.Aceptada;
+
+            var relacion = new PacientesFamiliares
+            {
+                PacienteID = solicitud.PacienteId,
+                FamiliarID = solicitud.FamiliarId
+            };
+
+            _context.PacientesFamiliares.Add(relacion);
+        }
+        else if (request.Respuesta.ToLower() == "rechazar")
+        {
+            solicitud.Estado = EstadoSolicitud.Rechazada;
+        }
+        else
+        {
+            return BadRequest(new { Message = "Respuesta inválida" });
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok(new { Message = "Solicitud procesada correctamente" });
+    }
+
 }

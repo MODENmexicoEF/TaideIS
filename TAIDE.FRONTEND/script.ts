@@ -203,6 +203,51 @@ function showFamiliarDashboard(): void {
     const nameElements = document.querySelectorAll("#familiar-welcome-name, #familiar-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
 }
+async function enviarSolicitudFamiliar(event: Event): Promise<void> {
+    event.preventDefault();
+    const pacienteIdInput = document.getElementById('paciente-id-input') as HTMLInputElement;
+    const mensajeDiv = document.getElementById('familiar-solicitud-mensaje');
+
+    if (!pacienteIdInput || !mensajeDiv) return;
+
+    const pacienteId = parseInt(pacienteIdInput.value.trim(), 10);
+    if (isNaN(pacienteId) || pacienteId <= 0) {
+        mensajeDiv.textContent = "Ingrese un ID válido de paciente.";
+        mensajeDiv.style.color = "red";
+        return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+        mensajeDiv.textContent = "Sesión expirada. Inicie sesión nuevamente.";
+        mensajeDiv.style.color = "red";
+        return;
+    }
+
+    try {
+        const res = await fetch('https://localhost:7274/api/familiar/solicitudes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                FamiliarId: 0,   // El backend lo sobreescribe con el ID del token, si no, tendrás que ajustar aquí.
+                PacienteId: pacienteId
+            })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Error al enviar solicitud");
+
+        mensajeDiv.textContent = data.Message || "Solicitud enviada.";
+        mensajeDiv.style.color = "green";
+        pacienteIdInput.value = ""; // Limpiar campo
+    } catch (error: any) {
+        mensajeDiv.textContent = error.message || "Error al enviar la solicitud.";
+        mensajeDiv.style.color = "red";
+    }
+}
 
 // ----- MANEJADOR DE ENVÍO DE REGISTRO (Construye FormData desde el form) -----
 function handleRegisterSubmit(event: Event): void {
@@ -672,7 +717,7 @@ async function changeUserRole(usuarioId: number, nuevoRolNombre: string): Promis
 
 
 // ----- MANEJADOR CAMBIO DE ROL -----
-// Este listener se añade más abajo en DOMContentLoaded
+// Este listener se añade más abajo en DOMContentLoaded no pegar
 function handleChangeRoleSubmit(event: Event) {
      event.preventDefault();
      const usuarioIdInput = document.getElementById('sudo-usuarioId') as HTMLInputElement;
@@ -861,6 +906,93 @@ function handleQuestionsSubmit(event: Event): void {
         alert(err.message || "Error al cambiar la contraseña.");
       });
   };
+async function buscarPacientesPorNombre(nombre: string): Promise<void> {
+    const sugerenciasDiv = document.getElementById('pacientes-sugeridos');
+    if (!sugerenciasDiv) return;
+
+    sugerenciasDiv.innerHTML = "Buscando...";
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+        sugerenciasDiv.innerHTML = "<p>Sesión expirada.</p>";
+        return;
+    }
+
+    try {
+        const res = await fetch(`https://localhost:7274/api/familiar/buscar-pacientes?query=${encodeURIComponent(nombre)}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!res.ok) throw new Error('Error buscando pacientes.');
+
+        const pacientes = await res.json();
+
+        if (pacientes.length === 0) {
+            sugerenciasDiv.innerHTML = "<p>No se encontraron pacientes.</p>";
+            return;
+        }
+
+        sugerenciasDiv.innerHTML = pacientes.map((p: any) => `
+            <button class="paciente-sugerido" data-id="${p.ID}">
+                ${p.NombreUsuario} (${p.Ap1})
+            </button>
+        `).join('');
+        
+        document.querySelectorAll('.paciente-sugerido').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const target = e.target as HTMLElement;
+                const pacienteId = target.getAttribute('data-id');
+                if (pacienteId) {
+                    enviarSolicitudSeleccionada(parseInt(pacienteId));
+                }
+            });
+        });
+
+    } catch (error) {
+        sugerenciasDiv.innerHTML = "<p>Error al buscar.</p>";
+        console.error(error);
+    }
+}
+async function enviarSolicitudSeleccionada(pacienteId: number): Promise<void> {
+    const mensajeDiv = document.getElementById('familiar-solicitud-mensaje');
+    if (!mensajeDiv) return;
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+        mensajeDiv.textContent = "Sesión expirada.";
+        mensajeDiv.style.color = "red";
+        return;
+    }
+
+    try {
+        const res = await fetch('https://localhost:7274/api/familiar/solicitudes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                FamiliarId: 0,
+                PacienteId: pacienteId
+            })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Error al enviar solicitud");
+
+        mensajeDiv.textContent = data.Message || "Solicitud enviada.";
+        mensajeDiv.style.color = "green";
+        
+        const sugerenciasDiv = document.getElementById('pacientes-sugeridos');
+        if (sugerenciasDiv) sugerenciasDiv.innerHTML = ""; // Limpiar sugerencias
+
+    } catch (error: any) {
+        mensajeDiv.textContent = error.message || "Error al enviar solicitud.";
+        mensajeDiv.style.color = "red";
+    }
+}
 
 async function cargarMiEstadoPaciente() {
     const estadoElemento = document.getElementById("paciente-estado");
@@ -933,11 +1065,23 @@ function hideAllSections(): void {
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- Tus configuraciones previas ---
-  
+  const pacienteBusquedaInput = document.getElementById('paciente-busqueda-input') as HTMLInputElement;
+if (pacienteBusquedaInput) {
+    pacienteBusquedaInput.addEventListener('input', () => {
+        if (pacienteBusquedaInput.value.length >= 2) { // Para no buscar si escribe solo 1 letra
+            buscarPacientesPorNombre(pacienteBusquedaInput.value.trim());
+        }
+    });
+}
+
   const switchToRegisterButton = document.getElementById('switch-to-register');
   if (switchToRegisterButton) {
     switchToRegisterButton.addEventListener('click', showRegisterForm);
   }
+    const familiarSolicitudForm = document.getElementById('familiar-solicitud-form') as HTMLFormElement;
+    if (familiarSolicitudForm) {
+        familiarSolicitudForm.addEventListener('submit', enviarSolicitudFamiliar);
+    }
 
   const switchToLoginButton = document.getElementById('switch-to-login');
   if (switchToLoginButton) {

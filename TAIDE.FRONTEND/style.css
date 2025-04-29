@@ -23,6 +23,10 @@ body {
     width: 400px;
     text-align: center;
 }
+#familiar-solicitud-mensaje {
+    font-weight: bold;
+    margin-top: 10px;
+}
 
 /* Título principal */
 h2 {

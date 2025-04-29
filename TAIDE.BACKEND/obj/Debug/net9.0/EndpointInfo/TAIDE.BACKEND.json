@@ -240,6 +240,58 @@
         }
       }
     },
+    "/api/Familiar/solicitudes": {
+      "post": {
+        "tags": [
+          "Familiar"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearSolicitudRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearSolicitudRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearSolicitudRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Familiar/buscar-pacientes": {
+      "get": {
+        "tags": [
+          "Familiar"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Pacientes/{pacienteId}/estado": {
       "put": {
         "tags": [
@@ -349,6 +401,60 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ActualizarEstadoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PM/solicitudes/pendientes": {
+      "get": {
+        "tags": [
+          "PM"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PM/solicitudes/{id}/respuesta": {
+      "put": {
+        "tags": [
+          "PM"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResponderSolicitudRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResponderSolicitudRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResponderSolicitudRequest"
               }
             }
           }
@@ -502,6 +608,20 @@
         },
         "additionalProperties": false
       },
+      "CrearSolicitudRequest": {
+        "type": "object",
+        "properties": {
+          "FamiliarId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PacienteId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -510,6 +630,16 @@
             "nullable": true
           },
           "Contrasena": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResponderSolicitudRequest": {
+        "type": "object",
+        "properties": {
+          "Respuesta": {
             "type": "string",
             "nullable": true
           }

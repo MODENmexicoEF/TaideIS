@@ -135,6 +135,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TAIDE.BACKEND.Controllers.FamiliarController",
+    "Method": "BuscarPacientes",
+    "RelativePath": "api/Familiar/buscar-pacientes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TAIDE.BACKEND.Controllers.FamiliarController",
+    "Method": "CrearSolicitud",
+    "RelativePath": "api/Familiar/solicitudes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "TAIDE.BACKEND.Modells.Request.CrearSolicitudRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PacientesController",
     "Method": "ActualizarEstado",
     "RelativePath": "api/Pacientes/{pacienteId}/estado",
@@ -204,6 +236,37 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "ResponderSolicitud",
+    "RelativePath": "api/PM/solicitudes/{id}/respuesta",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "TAIDE.BACKEND.Modells.Request.ResponderSolicitudRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "ObtenerSolicitudesPendientes",
+    "RelativePath": "api/PM/solicitudes/pendientes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
