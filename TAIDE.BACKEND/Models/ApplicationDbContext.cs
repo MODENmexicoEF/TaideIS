@@ -22,6 +22,7 @@ namespace TuProyecto.Data
         public DbSet<SolicitudFamiliarPaciente> Solicitudes { get; set; }
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -48,9 +48,64 @@ function cargarFamiliaresVinculados() {
         }
     });
 }
+function cargarVinculosPacienteFamiliar() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = localStorage.getItem("token");
+        if (!token)
+            return alert("Token no encontrado.");
+        try {
+            const res = yield fetch("https://localhost:7274/api/pm/vinculos", {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const vinculos = yield res.json();
+            const tbody = document.querySelector("#tabla-vinculos-familiares tbody");
+            if (!tbody)
+                return;
+            if (vinculos.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='3'>Sin vínculos actualmente.</td></tr>";
+                return;
+            }
+            tbody.innerHTML = vinculos.map((v) => `
+      <tr>
+        <td>${v.Paciente}</td>
+        <td>${v.Familiar}</td>
+        <td>
+          <button onclick="quitarVinculo(${v.FamiliarId}, ${v.PacienteId})">❌ Quitar</button>
+        </td>
+      </tr>
+    `).join("");
+        }
+        catch (e) {
+            alert("Error al cargar vínculos.");
+            console.error(e);
+        }
+    });
+}
+function quitarVinculo(familiarId, pacienteId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = localStorage.getItem("token");
+        if (!token)
+            return alert("Token no encontrado.");
+        if (!confirm("¿Deseas quitar el acceso del familiar?"))
+            return;
+        try {
+            const res = yield fetch(`https://localhost:7274/api/pm/familiares/${familiarId}/paciente/${pacienteId}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = yield res.json();
+            if (!res.ok)
+                throw new Error(data.message || "Error al quitar acceso.");
+            alert(data.message || "Acceso retirado correctamente.");
+            cargarVinculosPacienteFamiliar();
+        }
+        catch (e) {
+            alert(e.message || "Error al eliminar vínculo.");
+        }
+    });
+}
 function login(email, password) {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a, _b, _c, _d;
         const errorMessageElement = document.getElementById('error-message');
         if (errorMessageElement)
             errorMessageElement.textContent = '';
@@ -68,19 +123,27 @@ function login(email, password) {
                     errorMessageElement.textContent = mensaje;
                 return;
             }
-            const data = yield response.json();
-            alert(data.Message || "Iniciaste sesión correctamente.");
-            //  Este es el cambio importante
-            const token = (_a = data.Token) !== null && _a !== void 0 ? _a : data.token;
-            if (token) {
-                localStorage.setItem("token", token);
+            const data = yield response.json(); // ya devuelve { token, rol, nombre }
+            alert(data.message || "Iniciaste sesión correctamente.");
+            // Guardar token
+            if (data.token) {
+                localStorage.setItem("token", data.token);
             }
-            const nombreUsuario = (_c = (_b = data.NombreUsuario) !== null && _b !== void 0 ? _b : data.Nombre) !== null && _c !== void 0 ? _c : "";
-            if (nombreUsuario) {
-                localStorage.setItem("nombre_usuario", nombreUsuario);
+            else {
+                alert("Error: token no recibido.");
+                return;
             }
-            const tipo = (_d = data.TipoUsuario) !== null && _d !== void 0 ? _d : data.Rol;
-            switch (tipo) {
+            // Guardar nombre
+            if (data.nombre && data.ap1) {
+                const nombreCompleto = `${data.nombre} ${data.ap1}`;
+                localStorage.setItem("nombre_usuario", nombreCompleto);
+            }
+            // Guardar rol
+            if (typeof data.rol !== 'undefined') {
+                localStorage.setItem("rol", data.rol.toString());
+            }
+            // Selección del panel según rol
+            switch (data.rol) {
                 case 0:
                     showPacienteDashboard();
                     break;
@@ -100,8 +163,9 @@ function login(email, password) {
         }
         catch (error) {
             console.error("Error en el login:", error);
-            if (errorMessageElement)
+            if (errorMessageElement) {
                 errorMessageElement.textContent = 'No se pudo conectar al servidor.';
+            }
         }
     });
 }
@@ -1141,6 +1205,9 @@ function showPacienteDashboard() {
         sudoDashboard.style.display = 'none';
     if (pacienteDashboard)
         pacienteDashboard.style.display = 'flex';
+    const nombre = localStorage.getItem("nombre_usuario") || "Paciente";
+    const nameElements = document.querySelectorAll("#paciente-welcome-name, #paciente-welcome-name-main");
+    nameElements.forEach(e => e.textContent = nombre);
     cargarMiEstadoPaciente(); // <-- AGREGAR ESTA LÍNEA
     cargarFamiliaresVinculados();
 }
@@ -1309,6 +1376,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const reloadBtn = document.getElementById("pm-reload-pacientes");
     if (reloadBtn)
         reloadBtn.addEventListener("click", cargarPacientesPM);
+    const btnCargarVinculos = document.getElementById("btn-cargar-vinculos");
+    if (btnCargarVinculos) {
+        btnCargarVinculos.addEventListener("click", cargarVinculosPacienteFamiliar);
+    }
     showLoginForm(); // Mostrar login por defecto
     iniciarPollingGlobal();
 });

@@ -85,10 +85,37 @@ public class PMController : ControllerBase
 
         return Ok(solicitudes);
     }
+    [Authorize(Roles = "PM")]
+    [HttpGet("vinculos")]
+    public async Task<IActionResult> ObtenerVinculos()
+    {
+        var lista = await _context.PacientesFamiliares
+            .Include(fp => fp.Familiar).Include(fp => fp.Paciente)
+            .Select(fp => new {
+                FamiliarId = fp.FamiliarID,
+                Familiar = fp.Familiar.NombreUsuario,
+                PacienteId = fp.PacienteID,
+                Paciente = fp.Paciente.NombreUsuario
+            }).ToListAsync();
 
+        return Ok(lista);
+    }
 
+    [Authorize(Roles = "PM")]
+    [HttpDelete("familiares/{familiarId}/paciente/{pacienteId}")]
+    public async Task<IActionResult> EliminarVinculo(int familiarId, int pacienteId)
+    {
+        var vinculo = await _context.PacientesFamiliares
+            .FirstOrDefaultAsync(v => v.FamiliarID == familiarId && v.PacienteID == pacienteId);
 
+        if (vinculo == null)
+            return NotFound(new { message = "Vínculo no encontrado." });
 
+        _context.PacientesFamiliares.Remove(vinculo);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Acceso del familiar retirado correctamente." });
+    }
 
 
     [Authorize(Roles = "PM")]

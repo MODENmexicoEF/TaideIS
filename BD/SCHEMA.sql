@@ -73,8 +73,11 @@ CREATE TABLE PreguntasSeguridad (
 SHOW TABLES FROM VITACARE;
 
 
-select * from Usuarios;
-
+select * from Usuarios; -- todos
+select * from Usuarios where tipo_usuario = 0; -- paciente
+select * from Usuarios where tipo_usuario = 1; -- pm	
+select * from Usuarios where tipo_usuario = 2; -- familiar
+select * from Usuarios where tipo_usuario = 3; -- sudo
 DESCRIBE usuarios;
 ALTER TABLE usuarios DROP COLUMN Discriminator;
 
@@ -88,3 +91,7 @@ SHOW TABLES LIKE 'pacientes';
 
 select * from pacientes;
 DROP DATABASE VITACARE;
+SELECT s.Id, u1.nombre_usuario AS Familiar, u2.nombre_usuario AS Paciente, s.FechaSolicitud
+FROM Solicitudes s
+JOIN Usuarios u1 ON u1.id_usuario = s.FamiliarId
+JOIN Usuarios u2 ON u2.id_usuario = s.PacienteId;

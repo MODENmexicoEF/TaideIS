@@ -448,6 +448,50 @@
         }
       }
     },
+    "/api/PM/vinculos": {
+      "get": {
+        "tags": [
+          "PM"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PM/familiares/{familiarId}/paciente/{pacienteId}": {
+      "delete": {
+        "tags": [
+          "PM"
+        ],
+        "parameters": [
+          {
+            "name": "familiarId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pacienteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/PM/solicitudes/{id}/respuesta": {
       "put": {
         "tags": [

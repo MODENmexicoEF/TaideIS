@@ -1,14 +1,25 @@
 ﻿// ----- INTERFACES (Alineadas con PascalCase del Backend para RESPUESTAS JSON) -----
 // Estas interfaces se usan para leer las RESPUESTAS JSON del servidor
+/*
 interface AuthResponse {
     Message: string;
     UserId?: number;
-    Rol?: number;               // <-- Agrega esto
-    TipoUsuario?: number;       // <-- ya existente
-    Nombre?: string;            // <-- si no se usa NombreUsuario
+    Rol?: number;
+    TipoUsuario?: number;
+    Nombre?: string;
     NombreUsuario?: string;
     Token?: string;
+    token?: string; //  Añade esto
     Error?: string;
+}
+*/
+interface AuthResponse {
+  message: string;
+  userId?: number;
+  rol?: number;
+  nombre?: string;
+  token?: string;
+  error?: string;
 }
 
 interface RegisterResponse {
@@ -76,7 +87,60 @@ async function cargarFamiliaresVinculados(): Promise<void> {
     }
   }
 }
+async function cargarVinculosPacienteFamiliar() {
+  const token = localStorage.getItem("token");
+  if (!token) return alert("Token no encontrado.");
 
+  try {
+    const res = await fetch("https://localhost:7274/api/pm/vinculos", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const vinculos = await res.json();
+    const tbody = document.querySelector("#tabla-vinculos-familiares tbody");
+    if (!tbody) return;
+
+    if (vinculos.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='3'>Sin vínculos actualmente.</td></tr>";
+      return;
+    }
+
+    tbody.innerHTML = vinculos.map((v: any) => `
+      <tr>
+        <td>${v.Paciente}</td>
+        <td>${v.Familiar}</td>
+        <td>
+          <button onclick="quitarVinculo(${v.FamiliarId}, ${v.PacienteId})">❌ Quitar</button>
+        </td>
+      </tr>
+    `).join("");
+  } catch (e: any) {
+    alert("Error al cargar vínculos.");
+    console.error(e);
+  }
+}
+
+async function quitarVinculo(familiarId: number, pacienteId: number) {
+  const token = localStorage.getItem("token");
+  if (!token) return alert("Token no encontrado.");
+
+  if (!confirm("¿Deseas quitar el acceso del familiar?")) return;
+
+  try {
+    const res = await fetch(`https://localhost:7274/api/pm/familiares/${familiarId}/paciente/${pacienteId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Error al quitar acceso.");
+
+    alert(data.message || "Acceso retirado correctamente.");
+    cargarVinculosPacienteFamiliar();
+  } catch (e: any) {
+    alert(e.message || "Error al eliminar vínculo.");
+  }
+}
 async function login(email: string, password: string): Promise<void> {
     const errorMessageElement = document.getElementById('error-message');
     if (errorMessageElement) errorMessageElement.textContent = '';
@@ -96,24 +160,32 @@ async function login(email: string, password: string): Promise<void> {
             return;
         }
 
-        const data: AuthResponse = await response.json();
+        const data = await response.json(); // ya devuelve { token, rol, nombre }
 
-        alert(data.Message || "Iniciaste sesión correctamente.");
+        alert(data.message || "Iniciaste sesión correctamente.");
 
-        //  Este es el cambio importante
-        const token = data.Token ?? (data as any).token;
-        if (token) {
-            localStorage.setItem("token", token);
+        // Guardar token
+        if (data.token) {
+            localStorage.setItem("token", data.token);
+        } else {
+            alert("Error: token no recibido.");
+            return;
         }
 
-        const nombreUsuario = data.NombreUsuario ?? data.Nombre ?? "";
-        if (nombreUsuario) {
-            localStorage.setItem("nombre_usuario", nombreUsuario);
+        // Guardar nombre
+        if (data.nombre && data.ap1) {
+            const nombreCompleto = `${data.nombre} ${data.ap1}`;
+            localStorage.setItem("nombre_usuario", nombreCompleto);
         }
 
-        const tipo = data.TipoUsuario ?? data.Rol;
 
-        switch (tipo) {
+        // Guardar rol
+        if (typeof data.rol !== 'undefined') {
+            localStorage.setItem("rol", data.rol.toString());
+        }
+
+        // Selección del panel según rol
+        switch (data.rol) {
             case 0: showPacienteDashboard(); break;
             case 1: showPmDashboard(); break;
             case 2: showFamiliarDashboard(); break;
@@ -125,9 +197,13 @@ async function login(email: string, password: string): Promise<void> {
 
     } catch (error) {
         console.error("Error en el login:", error);
-        if (errorMessageElement) errorMessageElement.textContent = 'No se pudo conectar al servidor.';
+        if (errorMessageElement) {
+            errorMessageElement.textContent = 'No se pudo conectar al servidor.';
+        }
     }
 }
+
+
 
 function renderSolicitudesPendientes(solicitudes: SolicitudPendiente[]): void {
   const cont = document.querySelector("#solicitudes-container tbody");
@@ -1222,6 +1298,10 @@ function showPacienteDashboard(): void {
   if (sudoDashboard) sudoDashboard.style.display = 'none';
   if (pacienteDashboard) pacienteDashboard.style.display = 'flex';
 
+  const nombre = localStorage.getItem("nombre_usuario") || "Paciente";
+    const nameElements = document.querySelectorAll("#paciente-welcome-name, #paciente-welcome-name-main");
+    nameElements.forEach(e => e.textContent = nombre);
+
   cargarMiEstadoPaciente(); // <-- AGREGAR ESTA LÍNEA
   cargarFamiliaresVinculados();
 }
@@ -1400,6 +1480,12 @@ rolRadios.forEach(radio => {
 
   const reloadBtn = document.getElementById("pm-reload-pacientes");
   if (reloadBtn) reloadBtn.addEventListener("click", cargarPacientesPM);
+  
+  const btnCargarVinculos = document.getElementById("btn-cargar-vinculos");
+    if (btnCargarVinculos) {
+      btnCargarVinculos.addEventListener("click", cargarVinculosPacienteFamiliar);
+    }
+
 
   showLoginForm(); // Mostrar login por defecto
   iniciarPollingGlobal();

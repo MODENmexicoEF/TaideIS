@@ -229,6 +229,27 @@
   },
   {
     "ContainingType": "PMController",
+    "Method": "EliminarVinculo",
+    "RelativePath": "api/PM/familiares/{familiarId}/paciente/{pacienteId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "familiarId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pacienteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
     "Method": "ObtenerPacientes",
     "RelativePath": "api/PM/pacientes",
     "HttpMethod": "GET",
@@ -303,6 +324,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "ObtenerVinculos",
+    "RelativePath": "api/PM/vinculos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

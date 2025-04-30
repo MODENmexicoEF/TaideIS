@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using static TuProyecto.Models.Usuario;
 using TuProyecto.Data;
+using System.Text.Json.Serialization;
 
 namespace TuProyecto.Controllers
 {
@@ -111,7 +112,7 @@ namespace TuProyecto.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddYears(10),
                 Issuer = issuer,
                 Audience = audience,
                 SigningCredentials = credentials
@@ -391,6 +392,21 @@ namespace TuProyecto.Controllers
 
 
         // --- Clase LoginResponse (Sin cambios) ---
-        public class LoginResponse { public string Message { get; set; } public int UserId { get; set; } public int Rol { get; set; } public string Nombre { get; set; } public string Token { get; set; } }
+        public class LoginResponse
+        {
+            public string Message { get; set; }
+
+            [JsonPropertyName("userId")]
+            public int UserId { get; set; }
+
+            [JsonPropertyName("rol")]
+            public int Rol { get; set; }
+
+            [JsonPropertyName("nombre")]
+            public string Nombre { get; set; }
+
+            [JsonPropertyName("token")]
+            public string Token { get; set; }
+        }
     }
 }
