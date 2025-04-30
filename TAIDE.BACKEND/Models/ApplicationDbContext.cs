@@ -86,6 +86,18 @@ namespace TuProyecto.Data
             modelBuilder.Entity<PacientesFamiliares>()
                .HasIndex(pf => new { pf.PacienteID, pf.FamiliarID })
                .IsUnique();
+            modelBuilder.Entity<SolicitudFamiliarPaciente>()
+                .HasOne(s => s.Familiar)
+                .WithMany()
+                .HasForeignKey(s => s.FamiliarId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SolicitudFamiliarPaciente>()
+                .HasOne(s => s.Paciente)
+                .WithMany()
+                .HasForeignKey(s => s.PacienteId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

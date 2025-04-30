@@ -17,6 +17,12 @@ interface RegisterResponse {
     TipoUsuario?: number;
     Error?: string;
 }
+interface SolicitudPendiente {
+  id: number;
+  paciente: string;
+  familiar: string;
+  fechaSolicitud: string;
+}
 
 // Asegúrate que el casing aquí coincida con el JSON devuelto por /api/auth/usuarios
 interface User {
@@ -25,6 +31,52 @@ interface User {
     TipoUsuario: number;   // Asumiendo PascalCase
     EnLinea: boolean;      // Asumiendo PascalCase
 }
+interface FamiliarVinculado {
+  id: number;
+  nombre: string;
+  correo: string;
+}
+
+async function cargarFamiliaresVinculados(): Promise<void> {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch("https://localhost:7274/api/pacientes/familiares", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (res.status === 403) return;
+    if (!res.ok) throw new Error("Error al obtener familiares vinculados");
+
+    const familiares: FamiliarVinculado[] = await res.json();
+    const tbody = document.querySelector("#tabla-familiares-vinculados tbody");
+    if (!tbody) return;
+
+    if (familiares.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="3">No tienes familiares vinculados.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = familiares.map(f => `
+      <tr>
+        <td>${f.id}</td>
+        <td>${f.nombre}</td>
+        <td>${f.correo}</td>
+      </tr>
+    `).join("");
+
+  } catch (error) {
+    console.error("Error al cargar familiares vinculados:", error);
+    const tbody = document.querySelector("#tabla-familiares-vinculados tbody");
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="3">Error al cargar datos.</td></tr>`;
+    }
+  }
+}
+
 async function login(email: string, password: string): Promise<void> {
     const errorMessageElement = document.getElementById('error-message');
     if (errorMessageElement) errorMessageElement.textContent = '';
@@ -77,6 +129,84 @@ async function login(email: string, password: string): Promise<void> {
     }
 }
 
+function renderSolicitudesPendientes(solicitudes: SolicitudPendiente[]): void {
+  const cont = document.querySelector("#solicitudes-container tbody");
+  if (!cont) return;
+
+  if (solicitudes.length === 0) {
+    cont.innerHTML = "<tr><td colspan='5'>No hay solicitudes pendientes.</td></tr>";
+    return;
+  }
+
+  cont.innerHTML = solicitudes.map(s => `
+    <tr>
+      <td>${s.id}</td>
+      <td>${s.paciente}</td>
+      <td>${s.familiar}</td>
+      <td>${new Date(s.fechaSolicitud).toLocaleDateString()}</td>
+      <td><button data-id="${s.id}" class="btn-aprobar-solicitud">Aprobar</button></td>
+    </tr>
+  `).join("");
+
+  document.querySelectorAll(".btn-aprobar-solicitud").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = (btn as HTMLButtonElement).dataset.id!;
+      await aprobarSolicitud(parseInt(id));
+    });
+  });
+}
+async function cargarSolicitudesPendientes(): Promise<void> {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch("https://localhost:7274/api/pm/solicitudes", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (res.status === 403) {
+      // Usuario sin rol PM: ignorar silenciosamente
+      return;
+    }
+
+    if (!res.ok) {
+      throw new Error("Error al cargar solicitudes");
+    }
+
+    const data: SolicitudPendiente[] = await res.json();
+    renderSolicitudesPendientes(data);
+
+  } catch (error) {
+    // Solo loguea si no es un 403 silencioso
+    console.error("Error cargando solicitudes pendientes:", error);
+    const tbody = document.querySelector("#solicitudes-container tbody");
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="5">Error al cargar solicitudes.</td></tr>`;
+    }
+  }
+}
+
+async function aprobarSolicitud(id: number) {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch(`https://localhost:7274/api/pm/solicitudes/${id}/aprobar`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    if (!res.ok) throw new Error("No se pudo aprobar solicitud");
+
+    alert("Solicitud aprobada correctamente");
+    cargarSolicitudesPendientes();
+    cargarPacientesPM();
+  } catch (error) {
+    alert("Error al aprobar la solicitud");
+    console.error(error);
+  }
+}
 
 
 
@@ -167,6 +297,7 @@ function showPmDashboard(): void {
     const nameElements = document.querySelectorAll("#pm-welcome-name, #pm-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
     cargarPacientesPM();
+    cargarSolicitudesPendientes();
 }
 function getUserListContainer(): HTMLElement {
   const el = document.getElementById("user-list-container");
@@ -202,6 +333,7 @@ function showFamiliarDashboard(): void {
     const nombre = localStorage.getItem("nombre_usuario") || "Familiar";
     const nameElements = document.querySelectorAll("#familiar-welcome-name, #familiar-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
+    cargarPacientesVinculados();
 }
 async function enviarSolicitudFamiliar(event: Event): Promise<void> {
     event.preventDefault();
@@ -566,6 +698,51 @@ async function cargarPacientesPM() {
   }));
 
   renderPacientesParaPM(pacientes);
+}
+interface PacienteVinculado {
+  id: number;
+  nombre: string;
+  estado: string | null;
+}
+
+async function cargarPacientesVinculados(): Promise<void> {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch("https://localhost:7274/api/familiar/pacientes", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) throw new Error("Error al obtener pacientes vinculados");
+
+    const pacientes: PacienteVinculado[] = await res.json();
+
+    const tbody = document.querySelector("#tabla-pacientes-vinculados tbody");
+    if (!tbody) return;
+
+    if (pacientes.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='3'>No tienes pacientes vinculados.</td></tr>";
+      return;
+    }
+
+    tbody.innerHTML = pacientes.map(p => `
+      <tr>
+        <td>${p.id}</td>
+        <td>${p.nombre}</td>
+        <td>${p.estado ?? "Sin estado"}</td>
+      </tr>
+    `).join("");
+
+  } catch (error) {
+    console.error("Error cargando pacientes vinculados:", error);
+    const tbody = document.querySelector("#tabla-pacientes-vinculados tbody");
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan='3'>Error al cargar pacientes.</td></tr>`;
+    }
+  }
 }
 
 async function actualizarRecursos(): Promise<void> {
@@ -1046,6 +1223,7 @@ function showPacienteDashboard(): void {
   if (pacienteDashboard) pacienteDashboard.style.display = 'flex';
 
   cargarMiEstadoPaciente(); // <-- AGREGAR ESTA LÍNEA
+  cargarFamiliaresVinculados();
 }
 
 function hideAllSections(): void {
@@ -1062,6 +1240,38 @@ function hideAllSections(): void {
     if (el) el.style.display = "none";
   });
 }
+let globalPollingInterval: number | null = null;
+
+function iniciarPollingGlobal() {
+  if (globalPollingInterval !== null) return;
+
+  globalPollingInterval = setInterval(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return; //  Evita hacer llamadas si aún no hay sesión
+
+    const pmVisible = document.getElementById("pm-dashboard")?.style.display === "flex";
+    const familiarVisible = document.getElementById("familiar-dashboard")?.style.display === "flex";
+    const pacienteVisible = document.getElementById("paciente-dashboard")?.style.display === "flex";
+    const sudoVisible = document.getElementById("sudo-dashboard")?.style.display === "flex";
+
+    if (pmVisible) {
+      cargarPacientesPM();
+      cargarSolicitudesPendientes();
+    }
+    if (familiarVisible) {
+      cargarPacientesVinculados();
+    }
+    if (pacienteVisible) {
+      cargarMiEstadoPaciente();
+      cargarFamiliaresVinculados();
+    }
+    if (sudoVisible) {
+      fetchUserList();
+      actualizarRecursos();
+    }
+  }, 5000);
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- Tus configuraciones previas ---
@@ -1073,6 +1283,19 @@ if (pacienteBusquedaInput) {
         }
     });
 }
+// Mostrar/ocultar campos de PM al seleccionar el rol
+const pmFields = document.getElementById("pm-fields") as HTMLElement;
+const rolRadios = document.querySelectorAll<HTMLInputElement>("input[name='RolInput']");
+
+rolRadios.forEach(radio => {
+  radio.addEventListener("change", () => {
+    if (radio.value === "1" && radio.checked) {
+      pmFields.style.display = "block";
+    } else {
+      pmFields.style.display = "none";
+    }
+  });
+});
 
   const switchToRegisterButton = document.getElementById('switch-to-register');
   if (switchToRegisterButton) {
@@ -1179,6 +1402,7 @@ if (pacienteBusquedaInput) {
   if (reloadBtn) reloadBtn.addEventListener("click", cargarPacientesPM);
 
   showLoginForm(); // Mostrar login por defecto
+  iniciarPollingGlobal();
 });
 
 // ----- FUNCIÓN CHECK SESSION (Placeholder - requiere implementación real) -----

@@ -292,6 +292,18 @@
         }
       }
     },
+    "/api/Familiar/pacientes": {
+      "get": {
+        "tags": [
+          "Familiar"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Pacientes/{pacienteId}/estado": {
       "put": {
         "tags": [
@@ -358,6 +370,18 @@
         }
       }
     },
+    "/api/Pacientes/familiares": {
+      "get": {
+        "tags": [
+          "Pacientes"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/PM/pacientes": {
       "get": {
         "tags": [
@@ -412,7 +436,7 @@
         }
       }
     },
-    "/api/PM/solicitudes/pendientes": {
+    "/api/PM/solicitudes": {
       "get": {
         "tags": [
           "PM"
@@ -459,6 +483,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PM/solicitudes/{id}/aprobar": {
+      "post": {
+        "tags": [
+          "PM"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

@@ -103,10 +103,10 @@ namespace TuProyecto.Controllers
             var claims = new[]
             {
 
-        new Claim(ClaimTypes.NameIdentifier, usuario.ID.ToString()),
-        new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-        new Claim(ClaimTypes.Role, usuario.TipoUsuario.ToString())
-    };
+                new Claim(ClaimTypes.NameIdentifier, usuario.ID.ToString()),
+                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.Role, usuario.TipoUsuario.ToString())
+            };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

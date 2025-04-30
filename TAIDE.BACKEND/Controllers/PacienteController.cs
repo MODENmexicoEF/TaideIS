@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TAIDE.BACKEND.Modells.Request;
 using TuProyecto.Data; // tu namespace correcto
@@ -80,5 +81,27 @@ public class PacientesController : ControllerBase
             Estado = paciente.Estado
         });
     }
+    [Authorize(Roles = "Paciente")]
+    [HttpGet("familiares")]
+    public async Task<IActionResult> ObtenerFamiliaresVinculados()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int pacienteId))
+            return Unauthorized(new { Message = "Token inválido o ID no válido." });
+
+        var familiares = await _context.PacientesFamiliares
+            .Where(pf => pf.PacienteID == pacienteId)
+            .Include(pf => pf.Familiar) // ← propiedad de navegación
+            .Select(pf => new
+            {
+                id = pf.Familiar.ID,
+                nombre = $"{pf.Familiar.Ap1} {pf.Familiar.Ap2 ?? ""}".Trim(),
+                correo = pf.Familiar.Correo
+            })
+            .ToListAsync();
+
+        return Ok(familiares);
+    }
+
 
 }

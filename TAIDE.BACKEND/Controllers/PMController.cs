@@ -67,17 +67,29 @@ public class PMController : ControllerBase
         });
     }
     [Authorize(Roles = "PM")]
-    [HttpGet("solicitudes/pendientes")]
+    [HttpGet("solicitudes")]
     public async Task<IActionResult> ObtenerSolicitudesPendientes()
     {
         var solicitudes = await _context.Solicitudes
             .Where(s => s.Estado == EstadoSolicitud.Pendiente)
             .Include(s => s.Familiar)
             .Include(s => s.Paciente)
+            .Select(s => new
+            {
+                id = s.Id,
+                paciente = $"{s.Paciente.NombreUsuario}",
+                familiar = $"{s.Familiar.Ap1} {s.Familiar.Ap2 ?? ""} ({s.Familiar.NombreUsuario})", // nombre completo y nombre_usuario
+                fechaSolicitud = s.FechaSolicitud.ToString("yyyy-MM-dd")
+            })
             .ToListAsync();
 
         return Ok(solicitudes);
     }
+
+
+
+
+
 
     [Authorize(Roles = "PM")]
     [HttpPut("solicitudes/{id}/respuesta")]
@@ -111,5 +123,38 @@ public class PMController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(new { Message = "Solicitud procesada correctamente" });
     }
+    [Authorize(Roles = "PM")]
+    [HttpPost("solicitudes/{id}/aprobar")]
+    public async Task<IActionResult> AprobarSolicitud(int id)
+    {
+        var solicitud = await _context.Solicitudes
+            .FirstOrDefaultAsync(s => s.Id == id && s.Estado == EstadoSolicitud.Pendiente);
+
+
+        if (solicitud == null)
+            return NotFound(new { Message = "Solicitud no encontrada o ya procesada." });
+
+        // Cambiar estado
+        solicitud.Estado = EstadoSolicitud.Aceptada;
+
+        // Crear vinculación en tabla PacientesFamiliares
+        var yaExiste = await _context.PacientesFamiliares.AnyAsync(pf =>
+            pf.PacienteID == solicitud.PacienteId && pf.FamiliarID == solicitud.FamiliarId);
+
+        if (!yaExiste)
+        {
+            var vinculo = new PacientesFamiliares
+            {
+                PacienteID = solicitud.PacienteId,
+                FamiliarID = solicitud.FamiliarId
+            };
+            _context.PacientesFamiliares.Add(vinculo);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = "Solicitud aprobada y vínculo creado." });
+    }
+
 
 }

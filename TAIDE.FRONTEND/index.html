@@ -257,26 +257,52 @@
         </main>
     </div>
 <div class="paciente-container" id="paciente-dashboard" style="display: none;">
-    <header>
-        <h1>Panel del Paciente</h1>
-        <nav>
-            <ul>
-                <li><span id="paciente-welcome-name"></span></li>
-                <li><button id="logout-button-paciente" type="button">Cerrar Sesión</button></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="welcome">
-        <h2>Bienvenido/a, <span id="paciente-welcome-name-main"></span></h2>
-        <p>Este es su panel personal. Aquí podrá ver su información médica, próximas citas y recomendaciones.</p>
-            <section style="margin-top:20px;">
-          <h3>Estado Actual:</h3>
-          <p id="paciente-estado">Cargando estado...</p>
-    </main>
-    <footer>
-        <p>&copy; 2025 VitaCare</p>
-    </footer>
+  <header>
+    <h1>Panel del Paciente</h1>
+    <nav>
+      <ul>
+        <li><span id="paciente-welcome-name"></span></li>
+        <li><button id="logout-button-paciente" type="button">Cerrar Sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="welcome">
+    <h2>Bienvenido/a, <span id="paciente-welcome-name-main"></span></h2>
+    <p>
+      Este es su panel personal. Aquí podrá ver su información médica, próximas citas y recomendaciones.
+    </p>
+
+    <!-- Sección de estado -->
+    <section style="margin-top: 20px;">
+      <h3>Estado Actual:</h3>
+      <p id="paciente-estado">Cargando estado...</p>
+    </section>
+
+    <!-- NUEVA sección de familiares vinculados -->
+    <section style="margin-top: 30px;">
+      <h3>Familiares Vinculados</h3>
+      <table id="tabla-familiares-vinculados" class="user-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 VitaCare</p>
+  </footer>
 </div>
+
 <div class="container" id="recover-container" style="display: none;">
     <header>
         <h2>Recuperar Contraseña</h2>
@@ -431,6 +457,22 @@
       <!-- La función renderPacientesParaPM llenará esta tabla -->
       <table id="pacientes-container" class="user-table"></table>
     </section>
+    <section style="margin-top: 30px;">
+  <h3>Solicitudes pendientes de vinculación</h3>
+  <table id="solicitudes-container" class="user-table">
+    <thead>
+      <tr>
+        <th>ID Solicitud</th>
+        <th>Paciente</th>
+        <th>Familiar</th>
+        <th>Fecha</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
   </main>
 </div>
 <div class="familiar-container" id="familiar-dashboard" style="display: none;">
@@ -462,6 +504,23 @@
 
       <div id="familiar-solicitud-mensaje" style="margin-top: 10px;"></div>
     </section>
+<section style="margin-top: 30px;">
+  <h3>Pacientes Vinculados</h3>
+  <button type="button" onclick="cargarPacientesVinculados()" style="margin-bottom: 10px;">
+  🔄 Recargar pacientes vinculados
+</button>
+
+  <table id="tabla-pacientes-vinculados" class="user-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
 
   </main>
 

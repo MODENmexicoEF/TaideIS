@@ -152,6 +152,16 @@
   },
   {
     "ContainingType": "TAIDE.BACKEND.Controllers.FamiliarController",
+    "Method": "ObtenerPacientesVinculados",
+    "RelativePath": "api/Familiar/pacientes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TAIDE.BACKEND.Controllers.FamiliarController",
     "Method": "CrearSolicitud",
     "RelativePath": "api/Familiar/solicitudes",
     "HttpMethod": "POST",
@@ -191,6 +201,16 @@
     "ContainingType": "PacientesController",
     "Method": "ObtenerEstadoPaciente",
     "RelativePath": "api/Pacientes/estado",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PacientesController",
+    "Method": "ObtenerFamiliaresVinculados",
+    "RelativePath": "api/Pacientes/familiares",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -240,6 +260,32 @@
   },
   {
     "ContainingType": "PMController",
+    "Method": "ObtenerSolicitudesPendientes",
+    "RelativePath": "api/PM/solicitudes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "AprobarSolicitud",
+    "RelativePath": "api/PM/solicitudes/{id}/aprobar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
     "Method": "ResponderSolicitud",
     "RelativePath": "api/PM/solicitudes/{id}/respuesta",
     "HttpMethod": "PUT",
@@ -257,16 +303,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PMController",
-    "Method": "ObtenerSolicitudesPendientes",
-    "RelativePath": "api/PM/solicitudes/pendientes",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

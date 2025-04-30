@@ -8,6 +8,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+function cargarFamiliaresVinculados() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch("https://localhost:7274/api/pacientes/familiares", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (res.status === 403)
+                return;
+            if (!res.ok)
+                throw new Error("Error al obtener familiares vinculados");
+            const familiares = yield res.json();
+            const tbody = document.querySelector("#tabla-familiares-vinculados tbody");
+            if (!tbody)
+                return;
+            if (familiares.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3">No tienes familiares vinculados.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = familiares.map(f => `
+      <tr>
+        <td>${f.id}</td>
+        <td>${f.nombre}</td>
+        <td>${f.correo}</td>
+      </tr>
+    `).join("");
+        }
+        catch (error) {
+            console.error("Error al cargar familiares vinculados:", error);
+            const tbody = document.querySelector("#tabla-familiares-vinculados tbody");
+            if (tbody) {
+                tbody.innerHTML = `<tr><td colspan="3">Error al cargar datos.</td></tr>`;
+            }
+        }
+    });
+}
 function login(email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b, _c, _d;
@@ -62,6 +102,83 @@ function login(email, password) {
             console.error("Error en el login:", error);
             if (errorMessageElement)
                 errorMessageElement.textContent = 'No se pudo conectar al servidor.';
+        }
+    });
+}
+function renderSolicitudesPendientes(solicitudes) {
+    const cont = document.querySelector("#solicitudes-container tbody");
+    if (!cont)
+        return;
+    if (solicitudes.length === 0) {
+        cont.innerHTML = "<tr><td colspan='5'>No hay solicitudes pendientes.</td></tr>";
+        return;
+    }
+    cont.innerHTML = solicitudes.map(s => `
+    <tr>
+      <td>${s.id}</td>
+      <td>${s.paciente}</td>
+      <td>${s.familiar}</td>
+      <td>${new Date(s.fechaSolicitud).toLocaleDateString()}</td>
+      <td><button data-id="${s.id}" class="btn-aprobar-solicitud">Aprobar</button></td>
+    </tr>
+  `).join("");
+    document.querySelectorAll(".btn-aprobar-solicitud").forEach(btn => {
+        btn.addEventListener("click", () => __awaiter(this, void 0, void 0, function* () {
+            const id = btn.dataset.id;
+            yield aprobarSolicitud(parseInt(id));
+        }));
+    });
+}
+function cargarSolicitudesPendientes() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch("https://localhost:7274/api/pm/solicitudes", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.status === 403) {
+                // Usuario sin rol PM: ignorar silenciosamente
+                return;
+            }
+            if (!res.ok) {
+                throw new Error("Error al cargar solicitudes");
+            }
+            const data = yield res.json();
+            renderSolicitudesPendientes(data);
+        }
+        catch (error) {
+            // Solo loguea si no es un 403 silencioso
+            console.error("Error cargando solicitudes pendientes:", error);
+            const tbody = document.querySelector("#solicitudes-container tbody");
+            if (tbody) {
+                tbody.innerHTML = `<tr><td colspan="5">Error al cargar solicitudes.</td></tr>`;
+            }
+        }
+    });
+}
+function aprobarSolicitud(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch(`https://localhost:7274/api/pm/solicitudes/${id}/aprobar`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            if (!res.ok)
+                throw new Error("No se pudo aprobar solicitud");
+            alert("Solicitud aprobada correctamente");
+            cargarSolicitudesPendientes();
+            cargarPacientesPM();
+        }
+        catch (error) {
+            alert("Error al aprobar la solicitud");
+            console.error(error);
         }
     });
 }
@@ -155,6 +272,7 @@ function showPmDashboard() {
     const nameElements = document.querySelectorAll("#pm-welcome-name, #pm-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
     cargarPacientesPM();
+    cargarSolicitudesPendientes();
 }
 function getUserListContainer() {
     const el = document.getElementById("user-list-container");
@@ -194,6 +312,7 @@ function showFamiliarDashboard() {
     const nombre = localStorage.getItem("nombre_usuario") || "Familiar";
     const nameElements = document.querySelectorAll("#familiar-welcome-name, #familiar-welcome-name-main");
     nameElements.forEach(e => e.textContent = nombre);
+    cargarPacientesVinculados();
 }
 function enviarSolicitudFamiliar(event) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -510,6 +629,47 @@ function cargarPacientesPM() {
             estado: p.Estado
         }));
         renderPacientesParaPM(pacientes);
+    });
+}
+function cargarPacientesVinculados() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch("https://localhost:7274/api/familiar/pacientes", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (!res.ok)
+                throw new Error("Error al obtener pacientes vinculados");
+            const pacientes = yield res.json();
+            const tbody = document.querySelector("#tabla-pacientes-vinculados tbody");
+            if (!tbody)
+                return;
+            if (pacientes.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='3'>No tienes pacientes vinculados.</td></tr>";
+                return;
+            }
+            tbody.innerHTML = pacientes.map(p => {
+                var _a;
+                return `
+      <tr>
+        <td>${p.id}</td>
+        <td>${p.nombre}</td>
+        <td>${(_a = p.estado) !== null && _a !== void 0 ? _a : "Sin estado"}</td>
+      </tr>
+    `;
+            }).join("");
+        }
+        catch (error) {
+            console.error("Error cargando pacientes vinculados:", error);
+            const tbody = document.querySelector("#tabla-pacientes-vinculados tbody");
+            if (tbody) {
+                tbody.innerHTML = `<tr><td colspan='3'>Error al cargar pacientes.</td></tr>`;
+            }
+        }
     });
 }
 function actualizarRecursos() {
@@ -982,6 +1142,7 @@ function showPacienteDashboard() {
     if (pacienteDashboard)
         pacienteDashboard.style.display = 'flex';
     cargarMiEstadoPaciente(); // <-- AGREGAR ESTA LÍNEA
+    cargarFamiliaresVinculados();
 }
 function hideAllSections() {
     [
@@ -998,6 +1159,36 @@ function hideAllSections() {
             el.style.display = "none";
     });
 }
+let globalPollingInterval = null;
+function iniciarPollingGlobal() {
+    if (globalPollingInterval !== null)
+        return;
+    globalPollingInterval = setInterval(() => {
+        var _a, _b, _c, _d;
+        const token = localStorage.getItem("token");
+        if (!token)
+            return; //  Evita hacer llamadas si aún no hay sesión
+        const pmVisible = ((_a = document.getElementById("pm-dashboard")) === null || _a === void 0 ? void 0 : _a.style.display) === "flex";
+        const familiarVisible = ((_b = document.getElementById("familiar-dashboard")) === null || _b === void 0 ? void 0 : _b.style.display) === "flex";
+        const pacienteVisible = ((_c = document.getElementById("paciente-dashboard")) === null || _c === void 0 ? void 0 : _c.style.display) === "flex";
+        const sudoVisible = ((_d = document.getElementById("sudo-dashboard")) === null || _d === void 0 ? void 0 : _d.style.display) === "flex";
+        if (pmVisible) {
+            cargarPacientesPM();
+            cargarSolicitudesPendientes();
+        }
+        if (familiarVisible) {
+            cargarPacientesVinculados();
+        }
+        if (pacienteVisible) {
+            cargarMiEstadoPaciente();
+            cargarFamiliaresVinculados();
+        }
+        if (sudoVisible) {
+            fetchUserList();
+            actualizarRecursos();
+        }
+    }, 5000);
+}
 document.addEventListener("DOMContentLoaded", () => {
     // --- Tus configuraciones previas ---
     const pacienteBusquedaInput = document.getElementById('paciente-busqueda-input');
@@ -1008,6 +1199,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    // Mostrar/ocultar campos de PM al seleccionar el rol
+    const pmFields = document.getElementById("pm-fields");
+    const rolRadios = document.querySelectorAll("input[name='RolInput']");
+    rolRadios.forEach(radio => {
+        radio.addEventListener("change", () => {
+            if (radio.value === "1" && radio.checked) {
+                pmFields.style.display = "block";
+            }
+            else {
+                pmFields.style.display = "none";
+            }
+        });
+    });
     const switchToRegisterButton = document.getElementById('switch-to-register');
     if (switchToRegisterButton) {
         switchToRegisterButton.addEventListener('click', showRegisterForm);
@@ -1106,6 +1310,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (reloadBtn)
         reloadBtn.addEventListener("click", cargarPacientesPM);
     showLoginForm(); // Mostrar login por defecto
+    iniciarPollingGlobal();
 });
 // ----- FUNCIÓN CHECK SESSION (Placeholder - requiere implementación real) -----
 function checkUserSession() {
