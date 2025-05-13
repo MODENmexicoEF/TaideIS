@@ -283,13 +283,14 @@
     <section style="margin-top: 30px;">
       <h3>Familiares Vinculados</h3>
       <table id="tabla-familiares-vinculados" class="user-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Correo</th>
-          </tr>
-        </thead>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+              </tr>
+            </thead>
+
         <tbody>
           <tr><td colspan="3">Cargando...</td></tr>
         </tbody>
@@ -432,64 +433,86 @@
     </div>
 
 <div class="pm-container" id="pm-dashboard" style="display: none;">
-  <header>
-    <h1>Panel del Profesional Médico</h1>
-    <nav>
-      <ul>
-        <li><span id="pm-welcome-name"></span></li>
-        <li><button id="logout-button-pm" type="button">Cerrar Sesión</button></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <h1>Panel del Profesional Médico</h1>
+        <nav>
+            <ul>
+                <li><span id="pm-welcome-name"></span></li>
+                <li><button id="logout-button-pm" type="button">Cerrar Sesión</button></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main class="welcome">
-    <h2>Bienvenido, Dr./Dra. <span id="pm-welcome-name-main"></span></h2>
-    <p>
-      Este es su panel de control. Aquí podrá gestionar a sus pacientes,
-      ver su historial y realizar otras acciones.
-    </p>
+    <main class="welcome">
+        <h2>Bienvenido, Dr./Dra. <span id="pm-welcome-name-main"></span></h2>
+        <p>
+            Este es su panel de control. Aquí podrá gestionar a sus pacientes,
+            ver su historial y realizar otras acciones.
+        </p>
 
-    <!-- === NUEVA SECCIÓN === -->
-    <section style="margin-top: 30px;">
-      <h3>Pacientes asignados</h3>
-      <button id="pm-reload-pacientes" type="button" style="margin-bottom:10px;">↺ Recargar</button>
+        <section id="crear-reporte" style="margin-top: 30px;">
+            <h3>Crear Nuevo Reporte</h3>
+            <form id="form-crear-reporte">
+                <div class="form-group">
+                    <label for="nuevo-id-paciente">ID del Paciente:</label>
+                    <input type="number" id="nuevo-id-paciente" required>
+                </div>
+                <div class="form-group">
+                    <label for="titulo-reporte">Título del Reporte:</label>
+                    <input type="text" id="titulo-reporte" required>
+                </div>
+                <div class="form-group">
+                    <label for="contenido-reporte">Contenido del Reporte:</label>
+                    <textarea id="contenido-reporte" rows="4" required></textarea>
+                </div>
+                <button type="submit">Crear Reporte</button>
+            </form>
+            <div id="mensaje-reporte" class="mensaje"></div>
+        </section>
 
-      <!-- La función renderPacientesParaPM llenará esta tabla -->
-      <table id="pacientes-container" class="user-table"></table>
-    </section>
-    <section style="margin-top: 30px;">
-  <h3>Solicitudes pendientes de vinculación</h3>
-  <table id="solicitudes-container" class="user-table">
-    <thead>
-      <tr>
-        <th>ID Solicitud</th>
-        <th>Paciente</th>
-        <th>Familiar</th>
-        <th>Fecha</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</section>
-<section style="margin-top: 30px;">
-  <h3>Quitar acceso de familiares a pacientes</h3>
-  <button id="btn-cargar-vinculos">🔄 Cargar Vinculaciones</button>
-  <table id="tabla-vinculos-familiares" class="user-table">
-    <thead>
-      <tr>
-        <th>Paciente</th>
-        <th>Familiar</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</section>
+        <section style="margin-top: 30px;">
+            <h3>Pacientes asignados</h3>
+            <button id="pm-reload-pacientes" type="button" style="margin-bottom:10px;">
+                &#x21bb; Recargar
+            </button>
+            <table id="pacientes-container" class="user-table"></table>
+        </section>
 
+        <section style="margin-top: 30px;">
+            <h3>Solicitudes pendientes de vinculación</h3>
+            <table id="solicitudes-container" class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID Solicitud</th>
+                        <th>Paciente</th>
+                        <th>Familiar</th>
+                        <th>Fecha</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
 
-  </main>
+        <section style="margin-top: 30px;">
+            <h3>Quitar acceso de familiares a pacientes</h3>
+            <button id="btn-cargar-vinculos">
+                &#x21bb; Cargar Vinculaciones
+            </button>
+            <table id="tabla-vinculos-familiares" class="user-table">
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Familiar</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
 </div>
+
 <div class="familiar-container" id="familiar-dashboard" style="display: none;">
   <header>
     <h1>Panel del Familiar</h1>
@@ -519,6 +542,14 @@
 
       <div id="familiar-solicitud-mensaje" style="margin-top: 10px;"></div>
     </section>
+    <section style="margin-top: 30px;">
+  <h3>Ver Reportes Médicos del Paciente</h3>
+  <label for="reporte-familiar-paciente-id">ID del Paciente:</label>
+  <input type="number" id="reporte-familiar-paciente-id" placeholder="ID del paciente vinculado" />
+  <button id="btn-ver-reportes-familiar" type="button">📋 Ver Reportes</button>
+
+  <ul id="lista-reportes-familiar" style="padding-left: 20px; list-style: disc; margin-top: 10px;"></ul>
+</section>
 <section style="margin-top: 30px;">
   <h3>Pacientes Vinculados</h3>
   <button type="button" onclick="cargarPacientesVinculados()" style="margin-bottom: 10px;">
@@ -543,9 +574,6 @@
     <p>&copy; 2025 VitaCare</p>
   </footer>
 </div>
-
-
-</section>
 
     <script src="script.js" defer></script>
 

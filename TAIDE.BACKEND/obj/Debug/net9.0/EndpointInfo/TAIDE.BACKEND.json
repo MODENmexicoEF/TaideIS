@@ -304,6 +304,29 @@
         }
       }
     },
+    "/api/Familiar/api/familiar/reportes/{pacienteId}": {
+      "get": {
+        "tags": [
+          "Familiar"
+        ],
+        "parameters": [
+          {
+            "name": "pacienteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Pacientes/{pacienteId}/estado": {
       "put": {
         "tags": [
@@ -557,6 +580,60 @@
         }
       }
     },
+    "/api/PM/api/pm/reportes": {
+      "post": {
+        "tags": [
+          "PM"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReporteRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReporteRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrearReporteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PM/api/pm/reportes/{pacienteId}": {
+      "get": {
+        "tags": [
+          "PM"
+        ],
+        "parameters": [
+          {
+            "name": "pacienteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/sudo/usuarios/activos": {
       "get": {
         "tags": [
@@ -693,6 +770,24 @@
             "format": "int32"
           },
           "NuevoRol": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearReporteRequest": {
+        "type": "object",
+        "properties": {
+          "PacienteID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Titulo": {
+            "type": "string",
+            "nullable": true
+          },
+          "Contenido": {
             "type": "string",
             "nullable": true
           }

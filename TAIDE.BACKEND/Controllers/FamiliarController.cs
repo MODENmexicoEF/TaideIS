@@ -112,6 +112,28 @@ namespace TAIDE.BACKEND.Controllers
         }
 
 
+        [Authorize(Roles = "FAMILIAR")]
+        [HttpGet("api/familiar/reportes/{pacienteId}")]
+        public async Task<IActionResult> ObtenerReportesDelPaciente(int pacienteId)
+        {
+            var claim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim == null || !int.TryParse(claim.Value, out int familiarId))
+                return Unauthorized();
+
+
+            var estaVinculado = await _context.PacientesFamiliares
+                .AnyAsync(fp => fp.FamiliarID == familiarId && fp.PacienteID == pacienteId);
+
+            if (!estaVinculado)
+                return Forbid();
+
+            var reportes = await _context.ReportesMedicos
+                .Where(r => r.PacienteID == pacienteId)
+                .OrderByDescending(r => r.Fecha)
+                .ToListAsync();
+
+            return Ok(reportes);
+        }
 
 
 

@@ -20,6 +20,7 @@ namespace TuProyecto.Data
         public DbSet<PreguntaSeguridad> PreguntasSeguridad { get; set; }
         public DbSet<PacientesFamiliares> PacientesFamiliares { get; set; }
         public DbSet<SolicitudFamiliarPaciente> Solicitudes { get; set; }
+        public DbSet<ReporteMedico> ReportesMedicos { get; set; }
 
 
 

@@ -858,6 +858,7 @@ function formateaSegundos(seg: number): string {
 }
 
 
+
 // ----- OBTENER LISTA DE USUARIOS -----
 async function fetchUserList(): Promise<void> {
     const userListContainer = document.getElementById('user-list-container');
@@ -1246,6 +1247,102 @@ async function enviarSolicitudSeleccionada(pacienteId: number): Promise<void> {
         mensajeDiv.style.color = "red";
     }
 }
+async function cargarReportesDePaciente(): Promise<void> {
+  const idInput = document.getElementById("reporte-paciente-id") as HTMLInputElement;
+  const lista = document.getElementById("lista-reportes") as HTMLUListElement;
+  if (!idInput || !lista) return;
+
+  const pacienteId = parseInt(idInput.value);
+  if (isNaN(pacienteId)) {
+    alert("ID de paciente inválido.");
+    return;
+  }
+
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch(`https://localhost:7274/api/pm/reportes/${pacienteId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    const reportes = await res.json();
+    lista.innerHTML = reportes.length
+      ? reportes.map((r: any) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+      : "<li>No hay reportes disponibles.</li>";
+  } catch (e) {
+    lista.innerHTML = "<li>Error al obtener reportes.</li>";
+  }
+}
+
+async function cargarReportesParaFamiliar(): Promise<void> {
+  const input = document.getElementById("reporte-familiar-paciente-id") as HTMLInputElement;
+  const lista = document.getElementById("lista-reportes-familiar") as HTMLUListElement;
+  if (!input || !lista) return;
+
+  const id = parseInt(input.value);
+  if (isNaN(id)) {
+    alert("ID inválido.");
+    return;
+  }
+
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch(`https://localhost:7274/api/familiar/reportes/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    const reportes = await res.json();
+    lista.innerHTML = reportes.length
+      ? reportes.map((r: any) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+      : "<li>No hay reportes disponibles.</li>";
+  } catch (e) {
+    lista.innerHTML = "<li>Error al cargar reportes.</li>";
+  }
+}
+
+
+async function enviarNuevoReporte(): Promise<void> {
+  const pacienteIdInput = document.getElementById("nuevo-id-paciente") as HTMLInputElement;
+  const tituloInput = document.getElementById("titulo-reporte") as HTMLInputElement;
+  const contenidoInput = document.getElementById("contenido-reporte") as HTMLTextAreaElement;
+
+  const pacienteId = parseInt(pacienteIdInput.value);
+  if (isNaN(pacienteId) || !tituloInput.value.trim() || !contenidoInput.value.trim()) {
+    alert("Completa todos los campos correctamente.");
+    return;
+  }
+
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch(`https://localhost:7274/api/pm/reportes`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        PacienteId: pacienteId,
+        Titulo: tituloInput.value.trim(),
+        Contenido: contenidoInput.value.trim()
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Error al enviar reporte.");
+
+    alert(data.message || "Reporte enviado correctamente.");
+    tituloInput.value = "";
+    contenidoInput.value = "";
+
+  } catch (e: any) {
+    alert(e.message || "Error al enviar reporte.");
+  }
+}
 
 async function cargarMiEstadoPaciente() {
     const estadoElemento = document.getElementById("paciente-estado");
@@ -1405,6 +1502,10 @@ rolRadios.forEach(radio => {
       }
     });
   }
+    const btnVerReportesFamiliar = document.getElementById("btn-ver-reportes-familiar");
+    if (btnVerReportesFamiliar) {
+      btnVerReportesFamiliar.addEventListener("click", cargarReportesParaFamiliar);
+    }
 
   const recoverBtn = document.getElementById("switch-to-recover");
   if (recoverBtn) recoverBtn.addEventListener("click", showRecoverForm);
@@ -1448,6 +1549,14 @@ rolRadios.forEach(radio => {
     });
     agregarPreguntaBtn.setAttribute("data-listener-added", "true");
   }
+const btnCargarReportes = document.getElementById("btn-cargar-reportes");
+if (btnCargarReportes) {
+  btnCargarReportes.addEventListener("click", cargarReportesDePaciente);
+}
+const btnEnviarReporte = document.getElementById("btn-enviar-reporte");
+if (btnEnviarReporte) {
+  btnEnviarReporte.addEventListener("click", enviarNuevoReporte);
+}
 
   // === Botones del Dashboard SUDO ===
   const btnActivos = document.getElementById("ver-usuarios-activos");
@@ -1455,6 +1564,7 @@ rolRadios.forEach(radio => {
 
   const btnTodos = document.getElementById("ver-todos-usuarios");
   if (btnTodos) btnTodos.addEventListener("click", cargarTodosLosUsuarios);
+
 
   const btnRecursos = document.getElementById("ver-recursos");
   if (btnRecursos) {

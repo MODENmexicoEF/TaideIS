@@ -1154,6 +1154,100 @@ function enviarSolicitudSeleccionada(pacienteId) {
         }
     });
 }
+function cargarReportesDePaciente() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const idInput = document.getElementById("reporte-paciente-id");
+        const lista = document.getElementById("lista-reportes");
+        if (!idInput || !lista)
+            return;
+        const pacienteId = parseInt(idInput.value);
+        if (isNaN(pacienteId)) {
+            alert("ID de paciente inválido.");
+            return;
+        }
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch(`https://localhost:7274/api/pm/reportes/${pacienteId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const reportes = yield res.json();
+            lista.innerHTML = reportes.length
+                ? reportes.map((r) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+                : "<li>No hay reportes disponibles.</li>";
+        }
+        catch (e) {
+            lista.innerHTML = "<li>Error al obtener reportes.</li>";
+        }
+    });
+}
+function cargarReportesParaFamiliar() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const input = document.getElementById("reporte-familiar-paciente-id");
+        const lista = document.getElementById("lista-reportes-familiar");
+        if (!input || !lista)
+            return;
+        const id = parseInt(input.value);
+        if (isNaN(id)) {
+            alert("ID inválido.");
+            return;
+        }
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch(`https://localhost:7274/api/familiar/reportes/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const reportes = yield res.json();
+            lista.innerHTML = reportes.length
+                ? reportes.map((r) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+                : "<li>No hay reportes disponibles.</li>";
+        }
+        catch (e) {
+            lista.innerHTML = "<li>Error al cargar reportes.</li>";
+        }
+    });
+}
+function enviarNuevoReporte() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const pacienteIdInput = document.getElementById("nuevo-id-paciente");
+        const tituloInput = document.getElementById("titulo-reporte");
+        const contenidoInput = document.getElementById("contenido-reporte");
+        const pacienteId = parseInt(pacienteIdInput.value);
+        if (isNaN(pacienteId) || !tituloInput.value.trim() || !contenidoInput.value.trim()) {
+            alert("Completa todos los campos correctamente.");
+            return;
+        }
+        const token = localStorage.getItem("token");
+        if (!token)
+            return;
+        try {
+            const res = yield fetch(`https://localhost:7274/api/pm/reportes`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    PacienteId: pacienteId,
+                    Titulo: tituloInput.value.trim(),
+                    Contenido: contenidoInput.value.trim()
+                })
+            });
+            const data = yield res.json();
+            if (!res.ok)
+                throw new Error(data.message || "Error al enviar reporte.");
+            alert(data.message || "Reporte enviado correctamente.");
+            tituloInput.value = "";
+            contenidoInput.value = "";
+        }
+        catch (e) {
+            alert(e.message || "Error al enviar reporte.");
+        }
+    });
+}
 function cargarMiEstadoPaciente() {
     return __awaiter(this, void 0, void 0, function* () {
         const estadoElemento = document.getElementById("paciente-estado");
@@ -1306,6 +1400,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    const btnVerReportesFamiliar = document.getElementById("btn-ver-reportes-familiar");
+    if (btnVerReportesFamiliar) {
+        btnVerReportesFamiliar.addEventListener("click", cargarReportesParaFamiliar);
+    }
     const recoverBtn = document.getElementById("switch-to-recover");
     if (recoverBtn)
         recoverBtn.addEventListener("click", showRecoverForm);
@@ -1345,6 +1443,14 @@ document.addEventListener("DOMContentLoaded", () => {
             container.appendChild(respuestaGroup);
         });
         agregarPreguntaBtn.setAttribute("data-listener-added", "true");
+    }
+    const btnCargarReportes = document.getElementById("btn-cargar-reportes");
+    if (btnCargarReportes) {
+        btnCargarReportes.addEventListener("click", cargarReportesDePaciente);
+    }
+    const btnEnviarReporte = document.getElementById("btn-enviar-reporte");
+    if (btnEnviarReporte) {
+        btnEnviarReporte.addEventListener("click", enviarNuevoReporte);
     }
     // === Botones del Dashboard SUDO ===
     const btnActivos = document.getElementById("ver-usuarios-activos");
