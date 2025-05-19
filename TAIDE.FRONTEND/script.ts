@@ -160,11 +160,11 @@ async function login(email: string, password: string): Promise<void> {
             return;
         }
 
-        const data = await response.json(); // ya devuelve { token, rol, nombre }
+        const data = await response.json(); // { message, userId, rol, nombre, token }
 
         alert(data.message || "Iniciaste sesión correctamente.");
 
-        // Guardar token
+        //  Guardar token
         if (data.token) {
             localStorage.setItem("token", data.token);
         } else {
@@ -172,19 +172,24 @@ async function login(email: string, password: string): Promise<void> {
             return;
         }
 
-        // Guardar nombre
-        if (data.nombre && data.ap1) {
-            const nombreCompleto = `${data.nombre} ${data.ap1}`;
-            localStorage.setItem("nombre_usuario", nombreCompleto);
+        //  Guardar nombre de usuario (nombre completo si lo incluye)
+        if (data.nombre) {
+            localStorage.setItem("nombre_usuario", data.nombre.trim());
+        } else {
+            localStorage.setItem("nombre_usuario", "Usuario");
         }
 
-
-        // Guardar rol
+        //  Guardar rol
         if (typeof data.rol !== 'undefined') {
             localStorage.setItem("rol", data.rol.toString());
         }
 
-        // Selección del panel según rol
+        //  Mostrar el nombre inmediatamente en los paneles visibles
+        const nombre = localStorage.getItem("nombre_usuario") || "Usuario";
+        const nameElements = document.querySelectorAll("#pm-welcome-name, #pm-welcome-name-main");
+        nameElements.forEach(e => e.textContent = nombre);
+
+        //  Mostrar panel según rol
         switch (data.rol) {
             case 0: showPacienteDashboard(); break;
             case 1: showPmDashboard(); break;
@@ -202,6 +207,7 @@ async function login(email: string, password: string): Promise<void> {
         }
     }
 }
+
 
 
 
@@ -1043,7 +1049,11 @@ hideAllSections();
 
 // ----- FUNCIÓN LOGOUT -----
 function logout(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("nombre_usuario");
+// y redirige a login o limpia el estado del DOM
+
     alert('Sesión cerrada.');
 
     // Ocultar todos los dashboards manualmente
@@ -1248,8 +1258,9 @@ async function enviarSolicitudSeleccionada(pacienteId: number): Promise<void> {
     }
 }
 async function cargarReportesDePaciente(): Promise<void> {
-  const idInput = document.getElementById("reporte-paciente-id") as HTMLInputElement;
+  const idInput = document.getElementById("nuevo-id-paciente") as HTMLInputElement;
   const lista = document.getElementById("lista-reportes") as HTMLUListElement;
+
   if (!idInput || !lista) return;
 
   const pacienteId = parseInt(idInput.value);
@@ -1259,49 +1270,111 @@ async function cargarReportesDePaciente(): Promise<void> {
   }
 
   const token = localStorage.getItem("token");
-  if (!token) return;
+  if (!token) {
+    alert("Token no encontrado.");
+    return;
+  }
+
+  console.log("Token actual:", token);
+  console.log("Cargando reportes para paciente ID:", pacienteId);
 
   try {
     const res = await fetch(`https://localhost:7274/api/pm/reportes/${pacienteId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Error HTTP:", res.status, errorText);
+      lista.innerHTML = `<li>Error ${res.status}: ${errorText}</li>`;
+      return;
+    }
+
     const reportes = await res.json();
+
+    if (!Array.isArray(reportes)) {
+      console.error("Respuesta inesperada:", reportes);
+      lista.innerHTML = "<li>Respuesta inesperada del servidor.</li>";
+      return;
+    }
+
     lista.innerHTML = reportes.length
-      ? reportes.map((r: any) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+      ? reportes.map((r: any) => {
+          const titulo = r.Titulo ?? "Sin título";
+          const contenido = r.Contenido ?? "Sin contenido";
+          return `<li><strong>${titulo}</strong>: ${contenido}</li>`;
+        }).join("")
       : "<li>No hay reportes disponibles.</li>";
   } catch (e) {
-    lista.innerHTML = "<li>Error al obtener reportes.</li>";
+    console.error("Excepción al cargar reportes:", e);
+    lista.innerHTML = "<li>Error inesperado al cargar reportes.</li>";
   }
 }
+
 
 async function cargarReportesParaFamiliar(): Promise<void> {
   const input = document.getElementById("reporte-familiar-paciente-id") as HTMLInputElement;
   const lista = document.getElementById("lista-reportes-familiar") as HTMLUListElement;
+
   if (!input || !lista) return;
 
-  const id = parseInt(input.value);
-  if (isNaN(id)) {
+  const pacienteId = parseInt(input.value);
+  if (isNaN(pacienteId)) {
     alert("ID inválido.");
     return;
   }
 
   const token = localStorage.getItem("token");
-  if (!token) return;
+  if (!token) {
+    alert("Token no encontrado. Por favor, vuelve a iniciar sesión.");
+    return;
+  }
+
+  console.log("Token actual:", token);
+  console.log("Consultando reportes para paciente ID:", pacienteId);
 
   try {
-    const res = await fetch(`https://localhost:7274/api/familiar/reportes/${id}`, {
+    const res = await fetch(`https://localhost:7274/api/familiar/reportes/${pacienteId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
+    if (res.status === 403) {
+      lista.innerHTML = "<li>No estás vinculado con este paciente.</li>";
+      return;
+    }
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Respuesta no exitosa:", res.status, errorText);
+      lista.innerHTML = `<li>Error ${res.status}: ${errorText}</li>`;
+      return;
+    }
+
     const reportes = await res.json();
+
+    if (!Array.isArray(reportes)) {
+      console.error("Formato inesperado de reportes:", reportes);
+      lista.innerHTML = "<li>Respuesta inesperada del servidor.</li>";
+      return;
+    }
+
     lista.innerHTML = reportes.length
-      ? reportes.map((r: any) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+      ? reportes.map((r: any) => {
+          const titulo = r.Titulo ?? "Sin título";
+          const contenido = r.Contenido ?? "Sin contenido";
+          return `<li><strong>${titulo}</strong>: ${contenido}</li>`;
+        }).join("")
       : "<li>No hay reportes disponibles.</li>";
+
   } catch (e) {
-    lista.innerHTML = "<li>Error al cargar reportes.</li>";
+    console.error("Error al cargar reportes:", e);
+    lista.innerHTML = "<li>Error inesperado al cargar reportes.</li>";
   }
 }
+
+
+
+
 
 
 async function enviarNuevoReporte(): Promise<void> {
@@ -1332,12 +1405,16 @@ async function enviarNuevoReporte(): Promise<void> {
       })
     });
 
+
+
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Error al enviar reporte.");
 
     alert(data.message || "Reporte enviado correctamente.");
     tituloInput.value = "";
     contenidoInput.value = "";
+
+    cargarReportesDePaciente();
 
   } catch (e: any) {
     alert(e.message || "Error al enviar reporte.");
@@ -1451,6 +1528,19 @@ function iniciarPollingGlobal() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+      const formReporte = document.getElementById("form-crear-reporte");
+  if (formReporte) {
+    formReporte.addEventListener("submit", (e) => {
+      e.preventDefault();
+      enviarNuevoReporte();
+    });
+  }
+const btnVerReportesFamiliar = document.getElementById("btn-ver-reportes-familiar");
+if (btnVerReportesFamiliar) {
+  btnVerReportesFamiliar.addEventListener("click", cargarReportesParaFamiliar);
+}
+
+
   // --- Tus configuraciones previas ---
   const pacienteBusquedaInput = document.getElementById('paciente-busqueda-input') as HTMLInputElement;
 if (pacienteBusquedaInput) {
@@ -1502,10 +1592,6 @@ rolRadios.forEach(radio => {
       }
     });
   }
-    const btnVerReportesFamiliar = document.getElementById("btn-ver-reportes-familiar");
-    if (btnVerReportesFamiliar) {
-      btnVerReportesFamiliar.addEventListener("click", cargarReportesParaFamiliar);
-    }
 
   const recoverBtn = document.getElementById("switch-to-recover");
   if (recoverBtn) recoverBtn.addEventListener("click", showRecoverForm);

@@ -78,9 +78,10 @@ namespace TuProyecto.Controllers
                     Message = "Inicio de sesión exitoso.",
                     UserId = usuario.ID,
                     Rol = (int)usuario.TipoUsuario,
-                    Nombre = usuario.NombreUsuario,
+                    Nombre = $"{usuario.NombreUsuario} {usuario.Ap1} {usuario.Ap2}".Trim(), // ← Nombre completo
                     Token = token
                 });
+
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace TuProyecto.Controllers
 
                 new Claim(ClaimTypes.NameIdentifier, usuario.ID.ToString()),
                 new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-                new Claim(ClaimTypes.Role, usuario.TipoUsuario.ToString())
+                new Claim(ClaimTypes.Role, Enum.GetName(typeof(Rol), usuario.TipoUsuario))
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor

@@ -136,22 +136,6 @@
   },
   {
     "ContainingType": "TAIDE.BACKEND.Controllers.FamiliarController",
-    "Method": "ObtenerReportesDelPaciente",
-    "RelativePath": "api/Familiar/api/familiar/reportes/{pacienteId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pacienteId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TAIDE.BACKEND.Controllers.FamiliarController",
     "Method": "BuscarPacientes",
     "RelativePath": "api/Familiar/buscar-pacientes",
     "HttpMethod": "GET",
@@ -174,6 +158,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TAIDE.BACKEND.Controllers.FamiliarController",
+    "Method": "ObtenerReportesDelPaciente",
+    "RelativePath": "api/Familiar/reportes/{pacienteId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pacienteId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -245,38 +245,6 @@
   },
   {
     "ContainingType": "PMController",
-    "Method": "CrearReporte",
-    "RelativePath": "api/PM/api/pm/reportes",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "TAIDE.BACKEND.Models.Request.CrearReporteRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PMController",
-    "Method": "ObtenerReportesPaciente",
-    "RelativePath": "api/PM/api/pm/reportes/{pacienteId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pacienteId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PMController",
     "Method": "EliminarVinculo",
     "RelativePath": "api/PM/familiares/{familiarId}/paciente/{pacienteId}",
     "HttpMethod": "DELETE",
@@ -322,6 +290,38 @@
       {
         "Name": "request",
         "Type": "TAIDE.BACKEND.Modells.Request.ActualizarEstadoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "CrearReporte",
+    "RelativePath": "api/PM/reportes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "TAIDE.BACKEND.Models.Request.CrearReporteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PMController",
+    "Method": "ObtenerReportesPaciente",
+    "RelativePath": "api/PM/reportes/{pacienteId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pacienteId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

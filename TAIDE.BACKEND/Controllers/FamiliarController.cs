@@ -25,16 +25,13 @@ namespace TAIDE.BACKEND.Controllers
         [HttpPost("solicitudes")]
         public async Task<IActionResult> CrearSolicitud([FromBody] CrearSolicitudRequest request)
         {
-            // Obtener el ID del familiar autenticado desde el JWT
-            var claim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (claim == null || !int.TryParse(claim.Value, out int familiarId))
-            {
-                return Unauthorized(new { Message = "Usuario no identificado en el token." });
-            }
+            var familiarId = ObtenerIdDesdeToken();
+            if (familiarId == null)
+                return Unauthorized();
 
             // Validar si ya está vinculado
             bool yaExiste = await _context.PacientesFamiliares.AnyAsync(r =>
-                r.FamiliarID == familiarId &&
+                r.FamiliarID == familiarId.Value &&
                 r.PacienteID == request.PacienteId);
 
             if (yaExiste)
@@ -42,7 +39,7 @@ namespace TAIDE.BACKEND.Controllers
 
             // Validar si ya hay una solicitud pendiente
             bool solicitudPendiente = await _context.Solicitudes.AnyAsync(s =>
-                s.FamiliarId == familiarId &&
+                s.FamiliarId == familiarId.Value &&
                 s.PacienteId == request.PacienteId &&
                 s.Estado == EstadoSolicitud.Pendiente);
 
@@ -50,7 +47,7 @@ namespace TAIDE.BACKEND.Controllers
                 return BadRequest(new { Message = "Ya existe una solicitud pendiente para este paciente." });
 
             // Validar existencia en base de datos
-            var existeFamiliar = await _context.Familiares.AnyAsync(f => f.ID == familiarId);
+            var existeFamiliar = await _context.Familiares.AnyAsync(f => f.ID == familiarId.Value);
             var existePaciente = await _context.Pacientes.AnyAsync(p => p.ID == request.PacienteId);
 
             if (!existeFamiliar || !existePaciente)
@@ -59,7 +56,7 @@ namespace TAIDE.BACKEND.Controllers
             // Crear la solicitud
             var solicitud = new SolicitudFamiliarPaciente
             {
-                FamiliarId = familiarId,
+                FamiliarId = familiarId.Value,
                 PacienteId = request.PacienteId,
                 FechaSolicitud = DateTime.UtcNow
             };
@@ -89,21 +86,22 @@ namespace TAIDE.BACKEND.Controllers
 
             return Ok(pacientes);
         }
+
         [Authorize(Roles = "Familiar")]
         [HttpGet("pacientes")]
         public async Task<IActionResult> ObtenerPacientesVinculados()
         {
-            var claim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (claim == null || !int.TryParse(claim.Value, out int familiarId))
-                return Unauthorized();
+            var familiarId = ObtenerIdDesdeToken();
+            if (familiarId == null)
+                return Unauthorized(new { Message = "Usuario no identificado en el token." });
 
             var pacientes = await _context.PacientesFamiliares
-                .Where(pf => pf.FamiliarID == familiarId)
+                .Where(pf => pf.FamiliarID == familiarId.Value)
                 .Include(pf => pf.Paciente)
                 .Select(pf => new
                 {
-                    id = pf.Paciente.ID, // ← asegúrate que es .ID
-                    nombre = pf.Paciente.NombreUsuario, // ← asegúrate que estás heredando de Usuario correctamente
+                    id = pf.Paciente.ID,
+                    nombre = pf.Paciente.NombreUsuario,
                     estado = pf.Paciente.Estado
                 })
                 .ToListAsync();
@@ -111,18 +109,16 @@ namespace TAIDE.BACKEND.Controllers
             return Ok(pacientes);
         }
 
-
-        [Authorize(Roles = "FAMILIAR")]
-        [HttpGet("api/familiar/reportes/{pacienteId}")]
+        [Authorize(Roles = "Familiar")]
+        [HttpGet("reportes/{pacienteId}")]
         public async Task<IActionResult> ObtenerReportesDelPaciente(int pacienteId)
         {
-            var claim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (claim == null || !int.TryParse(claim.Value, out int familiarId))
+            var familiarId = ObtenerIdDesdeToken();
+            if (familiarId == null)
                 return Unauthorized();
 
-
             var estaVinculado = await _context.PacientesFamiliares
-                .AnyAsync(fp => fp.FamiliarID == familiarId && fp.PacienteID == pacienteId);
+                .AnyAsync(fp => fp.FamiliarID == familiarId.Value && fp.PacienteID == pacienteId);
 
             if (!estaVinculado)
                 return Forbid();
@@ -136,6 +132,14 @@ namespace TAIDE.BACKEND.Controllers
         }
 
 
+        private int? ObtenerIdDesdeToken()
+        {
+            var idClaim = User.Claims.FirstOrDefault(c =>
+                c.Type == ClaimTypes.NameIdentifier || c.Type == "id_usuario" || c.Type == "sub");
 
+            if (idClaim == null) return null;
+
+            return int.TryParse(idClaim.Value, out var id) ? id : null;
+        }
     }
 }

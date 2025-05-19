@@ -5,7 +5,7 @@
 namespace TAIDE.BACKEND.Migrations
 {
     /// <inheritdoc />
-    public partial class CrearTablaPacientesFamiliares : Migration
+    public partial class NuevaMigracion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -123,9 +123,9 @@ function login(email, password) {
                     errorMessageElement.textContent = mensaje;
                 return;
             }
-            const data = yield response.json(); // ya devuelve { token, rol, nombre }
+            const data = yield response.json(); // { message, userId, rol, nombre, token }
             alert(data.message || "Iniciaste sesión correctamente.");
-            // Guardar token
+            //  Guardar token
             if (data.token) {
                 localStorage.setItem("token", data.token);
             }
@@ -133,16 +133,22 @@ function login(email, password) {
                 alert("Error: token no recibido.");
                 return;
             }
-            // Guardar nombre
-            if (data.nombre && data.ap1) {
-                const nombreCompleto = `${data.nombre} ${data.ap1}`;
-                localStorage.setItem("nombre_usuario", nombreCompleto);
+            //  Guardar nombre de usuario (nombre completo si lo incluye)
+            if (data.nombre) {
+                localStorage.setItem("nombre_usuario", data.nombre.trim());
             }
-            // Guardar rol
+            else {
+                localStorage.setItem("nombre_usuario", "Usuario");
+            }
+            //  Guardar rol
             if (typeof data.rol !== 'undefined') {
                 localStorage.setItem("rol", data.rol.toString());
             }
-            // Selección del panel según rol
+            //  Mostrar el nombre inmediatamente en los paneles visibles
+            const nombre = localStorage.getItem("nombre_usuario") || "Usuario";
+            const nameElements = document.querySelectorAll("#pm-welcome-name, #pm-welcome-name-main");
+            nameElements.forEach(e => e.textContent = nombre);
+            //  Mostrar panel según rol
             switch (data.rol) {
                 case 0:
                     showPacienteDashboard();
@@ -964,7 +970,10 @@ function showLoginForm() {
 }
 // ----- FUNCIÓN LOGOUT -----
 function logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("nombre_usuario");
+    // y redirige a login o limpia el estado del DOM
     alert('Sesión cerrada.');
     // Ocultar todos los dashboards manualmente
     const dashboards = [
@@ -1156,7 +1165,7 @@ function enviarSolicitudSeleccionada(pacienteId) {
 }
 function cargarReportesDePaciente() {
     return __awaiter(this, void 0, void 0, function* () {
-        const idInput = document.getElementById("reporte-paciente-id");
+        const idInput = document.getElementById("nuevo-id-paciente");
         const lista = document.getElementById("lista-reportes");
         if (!idInput || !lista)
             return;
@@ -1166,19 +1175,40 @@ function cargarReportesDePaciente() {
             return;
         }
         const token = localStorage.getItem("token");
-        if (!token)
+        if (!token) {
+            alert("Token no encontrado.");
             return;
+        }
+        console.log("Token actual:", token);
+        console.log("Cargando reportes para paciente ID:", pacienteId);
         try {
             const res = yield fetch(`https://localhost:7274/api/pm/reportes/${pacienteId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+            if (!res.ok) {
+                const errorText = yield res.text();
+                console.error("Error HTTP:", res.status, errorText);
+                lista.innerHTML = `<li>Error ${res.status}: ${errorText}</li>`;
+                return;
+            }
             const reportes = yield res.json();
+            if (!Array.isArray(reportes)) {
+                console.error("Respuesta inesperada:", reportes);
+                lista.innerHTML = "<li>Respuesta inesperada del servidor.</li>";
+                return;
+            }
             lista.innerHTML = reportes.length
-                ? reportes.map((r) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+                ? reportes.map((r) => {
+                    var _a, _b;
+                    const titulo = (_a = r.Titulo) !== null && _a !== void 0 ? _a : "Sin título";
+                    const contenido = (_b = r.Contenido) !== null && _b !== void 0 ? _b : "Sin contenido";
+                    return `<li><strong>${titulo}</strong>: ${contenido}</li>`;
+                }).join("")
                 : "<li>No hay reportes disponibles.</li>";
         }
         catch (e) {
-            lista.innerHTML = "<li>Error al obtener reportes.</li>";
+            console.error("Excepción al cargar reportes:", e);
+            lista.innerHTML = "<li>Error inesperado al cargar reportes.</li>";
         }
     });
 }
@@ -1188,25 +1218,50 @@ function cargarReportesParaFamiliar() {
         const lista = document.getElementById("lista-reportes-familiar");
         if (!input || !lista)
             return;
-        const id = parseInt(input.value);
-        if (isNaN(id)) {
+        const pacienteId = parseInt(input.value);
+        if (isNaN(pacienteId)) {
             alert("ID inválido.");
             return;
         }
         const token = localStorage.getItem("token");
-        if (!token)
+        if (!token) {
+            alert("Token no encontrado. Por favor, vuelve a iniciar sesión.");
             return;
+        }
+        console.log("Token actual:", token);
+        console.log("Consultando reportes para paciente ID:", pacienteId);
         try {
-            const res = yield fetch(`https://localhost:7274/api/familiar/reportes/${id}`, {
+            const res = yield fetch(`https://localhost:7274/api/familiar/reportes/${pacienteId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+            if (res.status === 403) {
+                lista.innerHTML = "<li>No estás vinculado con este paciente.</li>";
+                return;
+            }
+            if (!res.ok) {
+                const errorText = yield res.text();
+                console.error("Respuesta no exitosa:", res.status, errorText);
+                lista.innerHTML = `<li>Error ${res.status}: ${errorText}</li>`;
+                return;
+            }
             const reportes = yield res.json();
+            if (!Array.isArray(reportes)) {
+                console.error("Formato inesperado de reportes:", reportes);
+                lista.innerHTML = "<li>Respuesta inesperada del servidor.</li>";
+                return;
+            }
             lista.innerHTML = reportes.length
-                ? reportes.map((r) => `<li><strong>${r.titulo}</strong>: ${r.contenido}</li>`).join("")
+                ? reportes.map((r) => {
+                    var _a, _b;
+                    const titulo = (_a = r.Titulo) !== null && _a !== void 0 ? _a : "Sin título";
+                    const contenido = (_b = r.Contenido) !== null && _b !== void 0 ? _b : "Sin contenido";
+                    return `<li><strong>${titulo}</strong>: ${contenido}</li>`;
+                }).join("")
                 : "<li>No hay reportes disponibles.</li>";
         }
         catch (e) {
-            lista.innerHTML = "<li>Error al cargar reportes.</li>";
+            console.error("Error al cargar reportes:", e);
+            lista.innerHTML = "<li>Error inesperado al cargar reportes.</li>";
         }
     });
 }
@@ -1242,6 +1297,7 @@ function enviarNuevoReporte() {
             alert(data.message || "Reporte enviado correctamente.");
             tituloInput.value = "";
             contenidoInput.value = "";
+            cargarReportesDePaciente();
         }
         catch (e) {
             alert(e.message || "Error al enviar reporte.");
@@ -1351,6 +1407,17 @@ function iniciarPollingGlobal() {
     }, 5000);
 }
 document.addEventListener("DOMContentLoaded", () => {
+    const formReporte = document.getElementById("form-crear-reporte");
+    if (formReporte) {
+        formReporte.addEventListener("submit", (e) => {
+            e.preventDefault();
+            enviarNuevoReporte();
+        });
+    }
+    const btnVerReportesFamiliar = document.getElementById("btn-ver-reportes-familiar");
+    if (btnVerReportesFamiliar) {
+        btnVerReportesFamiliar.addEventListener("click", cargarReportesParaFamiliar);
+    }
     // --- Tus configuraciones previas ---
     const pacienteBusquedaInput = document.getElementById('paciente-busqueda-input');
     if (pacienteBusquedaInput) {
@@ -1399,10 +1466,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
-    }
-    const btnVerReportesFamiliar = document.getElementById("btn-ver-reportes-familiar");
-    if (btnVerReportesFamiliar) {
-        btnVerReportesFamiliar.addEventListener("click", cargarReportesParaFamiliar);
     }
     const recoverBtn = document.getElementById("switch-to-recover");
     if (recoverBtn)

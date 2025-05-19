@@ -12,8 +12,8 @@ using TuProyecto.Data;
 namespace TAIDE.BACKEND.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250429130116_AgregarSolicitudes")]
-    partial class AgregarSolicitudes
+    [Migration("20250513093637_NuevaMigracion")]
+    partial class NuevaMigracion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,45 @@ namespace TAIDE.BACKEND.Migrations
                     b.ToTable("preguntasseguridad", (string)null);
                 });
 
+            modelBuilder.Entity("TAIDE.BACKEND.Models.ReporteMedico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Contenido")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("PMID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PM_ID")
+                        .HasColumnType("int")
+                        .HasColumnName("PM_ID");
+
+                    b.Property<int>("PacienteID")
+                        .HasColumnType("int")
+                        .HasColumnName("PacienteID");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PMID");
+
+                    b.HasIndex("PacienteID");
+
+                    b.ToTable("ReportesMedicos", (string)null);
+                });
+
             modelBuilder.Entity("TAIDE.BACKEND.Models.SolicitudFamiliarPaciente", b =>
                 {
                     b.Property<int>("Id")
@@ -99,29 +138,20 @@ namespace TAIDE.BACKEND.Migrations
 
             modelBuilder.Entity("TuProyecto.Models.PacientesFamiliares", b =>
                 {
-                    b.Property<int>("IdPacienteFamiliar")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("FamiliarID")
                         .HasColumnType("int")
-                        .HasColumnName("id_pacientefamiliar");
+                        .HasColumnOrder(0);
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPacienteFamiliar"));
-
-                    b.Property<int>("IdFamiliar")
+                    b.Property<int>("PacienteID")
                         .HasColumnType("int")
-                        .HasColumnName("id_familiar");
+                        .HasColumnOrder(1);
 
-                    b.Property<int>("IdPaciente")
-                        .HasColumnType("int")
-                        .HasColumnName("id_paciente");
+                    b.HasKey("FamiliarID", "PacienteID");
 
-                    b.HasKey("IdPacienteFamiliar");
-
-                    b.HasIndex("IdFamiliar");
-
-                    b.HasIndex("IdPaciente", "IdFamiliar")
+                    b.HasIndex("PacienteID", "FamiliarID")
                         .IsUnique();
 
-                    b.ToTable("PacientesFamiliares", (string)null);
+                    b.ToTable("FamiliaresPacientes", (string)null);
                 });
 
             modelBuilder.Entity("TuProyecto.Models.Usuario", b =>
@@ -254,18 +284,37 @@ namespace TAIDE.BACKEND.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("TAIDE.BACKEND.Models.SolicitudFamiliarPaciente", b =>
+            modelBuilder.Entity("TAIDE.BACKEND.Models.ReporteMedico", b =>
                 {
-                    b.HasOne("TuProyecto.Models.Familiar", "Familiar")
+                    b.HasOne("TuProyecto.Models.Usuario", "PM")
                         .WithMany()
-                        .HasForeignKey("FamiliarId")
+                        .HasForeignKey("PMID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TuProyecto.Models.Paciente", "Paciente")
+                    b.HasOne("TuProyecto.Models.Usuario", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PM");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("TAIDE.BACKEND.Models.SolicitudFamiliarPaciente", b =>
+                {
+                    b.HasOne("TuProyecto.Models.Usuario", "Familiar")
+                        .WithMany()
+                        .HasForeignKey("FamiliarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TuProyecto.Models.Usuario", "Paciente")
                         .WithMany()
                         .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Familiar");
@@ -277,13 +326,13 @@ namespace TAIDE.BACKEND.Migrations
                 {
                     b.HasOne("TuProyecto.Models.Familiar", "Familiar")
                         .WithMany("PacientesFamiliares")
-                        .HasForeignKey("IdFamiliar")
+                        .HasForeignKey("FamiliarID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TuProyecto.Models.Paciente", "Paciente")
                         .WithMany("PacientesFamiliares")
-                        .HasForeignKey("IdPaciente")
+                        .HasForeignKey("PacienteID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

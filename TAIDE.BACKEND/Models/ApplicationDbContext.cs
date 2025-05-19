@@ -99,6 +99,41 @@ namespace TuProyecto.Data
                 .WithMany()
                 .HasForeignKey(s => s.PacienteId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<ReporteMedico>()
+                .ToTable("ReportesMedicos")
+                .Property(r => r.PM_ID)
+                .HasColumnName("PM_ID");
+            modelBuilder.Entity<ReporteMedico>()
+                .Property(r => r.PacienteID)
+                .HasColumnName("PacienteID");
+
+            modelBuilder.Entity<ReporteMedico>()
+                .HasOne(r => r.PM)
+                .WithMany()
+                .HasForeignKey(r => r.PM_ID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ReporteMedico>()
+                .HasOne(r => r.Paciente)
+                .WithMany()
+                .HasForeignKey(r => r.PacienteID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PacientesFamiliares>()
+                .HasKey(pf => new { pf.FamiliarID, pf.PacienteID });
+
+            modelBuilder.Entity<PacientesFamiliares>()
+                .HasOne(pf => pf.Familiar)
+                .WithMany(f => f.PacientesFamiliares)
+                .HasForeignKey(pf => pf.FamiliarID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PacientesFamiliares>()
+                .HasOne(pf => pf.Paciente)
+                .WithMany(p => p.PacientesFamiliares)
+                .HasForeignKey(pf => pf.PacienteID)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
         }
     }
