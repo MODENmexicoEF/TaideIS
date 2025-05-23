@@ -123,3 +123,4 @@ C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net8.0\TAIDE.BACKEND.pdb
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net8.0\TAIDE.BACKEND.genruntimeconfig.cache
 C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\obj\Debug\net8.0\ref\TAIDE.BACKEND.dll
+C:\Users\yee_j\source\repos\BACKEND, FRONTEND, DATABASE\TAIDE.BACKEND\bin\Debug\net8.0\TAIDE.BACKEND.staticwebassets.runtime.json

@@ -101,12 +101,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Habilitar CORS
 app.UseCors("AllowAllOrigins");
-
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseDefaultFiles();         // para servir index.html por defecto
+app.UseStaticFiles();          // para servir archivos desde wwwroot
+app.MapFallbackToFile("index.html"); // si no encuentra la ruta, carga index.html
 
 app.MapControllers();
 
