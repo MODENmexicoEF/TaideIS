@@ -85,6 +85,11 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Services.AddScoped<UsuarioService>();
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
