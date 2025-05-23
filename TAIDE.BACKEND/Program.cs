@@ -86,7 +86,7 @@ builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Services.AddScoped<UsuarioService>();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 builder.WebHost.UseUrls($"http://*:{port}");
 
 
@@ -109,8 +109,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-var hash = BCrypt.Net.BCrypt.HashPassword("123123123");
-var match = BCrypt.Net.BCrypt.Verify("123123123", hash); // debe ser true
 
-Console.WriteLine($"\n\n{hash}\n\n{match}");
 app.Run();
