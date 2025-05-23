@@ -1,0 +1,587 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión / Registrarse / Panel de Control</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ... tus estilos CSS existentes ... */
+
+        /* Estilos para el dashboard del SUDO */
+        #sudo-dashboard {
+            background-color: rgba(173, 216, 230, 0.8); /* Azul claro semitransparente */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            max-width: 900px;
+            width: 100%;
+            text-align: left;
+            display: none; /* Inicialmente oculto */
+            padding: 20px;
+        }
+
+        #sudo-dashboard h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sudo-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .sudo-section h3 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .change-role-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .change-role-form input[type="number"],
+        .change-role-form input[type="text"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .change-role-form button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .change-role-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .role-instruction {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .user-list-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            padding: 15px;
+        }
+
+        .user-list-container h3 {
+            color: #28a745;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .online {
+            color: green;
+            font-weight: bold;
+        }
+
+        .offline {
+            color: red;
+        }
+
+        /* Estilos para los dashboards de PM y Familiar */
+        .pm-container,
+        .familiar-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            max-width: 800px;
+            width: 100%;
+            text-align: left;
+            display: none;
+            padding: 20px;
+        }
+
+        .pm-container h1,
+        .familiar-container h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pm-container nav ul,
+        .familiar-container nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: right;
+        }
+
+        .pm-container nav ul li,
+        .familiar-container nav ul li {
+            display: inline;
+            margin-left: 20px;
+        }
+
+        .pm-container nav ul li button,
+        .familiar-container nav ul li button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 1em;
+            padding: 0;
+        }
+
+        .pm-container nav ul li button:hover,
+        .familiar-container nav ul li button:hover {
+            text-decoration: underline;
+        }
+
+        .pm-container .welcome h2,
+        .familiar-container .welcome h2 {
+            text-align: center;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .pm-container .welcome p,
+        .familiar-container .welcome p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .pm-container footer,
+        .familiar-container footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="sudo-dashboard" style="display: none;">
+        <header>
+    <h2>Panel SUDO</h2>
+    
+    <button id="ver-usuarios-activos">Ver Usuarios Activos</button>
+    <button id="ver-todos-usuarios">Ver Todos los Usuarios</button>
+    <button id="ver-recursos">Monitor Recursos</button>
+
+    <!-- Aquí aparecerá la lista -->
+        </header>
+        <main>
+    <section id="recursos-panel" class="sudo-section" style="display:none; margin-top:15px;">
+      <h3>Recursos del Servidor</h3>
+
+          <table class="user-table">
+            <tr><th>CPU&nbsp;%</th>      <td id="cpu-porc">-</td></tr>
+            <tr><th>Memoria usada (MB)</th><td id="mem-uso">-</td></tr>
+            <tr><th>Memoria total (MB)</th><td id="mem-tot">-</td></tr>
+            <tr><th>Uptime</th>         <td id="uptime">-</td></tr>
+          </table>
+
+              <div style="display:flex;gap:25px;flex-wrap:wrap">
+                <p><strong>CPU:</strong> <span id="cpu-porc">--</span>%</p>
+                <p><strong>Memoria:</strong> <span id="mem-uso">--</span> / <span id="mem-tot">--</span> MB</p>
+                <p><strong>Uptime:</strong> <span id="uptime">--</span></p>
+              </div>
+
+              <small style="color:#666">*Se actualiza cada&nbsp;5&nbsp;segundos mientras el panel está visible.</small>
+            </section>
+            <section class="sudo-section">
+                <h3>Cambiar Rol de Usuario</h3>
+                <form id="change-role-form" class="change-role-form">
+                    <label for="sudo-usuarioId">ID del Usuario:</label>
+                    <input type="number" id="sudo-usuarioId" name="usuarioId" required>
+
+                    <label for="sudo-nuevoRol">Nuevo Rol:</label>
+                    <input type="text" id="sudo-nuevoRol" name="nuevoRol" required
+                        placeholder="Ej: PM">
+
+                    <button type="submit">Cambiar Rol</button>
+                </form>
+                <div class="role-instruction">
+                    <h4>Instrucciones de Roles:</h4>
+                    <ul>
+                        <li><strong>0:</strong> Paciente</li>
+                        <li><strong>1:</strong> PM (Profesional Médico)</li>
+                        <li><strong>2:</strong> Familiar</li>
+                        <li><strong>3:</strong> SUDO (Super Usuario)</li>
+                    </ul>
+                    <p>Escriba el nombre del rol tal cual (ej: PM) en el campo "Nuevo Rol".</p>
+                </div>
+            </section>
+            <section class="sudo-section">
+                <h3>Lista de Usuarios</h3>
+                <div id="user-list-container" class="user-list-container">
+                    <p>Cargando lista de usuarios...</p>
+                    <ul id="user-list"></ul>
+                </div>
+            </section>
+            <button id="logout-button">Cerrar Sesión</button>
+        </main>
+    </div>
+<div class="paciente-container" id="paciente-dashboard" style="display: none;">
+  <header>
+    <h1>Panel del Paciente</h1>
+    <nav>
+      <ul>
+        <li><span id="paciente-welcome-name"></span></li>
+        <li><button id="logout-button-paciente" type="button">Cerrar Sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="welcome">
+    <h2>Bienvenido/a, <span id="paciente-welcome-name-main"></span></h2>
+    <p>
+      Este es su panel personal. Aquí podrá ver su información médica, próximas citas y recomendaciones.
+    </p>
+
+    <!-- Sección de estado -->
+    <section style="margin-top: 20px;">
+      <h3>Estado Actual:</h3>
+      <p id="paciente-estado">Cargando estado...</p>
+    </section>
+
+    <!-- NUEVA sección de familiares vinculados -->
+    <section style="margin-top: 30px;">
+      <h3>Familiares Vinculados</h3>
+      <table id="tabla-familiares-vinculados" class="user-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+              </tr>
+            </thead>
+
+        <tbody>
+          <tr><td colspan="3">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 VitaCare</p>
+  </footer>
+</div>
+
+<div class="container" id="recover-container" style="display: none;">
+    <header>
+        <h2>Recuperar Contraseña</h2>
+    </header>
+    <main>
+        <div id="recover-error-message" class="error-message"></div>
+        <form id="recover-form">
+            <div class="form-group">
+                <label for="recover-email">Correo Electrónico:</label>
+                <input type="email" id="recover-email" name="Correo" required>
+            </div>
+            <button type="submit">Buscar Preguntas</button>
+        </form>
+        
+        <div id="questions-container" style="display:none;">
+            <form id="questions-form"></form>
+            <button type="submit">Verificar Respuestas</button>
+        </div>
+
+        <div id="new-password-container" style="display:none;">
+            <form id="new-password-form">
+                <div class="form-group">
+                    <label for="new-password">Nueva Contraseña:</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <button type="submit">Cambiar Contraseña</button>
+            </form>
+        </div>
+
+        <div class="links">
+            <button type="button" id="return-to-login">Volver a Login</button>
+        </div>
+    </main>
+</div>
+
+
+    <div class="container" id="login-container">
+        <header>
+            <h2>Iniciar Sesión</h2>
+        </header>
+        <main>
+            <div id="error-message" class="error-message"></div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="Correo" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="Contrasena" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <div class="links">
+                <button type="button" id="switch-to-register" class="register-button">Registrarse</button>
+                <button type="button" id="switch-to-recover" class="recover-button">¿Olvidaste tu contraseña?</button>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="container" id="register-container" style="display: none;">
+        <header>
+            <h2>Registrarse</h2>
+        </header>
+        <main>
+            <div id="register-error-message" class="error-message"></div>
+            <div id="register-success-message" class="success-message" style="display: none;"></div>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="nombre-reg">Nombre:</label>
+                    <input type="text" id="nombre-reg" name="NombreUsuario" required>
+                </div>
+                <div class="form-group">
+                    <label for="ap1-reg">Apellido Paterno:</label>
+                    <input type="text" id="ap1-reg" name="Ap1" required>
+                </div>
+                <div class="form-group">
+                    <label for="ap2-reg">Apellido Materno (Opcional):</label>
+                    <input type="text" id="ap2-reg" name="Ap2">
+                </div>
+                <div class="form-group">
+                    <label for="correo-reg">Correo Electrónico:</label>
+                    <input type="email" id="correo-reg" name="Correo" required>
+                </div>
+                <div class="form-group">
+                    <label for="contrasena-reg">Contraseña:</label>
+                    <input type="password" id="contrasena-reg" name="Contrasena" required>
+                </div>
+                <div class="form-group">
+                    <label>Rol:</label><br> <input type="radio" id="rol-paciente" name="RolInput" value="0" checked> Paciente
+                    <input type="radio" id="rol-pm" name="RolInput" value="1"> PM (Profesional Médico)
+                    <input type="radio" id="rol-familiar" name="RolInput" value="2"> Familiar
+                </div>
+<div id="preguntas-dinamicas">
+    <div class="form-group">
+        <label>Pregunta de Recuperación:</label>
+        <input type="text" name="Preguntas[]" required>
+    </div>
+    <div class="form-group">
+        <label>Respuesta de Recuperación:</label>
+        <input type="text" name="Respuestas[]" required>
+    </div>
+</div>
+
+<div class="form-group">
+    <button type="button" id="agregar-pregunta">Agregar otra pregunta</button>
+</div>
+
+                <div id="pm-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="numero-colegiado-reg">Número de Colegiado:</label>
+                        <input type="text" id="numero-colegiado-reg" name="NumeroColegiado">
+                    </div>
+                    <div class="form-group">
+                        <label for="especialidad-reg">Especialidad:</label>
+                        <input type="text" id="especialidad-reg" name="Especialidad">
+                    </div>
+                </div>
+
+                <button type="submit">Registrarse</button>
+            </form>
+            <div class="links">
+                <button type="button" id="switch-to-login">Volver a Iniciar Sesión</button>
+            </div>
+        </main>
+    </div>
+
+<div class="pm-container" id="pm-dashboard" style="display: none;">
+    <header>
+        <h1>Panel del Profesional Médico</h1>
+        <nav>
+            <ul>
+                <li><span id="pm-welcome-name"></span></li>
+                <li><button id="logout-button-pm" type="button">Cerrar Sesión</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="welcome">
+        <h2>Bienvenido, Dr./Dra. <span id="pm-welcome-name-main"></span></h2>
+        <p>
+            Este es su panel de control. Aquí podrá gestionar a sus pacientes,
+            ver su historial y realizar otras acciones.
+        </p>
+
+        <section id="crear-reporte" style="margin-top: 30px;">
+            <h3>Crear Nuevo Reporte</h3>
+            <form id="form-crear-reporte">
+                <div class="form-group">
+                    <label for="nuevo-id-paciente">ID del Paciente:</label>
+                    <input type="number" id="nuevo-id-paciente" required>
+                </div>
+                <div class="form-group">
+                    <label for="titulo-reporte">Título del Reporte:</label>
+                    <input type="text" id="titulo-reporte" required>
+                </div>
+                <div class="form-group">
+                    <label for="contenido-reporte">Contenido del Reporte:</label>
+                    <textarea id="contenido-reporte" rows="4" required></textarea>
+                </div>
+                <button type="submit">Crear Reporte</button>
+            </form>
+            <div id="mensaje-reporte" class="mensaje"></div>
+                <section style="margin-top: 30px;">
+        <h3>Reportes del Paciente</h3>
+        <ul id="lista-reportes" style="padding-left: 20px; list-style: disc; margin-top: 10px;">
+            <li>No hay reportes cargados aún.</li>
+        </ul>
+    </section>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>Pacientes asignados</h3>
+            <button id="pm-reload-pacientes" type="button" style="margin-bottom:10px;">
+                &#x21bb; Recargar
+            </button>
+            <table id="pacientes-container" class="user-table"></table>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>Solicitudes pendientes de vinculación</h3>
+            <table id="solicitudes-container" class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID Solicitud</th>
+                        <th>Paciente</th>
+                        <th>Familiar</th>
+                        <th>Fecha</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h3>Quitar acceso de familiares a pacientes</h3>
+            <button id="btn-cargar-vinculos">
+                &#x21bb; Cargar Vinculaciones
+            </button>
+            <table id="tabla-vinculos-familiares" class="user-table">
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Familiar</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+<div class="familiar-container" id="familiar-dashboard" style="display: none;">
+  <header>
+    <h1>Panel del Familiar</h1>
+    <nav>
+      <ul>
+        <li><span id="familiar-welcome-name"></span></li>
+        <li><button id="logout-button-familiar" type="button">Cerrar Sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="welcome">
+    <h2>Bienvenido, <span id="familiar-welcome-name-main"></span></h2>
+    <p>Este es su panel de control.
+    Aquí podrá ver la información de sus familiares y realizar otras acciones.</p>
+
+    <section style="margin-top: 30px;">
+      <h3>Solicitar acceso a un paciente</h3>
+
+      <form id="familiar-solicitud-form" style="margin-bottom:15px;">
+        <div class="form-group">
+          <label for="paciente-busqueda-input">Buscar paciente (Nombre o Apellido Paterno):</label>
+          <input type="text" id="paciente-busqueda-input" required>
+        </div>
+        <div id="pacientes-sugeridos" style="margin-top:10px;"></div>
+      </form>
+
+      <div id="familiar-solicitud-mensaje" style="margin-top: 10px;"></div>
+    </section>
+    <section style="margin-top: 30px;">
+  <h3>Ver Reportes Médicos del Paciente</h3>
+  <label for="reporte-familiar-paciente-id">ID del Paciente:</label>
+  <input type="number" id="reporte-familiar-paciente-id" placeholder="ID del paciente vinculado" />
+  <button id="btn-ver-reportes-familiar" type="button">📋 Ver Reportes</button>
+
+  <ul id="lista-reportes-familiar" style="padding-left: 20px; list-style: disc; margin-top: 10px;"></ul>
+</section>
+<section style="margin-top: 30px;">
+  <h3>Pacientes Vinculados</h3>
+  <button type="button" onclick="cargarPacientesVinculados()" style="margin-bottom: 10px;">
+  🔄 Recargar pacientes vinculados
+</button>
+
+  <table id="tabla-pacientes-vinculados" class="user-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 VitaCare</p>
+  </footer>
+</div>
+
+    <script src="script.js" defer></script>
+
+</body>
+</html>
